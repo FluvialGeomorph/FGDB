@@ -1,0 +1,75 @@
+# Feature derivation consistency
+
+## Problem
+
+FGDB must support robust analysis of fluvial change over long periods and at
+continental scale. Differences caused by derivation software must not be
+silently interpreted as physical change.
+
+## Current flowline evidence
+
+| Behavior | Esri Python `_05a_Flowline.py` | R `fluvgeo::flowline()` |
+|---|---|---|
+| Input | Edited stream-network feature class | One `sf` line and a DEM |
+| Reach handling | Dissolves segments by `ReachName` | Requires one feature and assigns one reach name |
+| Shape processing | PAEK smoothing with supplied tolerance | No line smoothing |
+| Direction | No DEM-based orientation in this function | Reverses line when needed so it is oriented upstream |
+| Output count | Potentially one feature per reach name | Exactly one feature |
+| Runtime | ArcPy/ArcGIS | Open-source R spatial stack |
+
+The R tests verify single-feature structure, the expected schema through
+`check_flowline()`, and upstream orientation. The discovered Python test refers
+to an older module/function signature and a network file path, so it is not
+current parity evidence for `_05a_Flowline.py`.
+
+## Required canonical contract
+
+Before replacing the Python flowline path, the owning repositories must define:
+
+- accepted input geometry and multipart/network behavior;
+- reach grouping and identity behavior;
+- output geometry type, fields, nullability, and topology;
+- required CRS and horizontal/vertical unit handling;
+- smoothing purpose, algorithm, parameter units, and acceptable geometric
+  deviation;
+- line orientation and behavior for flat, missing, or ambiguous endpoint
+  elevations;
+- error and warning behavior;
+- deterministic method/version identifier; and
+- performance requirements for large desktop study areas.
+
+## Buildout and migration pattern
+
+1. Inventory paired ArcPy and `{fluvgeo}` capabilities by feature family.
+2. Define the current desktop workflow order, manual interventions, and known
+   failure modes alongside the streamlined Shiny workflow.
+3. Select one bounded contract pilot such as flowline creation.
+4. Define the canonical schema and scientific invariants in `fluvgeo`.
+5. Assemble representative, provenance-documented fixtures, including legacy
+   edge cases.
+6. Implement missing open-source stages without coupling them to Shiny state.
+7. Continue until a coherent end-to-end `{fluvgeo}` workflow exists; do not
+   repeatedly interrupt desktop production with partial cutovers.
+8. Compare old and new outputs using topology, attributes, direction,
+   length/shape tolerances, downstream metric sensitivity, and performance.
+9. Obtain scientific approval for equivalence or an intentional method change.
+10. Overhaul the desktop workflow as a coordinated migration that calls the
+    complete canonical pipeline while preserving expert editing convenience.
+11. Run producer tests first, then desktop and Shiny integration tests.
+12. Release, document provenance/version boundaries, and deprecate duplicate
+    ArcPy derivation only after rollback remains possible.
+
+## FGDB requirements
+
+FGDB ingestion and schemas must retain enough provenance to determine, for each
+feature family:
+
+- source application and version;
+- derivation engine and method identifier;
+- `{fluvgeo}` version when applicable;
+- material parameters such as smoothing tolerance and station interval;
+- source/load manifest; and
+- validation contract version.
+
+This provenance supports scientific interpretation; it does not justify
+retaining known-bad feature records in the active desktop collection.

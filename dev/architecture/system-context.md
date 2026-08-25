@@ -1,0 +1,101 @@
+# FGDB system context
+
+## Status
+
+This document records the intended architecture established so far. Detailed
+components and interfaces remain under design.
+
+## Ownership boundary
+
+| Capability | Owner | Status |
+|---|---|---|
+| Scientific and geospatial derivation workflows | `FluvialGeomorph-toolbox` and its established dependencies | verified existing boundary |
+| FGDB conceptual and physical schema specifications | `FGDB` | accepted intended boundary |
+| Validation and idempotent loading into the enterprise geodatabase | `FGDB` | accepted intended boundary |
+| FGDB database setup and management toolbox | `FGDB` | accepted intended boundary |
+| PostgreSQL/SDE and ArcGIS Enterprise hosting operations | USACE cloud environment | accepted external operational boundary; details unknown |
+| Client-specific application behavior | Applicable client repository | to be defined per integration |
+
+The current organization boundary assigns shared R calculations to `fluvgeo`,
+ArcGIS orchestration to `FluvialGeomorph-toolbox`, and Shiny orchestration to
+`ohwm2`. ADR-0004 accepts a target boundary in which reusable geospatial
+feature derivation also has one canonical implementation in `fluvgeo`.
+Implementation and the corresponding authoritative `FG-architecture` update
+remain separately scoped cross-repository work.
+
+## Intended data flow
+
+```text
+Desktop path:                          Self-service path:
+Local terrain and survey inputs        Authenticated Shiny user
+              |                                  |
+              v                                  v
+FluvialGeomorph-toolbox derivation     Shiny inputs + derived outputs
+              |                                  |
+              v                                  v
+Reach-survey-event file geodatabase    App-mediated FGDB submission
+              |                                  |
+              v                                  |
+FGDB validation + idempotent loading <------------+
+              |
+              v
+PostgreSQL / Esri enterprise geodatabase
+      |                       |
+      v                       v
+SDE feature classes     DEM/REM mosaic datasets
+      |                       |
+      +-----------+-----------+
+                  v
+       ArcGIS Enterprise services
+                  |
+                  v
+          Authorized clients
+```
+
+## Authority and lifecycle
+
+- Local file geodatabases are production and migration inputs.
+- A successful load alone is insufficient to establish authority; the loading
+  workflow must verify the committed database state and retain enough
+  provenance to reconcile it with its source.
+- After successful loading and verification, ArcGIS Enterprise is the
+  authoritative consolidated data source for the loaded content.
+- Published client services are read-only. Privileged writes are mediated by
+  FGDB-controlled desktop or application workflows.
+- Records retain their origin workflow and lifecycle state; co-location in the
+  enterprise geodatabase does not imply identical review or publication status.
+- `collection` is the top-level domain and policy boundary separating the
+  authoritative desktop source from the informative Shiny source.
+- Both source paths use the `{fluvgeo}` scientific backend for portions of
+  their derivation. Application and package versions are part of provenance.
+- The schema specification and service contracts in this repository describe
+  intended behavior. The deployed database and services provide operational
+  evidence and must be checked for drift.
+
+## Security boundary
+
+The repository may define configuration schemas and deployment procedures, but
+must not contain credentials, tokens, private connection files, sensitive
+hostnames, or production data. Authentication, authorization, infrastructure
+approval, backup, and disaster recovery requirements remain to be elicited
+with the USACE hosting stakeholders.
+
+## Open architecture questions
+
+- Canonical entity identifiers and natural-key rules.
+- Physical enforcement of collection ownership and globally unique tiered
+  study-area names.
+- Survey-event temporal semantics and revision/correction behavior.
+- Source-to-target feature-class crosswalk and geometry constraints.
+- Enterprise geodatabase dataset organization and naming conventions.
+- Mosaic-dataset design, raster item identity, footprints, overviews, and
+  source-file lifecycle.
+- Transaction boundaries, load manifests, idempotency keys, and rollback.
+- Feature service grouping, query/edit permissions, versioning, and publishing
+  workflow.
+- Development, test, staging, and production environment topology.
+- Drift detection, monitoring, backup, recovery, and operational ownership.
+- Shiny save/restore payload, authentication delegation, in-place edit
+  concurrency, sharing, and retention semantics.
+- Cross-repository implementation planning and organization-architecture update
+  for canonical open-source feature derivation accepted by ADR-0004.

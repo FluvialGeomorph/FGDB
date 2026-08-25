@@ -10,10 +10,12 @@ an implementable, staged work plan.
 
 ## Current state
 
-FGDB is an otherwise empty Git repository with the `{reproducibleai}` base
-agentic-context profile. The initial initiative brief captures the goals and
-constraints supported by the technical-manual source. No implementation
-architecture or database technology has been selected.
+FGDB contains the `{reproducibleai}` base agentic-context profile and initial
+design records. The system-of-record technology, high-level data flow,
+repository responsibilities, and ownership boundary have been selected. The
+two initial write use cases and read-only service boundary are established.
+Collection-scoped authority and mutation semantics are established. The full
+logical and physical schemas and operating model have not yet been designed.
 
 ## Completed
 
@@ -23,20 +25,57 @@ architecture or database technology has been selected.
 - Scaffolded and validated agentic-context standard 0.1 with the `base` profile.
 - Recorded the initial scope, desired outcomes, constraints, and unknowns in
   `dev/goals/initiative-brief.md`.
+- Accepted ArcGIS Enterprise backed by PostgreSQL/SDE as the authoritative
+  system for derived feature content and DEM/REM mosaic datasets.
+- Assigned FGDB ownership of the schema/specification and the database setup,
+  loading, and management toolbox, while retaining derivation ownership in
+  `FluvialGeomorph-toolbox`.
+- Recorded the decision in ADR-0001 and the current system context under
+  `dev/architecture/`.
+- Defined the experienced desktop analyst's legacy/future geodatabase loading
+  workflow and the authenticated Shiny user's save-and-restore workflow.
+- Accepted controlled desktop and application-mediated writes with read-only
+  client Feature Layer services in ADR-0002.
+- Inspected `ohwm2`; verified that its current user geometry and derived
+  outputs live in Shiny session state and that it has no database persistence
+  implementation.
+- Accepted `collection` as the top-level data and governance boundary, with an
+  authoritative desktop collection and an informative Shiny collection.
+- Accepted globally unique tiered study-area names alongside immutable IDs.
+- Defined desktop reach-survey-event replacement and Shiny in-place editing in
+  ADR-0003 and the initial conceptual data-model contract.
+- Verified that both current workflows call exported `{fluvgeo}` functions,
+  although their exact call surfaces differ.
+- Accepted strict adherence to the full collection-to-survey-event hierarchy
+  for desktop and Shiny records; clients may automate but not bypass levels.
+- Compared the ArcPy and R flowline implementations and confirmed they are not
+  behaviorally equivalent.
+- Accepted canonical open-source feature derivation in `fluvgeo` through
+  ADR-0004, with contract-level parity and scientific-review gates.
+- Defined the transition sequence: complete the coherent R pipeline using
+  Shiny as an early proving ground, then perform a coordinated desktop overhaul
+  that retains ArcGIS Pro as an optional editing client and enables future QGIS
+  adapters.
 
 ## Remaining
 
-1. Define FGDB's system boundary and authoritative data responsibilities.
-2. Define users, use cases, and priority queries.
-3. Formalize entities, identifiers, temporal semantics, spatial semantics,
-   provenance, and integrity constraints.
-4. Decide artifact-storage boundaries and ingestion behavior.
-5. Evaluate database, deployment, interface, and repository-implementation
-   options against the agreed requirements.
-6. Define the legacy inventory and migration crosswalk.
-7. Record accepted decisions, schemas, architecture, workflows, and a staged
+1. Prepare separately scoped cross-repository implementation planning for
+   accepted ADR-0004 and select flowline creation as the first contract pilot.
+2. Formalize required metadata for collection, study area, stream, reach,
+   survey event, and feature content.
+3. Specify immutable identifiers and the globally unique tiered study-area
+   naming grammar.
+4. Formalize temporal semantics, spatial semantics, provenance, and integrity
+   constraints.
+5. Define feature-class and mosaic-dataset source-to-target crosswalks.
+6. Design ingestion, reconciliation, error handling, and rollback behavior.
+7. Define Feature Layer and raster-service boundaries and client contracts.
+8. Define environment, security, deployment, and operational requirements with
+   the USACE hosting stakeholders.
+9. Define the legacy inventory and migration crosswalk.
+10. Record accepted decisions, schemas, workflows, and a staged
    delivery plan in their durable routes.
-8. Add FGDB to the organization repository catalog and capability map through
+11. Add FGDB to the organization repository catalog and capability map through
    a separately reviewed cross-repository change when its role is accepted.
 
 ## Evidence and verification
@@ -45,20 +84,20 @@ architecture or database technology has been selected.
 - Organization evidence: `FG-architecture/dev/architecture/` and
   `FG-architecture/repositories.yml`.
 - `validate_agentic_context("FGDB")` returned `valid = TRUE` with no findings.
-- `git status` confirmed that only the new scaffold and design artifacts are
-  untracked in this new repository.
+- Repository inspection found no existing Enterprise/SDE database-loading
+  implementation in `FluvialGeomorph-toolbox`; its current tools produce local
+  geodatabase content.
 
 ## Next safe action
 
-Agree on the FGDB system boundary, beginning with what is authoritative in the
-central database and what remains an externally stored source or derived
-artifact.
+Inventory the legacy and streamlined workflow stages, then use flowline
+creation as the first contract pilot for the canonical feature schema and
+scientific acceptance process. Do not cut over the production desktop workflow
+until the coherent replacement pipeline is ready.
 
 ## Blockers or decisions
 
-The first design decision is the storage and authority boundary. In
-particular, determine whether FGDB stores only relational metadata and curated
-queryable vector/tabular features while referencing large source/derived
-artifacts, or whether it is also responsible for raster and file-geodatabase
-artifact storage.
-
+Implementation authorization is still required before changing `fluvgeo`, the
+desktop toolbox, Shiny clients, or `FG-architecture`. The study-area name tiers,
+separators, case rules, rename/alias behavior, and name reuse policy also remain
+to be defined.
