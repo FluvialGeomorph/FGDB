@@ -50,10 +50,49 @@ physical-design decision.
 
 - Each durable domain entity has an immutable machine identifier.
 - Study-area names are human-readable and globally unique across collections.
-- Study-area names follow a tiered naming convention that is not yet specified.
+- A study-area name has two governed components: a controlled three-letter
+  uppercase USACE district code and a concise descriptive study-area name. The
+  canonical separator and remaining character/normalization rules are not yet
+  specified.
+- Each study area is one governed, multipart-capable polygon feature in Web
+  Mercator (EPSG:3857). It denotes the analyst's current general project scope,
+  not an official boundary, and may be edited in place throughout the project
+  lifecycle with modification actor/time recorded.
+- Each study area has one controlled extent type: `SMALL_REACH`, `LONG_REACH`,
+  or `WATERSHED`.
 - Display names are not substitutes for immutable identifiers in foreign keys,
   ingestion keys, or service contracts.
 - Rename, alias, reservation, and reuse rules remain unresolved.
+
+## Survey-event time
+
+- Each survey event has a required year, optional month, and optional day. A
+  day requires a month, and all supplied components must form a valid date.
+- Unknown components are null and are never represented by invented dates.
+- Its concise display label is `YYYY` when month is unknown and `YYYY-MM` when
+  month is known, derived from the stored components.
+- The display label is not an identity and is not assumed globally unique.
+- Chronological operations use the known date components, not the label or load
+  timestamp. Ordering events with equal or incomplete dates remains unresolved.
+- Base-event status is not stored in FGDB. Reports select the latest event as
+  the default comparison base.
+
+## Governed terrain boundary
+
+FGDB retains the hydro-modified DEM for each reach-survey-event as an
+Enterprise mosaic item. Terrain acquisition and local preparation artifacts,
+including point clouds, contributing-watershed products, source DEMs,
+and hillshades, are outside FGDB persistence scope. Cutline polylines are the
+exception: FGDB retains them as governed records of where source terrain was
+judged inadequate and hydro-modification interpolation was applied.
+
+Desktop analysis uses an appropriate local projected horizontal CRS and
+vertical reference. Governed geometry and rasters are transformed to Web
+Mercator (EPSG:3857) for consolidated Enterprise storage. Native analysis CRS,
+horizontal unit, vertical datum, and vertical unit remain required provenance;
+horizontal reprojection does not define or normalize elevation values.
+Horizontal and vertical transformations are approved per source CRS. Raster
+item properties must conform to the Enterprise `hydro_dem` mosaic dataset.
 
 ## Desktop replacement unit
 
@@ -92,8 +131,9 @@ Both collections require:
 - derivation method/engine and method version for each feature family;
 - responsible actor or process;
 - creation/load and last-modification timestamps as applicable;
-- terrain or survey-event source identity;
-- spatial reference;
+- survey-event identity and known date components/precision;
+- native analysis horizontal CRS/unit and vertical datum/unit;
+- Enterprise spatial reference;
 - validation outcome; and
 - source/load manifest appropriate to the workflow.
 
@@ -107,5 +147,8 @@ review, spatial scope, or fitness for a particular use.
 - Tiered study-area naming grammar and uniqueness enforcement.
 - Desktop QA states and publication gates.
 - Feature-class and mosaic-dataset ownership keys.
+- Hydro DEM raster transformation, cell alignment, resampling, NoData, pixel,
+  and vertical-value rules.
+- Approved per-source-CRS horizontal and vertical transformation registry.
 - Shiny save/restore payload, edit concurrency, and authorization.
 - Cross-collection query and service behavior.

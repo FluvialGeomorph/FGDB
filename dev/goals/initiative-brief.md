@@ -67,7 +67,9 @@ datasets.
   database system.
 - Publish database feature classes to client applications through a defined
   set of ArcGIS Feature Layer services.
-- Store DEM and REM raster content through enterprise mosaic datasets.
+- Store reach-survey-event hydro-modified DEM and REM raster content through
+  enterprise mosaic datasets; do not retain source terrain or watershed
+  preparation products.
 - Allow new work to use the new model while legacy project data is migrated
   incrementally without stopping current work.
 - Maintain a clear crosswalk from legacy project folders and reach-survey-event
@@ -105,7 +107,8 @@ datasets.
 - The Shiny collection permits valid content to be visible immediately and
   uses in-place editing under stable identities.
 - Study-area names are globally unique, human-readable values governed by a
-  tiered naming convention; immutable IDs provide unambiguous identity.
+  two-level district-code and descriptive-name convention; immutable IDs
+  provide unambiguous identity.
 - Client-facing Feature Layer services are read-only. Creation, correction,
   replacement, and retirement occur only through controlled FGDB write
   workflows.
@@ -124,6 +127,14 @@ datasets.
 - Historical artifacts are evidence, not automatically authoritative
   specifications. Their accepted meaning must be captured in maintained goals,
   architecture, decisions, schemas, features, and workflows.
+- FGDB governs loaded analysis objects, not the analyst's local LiDAR search,
+  acquisition, point-cloud cleaning, source DEM, watershed-product, or
+  hillshade workflow. Cutline geometry is retained as a governed record of
+  terrain inadequacy and hydro-modification assumptions.
+- Desktop analysis may use an appropriate local projected horizontal and
+  vertical reference. Governed spatial content is transformed to Web Mercator
+  (EPSG:3857) for consolidated Enterprise storage, with native analysis and
+  vertical-reference metadata retained.
 
 ## Open success criteria
 

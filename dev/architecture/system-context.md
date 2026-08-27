@@ -42,7 +42,7 @@ FGDB validation + idempotent loading <------------+
 PostgreSQL / Esri enterprise geodatabase
       |                       |
       v                       v
-SDE feature classes     DEM/REM mosaic datasets
+SDE feature classes     hydro DEM/REM mosaic datasets
       |                       |
       +-----------+-----------+
                   v
@@ -85,7 +85,8 @@ with the USACE hosting stakeholders.
 - Canonical entity identifiers and natural-key rules.
 - Physical enforcement of collection ownership and globally unique tiered
   study-area names.
-- Survey-event temporal semantics and revision/correction behavior.
+- Partial/unknown legacy survey dates, base-event representation, and
+  revision/correction behavior.
 - Source-to-target feature-class crosswalk and geometry constraints.
 - Enterprise geodatabase dataset organization and naming conventions.
 - Mosaic-dataset design, raster item identity, footprints, overviews, and

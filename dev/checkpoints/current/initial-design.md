@@ -67,27 +67,64 @@ logical and physical schemas and operating model have not yet been designed.
 - Recorded the stated historic team roles and a working, non-formal review map
   spanning technical, scientific/program, production, and documentation
   perspectives.
+- Defined the feature-catalog record contract and began the catalog in Level 1
+  workflow order with study-area identity/location and terrain inputs.
+- Used the initial catalog draft to distinguish terrain workflow artifacts and
+  expose the source-terrain versus governed-raster boundary for resolution.
+- Accepted one governed polygon per Study Area and codified the Study Area
+  extent-type domain as Small Reach, Long Reach, or Watershed.
+- Restricted FGDB terrain scope to the hydro-modified DEM for each
+  reach-survey-event; LiDAR acquisition, source terrain, watershed products,
+  and hillshades remain outside database persistence scope.
+- Accepted local scientifically appropriate analysis coordinate references and
+  Web Mercator Enterprise storage, with native horizontal and vertical
+  reference metadata retained.
+- Established Survey Event temporal identity, subsequently refined to require
+  year while permitting unknown month/day and deriving the display label from
+  known precision.
+- Recorded these foundation choices in ADR-0005 and revised the feature catalog
+  to contain governed objects only.
+- Accepted a two-level Study Area name comprising a controlled three-letter
+  USACE district code and descriptive name.
+- Accepted multipart-capable, analyst-defined Study Area polygons that are
+  editable in place as general project scope changes.
+- Accepted required Survey Event year with optional month/day, derived date
+  precision/labels, and report-only default base-event selection.
+- Required per-source-CRS horizontal/vertical transformations and conformance
+  to the Enterprise `hydro_dem` mosaic parameters.
+- Corrected the terrain boundary to retain Cutlines and their material
+  hydro-modification method/parameters as important assumption records.
+- Drafted the next catalog entries for Stream, Reach, and the synthetic stream
+  network, exposing their unresolved geometry, boundary, persistence, and
+  ownership contracts.
 
 ## Remaining
 
-1. Prepare separately scoped cross-repository implementation planning for
-   accepted ADR-0004 and select flowline creation as the first contract pilot.
-2. Formalize required metadata for collection, study area, stream, reach,
+1. Resolve the Stream geometry, Reach/boundary normalization, and synthetic
+   stream-network persistence/ownership questions in the new catalog slice.
+2. Specify the per-source-CRS transformation registry and complete `hydro_dem`
+   mosaic-item contract.
+3. Complete the Study Area string grammar and Survey Event tie/partial-date
+   ordering rules.
+4. Prepare separately scoped cross-repository implementation planning for
+   accepted ADR-0004; treat flowline as a later paired-implementation contract
+   pilot rather than the first catalog entry.
+5. Formalize required metadata for collection, study area, stream, reach,
    survey event, and feature content.
-3. Specify immutable identifiers and the globally unique tiered study-area
-   naming grammar.
-4. Formalize temporal semantics, spatial semantics, provenance, and integrity
+6. Specify immutable identifier formats and the remaining Study Area name,
+   rename, alias, and reuse rules.
+7. Formalize temporal semantics, spatial semantics, provenance, and integrity
    constraints.
-5. Complete the L1/L2/L3 feature-class and mosaic-dataset source-to-target
+8. Complete the L1/L2/L3 feature-class and mosaic-dataset source-to-target
    disposition and field crosswalks.
-6. Design ingestion, reconciliation, error handling, and rollback behavior.
-7. Define Feature Layer and raster-service boundaries and client contracts.
-8. Define environment, security, deployment, and operational requirements with
+9. Design ingestion, reconciliation, error handling, and rollback behavior.
+10. Define Feature Layer and raster-service boundaries and client contracts.
+11. Define environment, security, deployment, and operational requirements with
    the USACE hosting stakeholders.
-9. Define the legacy inventory and migration crosswalk.
-10. Record accepted decisions, schemas, workflows, and a staged
+12. Define the legacy inventory and migration crosswalk.
+13. Record accepted decisions, schemas, workflows, and a staged
    delivery plan in their durable routes.
-11. Add FGDB to the organization repository catalog and capability map through
+14. Add FGDB to the organization repository catalog and capability map through
    a separately reviewed cross-repository change when its role is accepted.
 
 ## Evidence and verification
@@ -102,14 +139,15 @@ logical and physical schemas and operating model have not yet been designed.
 
 ## Next safe action
 
-Complete the L1/L2/L3 dataset-disposition matrix and pair it with the legacy
-versus streamlined workflow-stage inventory. Use flowline creation as the first
-canonical feature-contract pilot. Do not cut over the production desktop
-workflow until the coherent replacement pipeline is ready.
+Review the draft Stream, Reach, and synthetic stream-network catalog entries
+and resolve their geometry, boundary normalization, persistence, and ownership
+questions. Then define the transformation registry and complete hydro DEM
+mosaic contract. Do not cut over the production desktop workflow until the
+coherent replacement pipeline is ready.
 
 ## Blockers or decisions
 
 Implementation authorization is still required before changing `fluvgeo`, the
-desktop toolbox, Shiny clients, or `FG-architecture`. The study-area name tiers,
-separators, case rules, rename/alias behavior, and name reuse policy also remain
-to be defined.
+desktop toolbox, Shiny clients, or `FG-architecture`. The Study Area name
+separator, descriptive-component normalization, rename/alias behavior, and
+name reuse policy remain to be defined.

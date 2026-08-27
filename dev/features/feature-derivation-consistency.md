@@ -40,23 +40,28 @@ Before replacing the Python flowline path, the owning repositories must define:
 
 ## Buildout and migration pattern
 
-1. Inventory paired ArcPy and `{fluvgeo}` capabilities by feature family.
-2. Define the current desktop workflow order, manual interventions, and known
+1. Build the FGDB catalog in workflow and dependency order, beginning with
+   study-area definition and terrain inputs rather than flowline.
+2. Inventory paired ArcPy and `{fluvgeo}` capabilities by feature family as
+   each derived stage is reached.
+3. Define the current desktop workflow order, manual interventions, and known
    failure modes alongside the streamlined Shiny workflow.
-3. Select one bounded contract pilot such as flowline creation.
-4. Define the canonical schema and scientific invariants in `fluvgeo`.
-5. Assemble representative, provenance-documented fixtures, including legacy
+4. Select one bounded paired-implementation contract pilot when the catalog
+   reaches such a stage; flowline remains a useful candidate, not the first
+   catalog object.
+5. Define the canonical schema and scientific invariants in `fluvgeo`.
+6. Assemble representative, provenance-documented fixtures, including legacy
    edge cases.
-6. Implement missing open-source stages without coupling them to Shiny state.
-7. Continue until a coherent end-to-end `{fluvgeo}` workflow exists; do not
+7. Implement missing open-source stages without coupling them to Shiny state.
+8. Continue until a coherent end-to-end `{fluvgeo}` workflow exists; do not
    repeatedly interrupt desktop production with partial cutovers.
-8. Compare old and new outputs using topology, attributes, direction,
+9. Compare old and new outputs using topology, attributes, direction,
    length/shape tolerances, downstream metric sensitivity, and performance.
-9. Obtain scientific approval for equivalence or an intentional method change.
-10. Overhaul the desktop workflow as a coordinated migration that calls the
+10. Obtain scientific approval for equivalence or an intentional method change.
+11. Overhaul the desktop workflow as a coordinated migration that calls the
     complete canonical pipeline while preserving expert editing convenience.
-11. Run producer tests first, then desktop and Shiny integration tests.
-12. Release, document provenance/version boundaries, and deprecate duplicate
+12. Run producer tests first, then desktop and Shiny integration tests.
+13. Release, document provenance/version boundaries, and deprecate duplicate
     ArcPy derivation only after rollback remains possible.
 
 ## FGDB requirements

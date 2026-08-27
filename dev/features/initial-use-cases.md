@@ -25,12 +25,13 @@ geometry.
 1. The analyst selects a completed reach-survey-event geodatabase.
 2. The FGDB loading workflow inventories and validates its required datasets,
    geometry, spatial reference, attributes, identifiers, and provenance.
-3. The analyst supplies or confirms its study area, stream, reach, survey
-   event, terrain source, and other required metadata.
+3. The analyst supplies or confirms its study area, stream, reach, known survey
+   year and any known month/day, native analysis spatial reference, and other
+   required metadata.
 4. The workflow presents a preflight result before changing FGDB.
-5. The workflow loads feature content and registers DEM/REM raster content in
-   the applicable mosaic datasets as one controlled operation or recoverable
-   set of operations.
+5. The workflow loads feature content and registers hydro-modified DEM and REM
+   raster content in the applicable mosaic datasets as one controlled
+   operation or recoverable set of operations.
 6. The workflow verifies committed target records and records a load manifest.
 7. Repeating the same approved load does not duplicate records. A changed,
    corrected load atomically replaces all active feature and raster content for
@@ -113,9 +114,10 @@ The exact schema remains to be designed, but both workflows require:
 - origin workflow (`desktop` or `shiny`) and originating software version;
 - creating actor or accountable process;
 - creation and load timestamps;
-- source terrain or survey-event identity;
+- survey-event identity and known date components/precision;
 - input/source manifest or equivalent lineage evidence;
-- spatial reference;
+- native analysis and Enterprise spatial references, including vertical datum
+  and units when applicable;
 - calculation or schema version;
 - validation and lifecycle status; and
 - visibility or access classification.
