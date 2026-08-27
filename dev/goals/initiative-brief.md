@@ -24,6 +24,9 @@ This repository has two initial responsibilities:
 1. Document the FGDB design process and maintain its specifications.
 2. Contain an ArcGIS toolbox and supporting functions for database setup,
    repeatable data loading, and subsequent database management.
+3. Assemble and preserve relevant historical requirements, schema prototypes,
+   production examples, and workflow evidence so fragmented prior work can be
+   evaluated through one unified design process.
 
 These responsibilities may be separated into different repositories later if
 their size, release cycles, access boundaries, or maintenance needs make the
@@ -109,6 +112,9 @@ datasets.
   capabilities.
 - Credentials, connection files, server names, and other environment-specific
   or sensitive configuration must remain outside version control.
+- Historical artifacts are evidence, not automatically authoritative
+  specifications. Their accepted meaning must be captured in maintained goals,
+  architecture, decisions, schemas, features, and workflows.
 
 ## Open success criteria
 

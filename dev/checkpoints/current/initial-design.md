@@ -1,6 +1,6 @@
 # Checkpoint: Initial FGDB design
 
-- Updated: 2026-08-25
+- Updated: 2026-08-27
 - Status: active
 
 ## Objective
@@ -56,6 +56,12 @@ logical and physical schemas and operating model have not yet been designed.
   Shiny as an early proving ground, then perform a coordinated desktop overhaul
   that retains ArcGIS Pro as an optional editing client and enables future QGIS
   adapters.
+- Established FGDB as the synthesis location for fragmented historical design
+  artifacts, production examples, requirements, and accepted specifications.
+- Parsed and compared the target file-geodatabase prototype and the Papillion
+  R1 2016 wild-caught L1/L2/L3 output schema.
+- Recorded the XML assessment, initial dataset dispositions, limitations, and
+  design implications under `dev/schemas/`.
 
 ## Remaining
 
@@ -67,7 +73,8 @@ logical and physical schemas and operating model have not yet been designed.
    naming grammar.
 4. Formalize temporal semantics, spatial semantics, provenance, and integrity
    constraints.
-5. Define feature-class and mosaic-dataset source-to-target crosswalks.
+5. Complete the L1/L2/L3 feature-class and mosaic-dataset source-to-target
+   disposition and field crosswalks.
 6. Design ingestion, reconciliation, error handling, and rollback behavior.
 7. Define Feature Layer and raster-service boundaries and client contracts.
 8. Define environment, security, deployment, and operational requirements with
@@ -90,10 +97,10 @@ logical and physical schemas and operating model have not yet been designed.
 
 ## Next safe action
 
-Inventory the legacy and streamlined workflow stages, then use flowline
-creation as the first contract pilot for the canonical feature schema and
-scientific acceptance process. Do not cut over the production desktop workflow
-until the coherent replacement pipeline is ready.
+Complete the L1/L2/L3 dataset-disposition matrix and pair it with the legacy
+versus streamlined workflow-stage inventory. Use flowline creation as the first
+canonical feature-contract pilot. Do not cut over the production desktop
+workflow until the coherent replacement pipeline is ready.
 
 ## Blockers or decisions
 
