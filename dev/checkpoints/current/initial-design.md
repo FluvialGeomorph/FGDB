@@ -62,6 +62,11 @@ logical and physical schemas and operating model have not yet been designed.
   R1 2016 wild-caught L1/L2/L3 output schema.
 - Recorded the XML assessment, initial dataset dispositions, limitations, and
   design implications under `dev/schemas/`.
+- Recorded the project's origin, architecture evolution, database motivation,
+  and reason for an evidence-driven AI-assisted design process.
+- Recorded the stated historic team roles and a working, non-formal review map
+  spanning technical, scientific/program, production, and documentation
+  perspectives.
 
 ## Remaining
 

@@ -40,6 +40,8 @@ explicit; repository presence alone does not establish authority.
    artifacts.
 8. When the unified design changes a cross-repository contract, update the
    owning repository through the approved cross-repository workflow.
+9. Route consequential review through the applicable perspectives described in
+   `human-review.md`; do not infer formal approval solely from a job title.
 
 ## Authority order
 
@@ -47,4 +49,3 @@ For intended FGDB behavior, accepted ADRs and explicit schema/interface
 contracts govern over historical prototypes and production examples. Current
 code and deployed systems remain evidence of actual behavior and must be
 checked for drift from the intended design.
-

@@ -17,6 +17,12 @@ ArcGIS Enterprise geodatabase that supports multiple study areas and
 observations through time. FGDB will be the single authoritative data source
 for geospatial content derived using the `FluvialGeomorph-toolbox` tools.
 
+The initiative also externalizes a design problem that had become too large to
+hold reliably in one developer's working memory while maintaining continuous
+production operations. Versioned evidence, crosswalks, decisions, schemas, and
+review records will make interacting scientific, technical, operational,
+historical, and deployment requirements collectively tractable.
+
 ## Initial repository scope
 
 This repository has two initial responsibilities:
@@ -81,6 +87,9 @@ datasets.
 - Let authenticated USACE Shiny users save a small-area self-service analysis,
   find it again by map or study-area selection, and resume or review it in a
   later session.
+- Make design evidence and dependencies traceable enough that the team can
+  review decisions from its scientific, technical, operational, program, and
+  documentation perspectives without relying on one person's memory.
 
 ## Constraints and principles
 
