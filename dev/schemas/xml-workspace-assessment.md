@@ -119,6 +119,9 @@ mandatory hierarchy in `conceptual-data-model.md`.
 
 ### No clear target in the prototype
 
+- `stream_network` is now intentionally excluded as a Stream Geodatabase
+  preprocessing artifact under ADR-0010; its lack of an `FG_StreamNetwork`
+  target is consistent with the accepted scope.
 - `bankline_points`
 - `flood_prone`
 - `gradient_100`
@@ -143,6 +146,10 @@ a mature workflow output is unnecessary.
 - Legacy and future records need application, derivation method, `{fluvgeo}`,
   schema, and material-parameter provenance so processing differences are not
   interpreted as geomorphic change.
+- A loader must not map a pre-segmentation `stream_network`, Stream-scale DEM,
+  or associated drainage intermediate into FGDB. If a legacy reach
+  geodatabase contains a convenience copy, it remains excluded unless used as
+  evidence to transform and validate a separately governed downstream feature.
 
 ## Next specification work
 
@@ -156,4 +163,3 @@ a mature workflow output is unnecessary.
    datasets and their source-file lifecycle.
 6. Design service-ready views only after base identities and relationships are
    stable.
-

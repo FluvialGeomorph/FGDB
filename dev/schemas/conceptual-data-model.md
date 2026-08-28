@@ -172,6 +172,27 @@ After applicable collection QA, the retained hydro-modified DEM and its derived
 features are authoritative FluvialGeomorph analysis products. This authority
 does not extend to discarded source point clouds or external national data.
 
+## Local Stream workspace boundary
+
+The optional desktop `Stream Geodatabase` (historically `Site Geodatabase`) is
+a local preprocessing workspace, not the persistent FGDB `Stream` entity. An
+analyst may use it to hold a Stream-scale DEM, derive and manually edit a
+synthetic stream network, establish investigation-specific Stream and Reach
+segmentation, and clip terrain into Reach-scale inputs.
+
+FGDB represents the accepted segmentation through durable Stream and Reach
+records, but does not retain the Stream-scale DEM, pre-segmentation synthetic
+network, or its drainage intermediates. A copied or transformed geometry is
+loaded only when it becomes a separately governed downstream feature in an
+accepted reach-survey-event package. A legacy convenience copy of
+`stream_network` is not loadable FGDB content.
+
+This boundary intentionally distinguishes reproducibility of the complete
+local process from traceability of governed results. Projects requiring full
+reconstruction retain their local inputs and Stream Geodatabase outside FGDB;
+FGDB retains the current accepted Reach/Survey Event results and their required
+provenance. See ADR-0010.
+
 ## Desktop replacement unit
 
 The logical replacement key is one desktop collection reach-survey-event. The

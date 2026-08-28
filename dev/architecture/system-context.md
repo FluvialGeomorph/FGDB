@@ -30,10 +30,14 @@ Desktop path:                          Self-service path:
 Local terrain and survey inputs        Authenticated Shiny user
               |                                  |
               v                                  v
-FluvialGeomorph-toolbox derivation     Shiny inputs + derived outputs
+Optional Stream Geodatabase            Shiny inputs + derived outputs
+(local segmentation/preprocessing)                |
+              |                                  v
+              v                       App-mediated FGDB submission
+FluvialGeomorph-toolbox derivation                |
               |                                  |
-              v                                  v
-Reach-survey-event file geodatabase    App-mediated FGDB submission
+              v                                  |
+Reach-survey-event file geodatabase               |
               |                                  |
               v                                  |
 FGDB validation + idempotent loading <------------+
@@ -55,6 +59,14 @@ SDE feature classes     hydro DEM/REM mosaic datasets
 ## Authority and lifecycle
 
 - Local file geodatabases are production and migration inputs.
+- The optional Stream Geodatabase (legacy `Site Geodatabase`) is a local
+  preprocessing workspace, not an FGDB entity or load package. Its Stream-scale
+  DEM, pre-segmentation synthetic network, and construction intermediates are
+  excluded. Only separately governed downstream content in an accepted
+  reach-survey-event package crosses the FGDB loading boundary.
+- Analysts retain local inputs and preprocessing workspaces when complete
+  process reconstruction is required. FGDB governs traceability of retained
+  results rather than archiving every input and intermediate.
 - A successful load alone is insufficient to establish authority; the loading
   workflow must verify the committed database state and retain enough
   provenance to reconcile it with its source.

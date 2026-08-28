@@ -152,14 +152,21 @@ logical and physical schemas and operating model have not yet been designed.
   stationing references a specific version-aware FGDB Flowline representation.
 - Recorded the historical terrain and research-data infrastructure gap that
   motivates centralized, multi-time-period FGDB terrain and geometry.
+- Accepted ADR-0010: the optional `Stream Geodatabase` (legacy
+  `Site Geodatabase`) is a local preprocessing workspace, not an FGDB entity
+  or load package. Its Stream-scale DEM, pre-segmentation synthetic network,
+  and drainage intermediates are excluded from persistence.
+- Resolved synthetic stream-network persistence and ownership: durable Stream
+  and Reach records capture accepted segmentation; only separately governed
+  downstream content from a reach-survey-event package is loadable. Full local
+  process reconstruction requires analyst retention outside FGDB.
 
 ## Remaining
 
 1. Finalize kernel identity-change and cardinality rules, especially Stream,
    Reach, Survey Event, current derivation provenance, retained derived
    dataset, Flowline, and Cross Section.
-2. Resolve synthetic stream-network persistence/ownership and the legacy
-   `boundary` to optional Survey Event geometry crosswalk.
+2. Resolve the legacy `boundary` to optional Survey Event geometry crosswalk.
 3. Specify the per-source-CRS transformation registry and complete `hydro_dem`
    mosaic-item contract.
 4. Complete the Study Area string grammar and Survey Event tie/partial-date
@@ -203,9 +210,9 @@ Complete the ontology-ready kernel relational model using the competency
 questions in `dev/schemas/ontology-crosswalk.md`, beginning with identity rules
 and cardinalities for Stream, Reach, Survey Event, current derivation
 provenance, retained derived dataset, Flowline, and Cross Section. Then resolve
-synthetic network persistence and the legacy `boundary` crosswalk. Do not wait
-for a complete OWL ontology or cut over the production desktop workflow before
-the coherent replacement pipeline is ready.
+the legacy `boundary` crosswalk. Do not wait for a complete OWL ontology or cut
+over the production desktop workflow before the coherent replacement pipeline
+is ready.
 
 ## Blockers or decisions
 

@@ -29,6 +29,14 @@ paths diverged over time. ADR-0004 records the accepted target of completing a
 canonical, client-independent `{fluvgeo}` backend before a coordinated desktop
 workflow migration.
 
+Analysts have sometimes used a cross-reach `Site Geodatabase`, now more clearly
+called the `Stream Geodatabase`, as an optional local preprocessing workspace.
+It holds a Stream-scale DEM and a terrain-derived network while the analyst
+edits the network, divides long Streams into Reaches, and optionally clips
+terrain into manageable Reach inputs. The governed outputs are then developed
+in reach-survey-event geodatabases. This local workspace was a means to produce
+those results, not a consistently retained archival product.
+
 ## Database motivation
 
 Reach-survey-event file geodatabases have been produced independently for many
@@ -64,3 +72,8 @@ FGDB seeks to preserve governed digital representations, consistent identity,
 multi-time-period terrain products, and distributable derived geometry while
 remaining honest about legacy source metadata and artifacts that were never
 retained.
+
+Accordingly, FGDB does not claim complete reconstruction of the local
+preprocessing chain. Analysts may retain point clouds, Stream Geodatabases, and
+intermediates locally when that level of reproducibility is required; FGDB
+centralizes accepted Reach/Survey Event results and their provenance.

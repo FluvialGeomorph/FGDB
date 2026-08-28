@@ -94,6 +94,21 @@ HY_Features river-referencing concepts are candidate semantic mappings, not a
 requirement to adopt an external route or treat local measures as globally
 comparable.
 
+## Stream entity versus preprocessing workspace
+
+Do not model the local `Stream Geodatabase` (legacy `Site Geodatabase`) as a
+domain class or confuse it with the persistent FGDB Stream. It is an optional
+desktop workspace used to derive/edit a synthetic network and establish Reach
+segmentation. Its Stream-scale DEM, pre-segmentation network, and construction
+intermediates are outside FGDB persistence scope.
+
+The synthetic network may be described in the semantic crosswalk as a
+derivation-stage representation, but the current physical model does not
+assign it persistent FGDB identity. Durable Stream/Reach identities and any
+separately governed downstream features carry the accepted result of the
+analyst's segmentation decision. Full reconstruction remains dependent on
+local retention outside FGDB.
+
 ## Survey Event versus derivation provenance
 
 Preserve the conceptual distinction between:

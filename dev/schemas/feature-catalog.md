@@ -15,10 +15,11 @@ documentation will be derived. Despite its historical name, it covers domain
 entities, vector features, raster analysis products, and the metadata needed
 to govern them.
 
-The catalog contains only governed FGDB objects. Analyst choices and local
-data preparation that produce an accepted load package remain outside FGDB.
-They can be documented in the Tech Manual without becoming database entities
-or retained database content.
+The catalog defines governed FGDB objects and records explicit exclusion
+decisions needed to prevent legacy workflow artifacts from being loaded by
+mistake. Analyst choices and local data preparation that produce an accepted
+load package remain outside FGDB. They can be documented in the Tech Manual
+without becoming database entities or retained database content.
 
 Catalog order follows the analysis workflow and dependency graph. Flowline is
 an important later consistency case, but it is not the first catalog object.
@@ -231,6 +232,9 @@ catalog objects or retained data:
 | Initial coarse longitudinal hydrography | Not retained. |
 | Contributing-watershed DEM and drainage-basin products | Not retained. |
 | LiDAR clearinghouse searches, downloads, point clouds, and cleaning | Outside FGDB scope. |
+| Stream Geodatabase (legacy `Site Geodatabase`) | Optional local preprocessing workspace; not an FGDB entity, load package, or retained object. |
+| Stream-scale DEM | Local terrain preparation input; not retained in the Enterprise hydro DEM mosaic. |
+| Pre-segmentation synthetic stream network and drainage intermediates | Local construction artifacts; not retained. |
 | Unmodified high-resolution source DEM | Not retained. |
 | Optional hillshade | Not retained; recomputable presentation material. |
 
@@ -307,22 +311,21 @@ Collection
 
 ### FCAT-007: Synthetic stream network
 
-| Property | Draft specification |
+| Property | Current specification |
 |---|---|
 | Definition | A terrain-derived polyline network created from flow accumulation and then manually edited to retain and segment the watercourses analyzed in the Study Area. |
-| Legacy aliases | `stream_network`; intermediate raster/vector names include `derived_streams`. |
-| Object kind | Derived and analyst-edited polyline. Persistence disposition unresolved. |
-| Workflow stage | Level 1, after Hydro-modified DEM and before Flowline. |
-| Inputs | Hydro-modified DEM through unretained drainage intermediates; initiation `threshold`; derivation engine/version; analyst edits. |
+| Legacy aliases | `stream_network`; intermediate raster/vector names include `derived_streams`. The containing local workspace was historically called a `Site Geodatabase`; `Stream Geodatabase` is now preferred. |
+| Object kind | Excluded local preprocessing artifact, not a governed FGDB feature. |
+| Workflow stage | Stream-scale terrain preprocessing before governed reach-survey-event analysis and Flowline derivation. |
+| Inputs | Local Stream-scale DEM through unretained drainage intermediates; initiation `threshold`; derivation engine/version; analyst edits. |
 | Segmentation role | Analyst uses investigation objectives to divide the edited network into Streams and Reaches. National hydrography names and identifiers inform labels but do not dictate segment boundaries. |
-| Identity evidence | Legacy `ReachName` combines site/stream and reach semantics. Target relationships must instead use immutable Stream, Reach, and Survey Event keys. |
-| Ownership issue | The current network is initially derived before final Stream/Reach segmentation and can span several Reaches, while governed analysis features require one Survey Event owner. The target must either retain post-segmentation reach-survey-event pieces or classify the pre-segmentation network as a local construction artifact. |
-| Persistence evidence | The target prototype has no `FG_StreamNetwork`; the supplied wild-caught reach XML does not contain `stream_network`. Absence is evidence, not a decision. |
-| QA if retained | Valid lines; no unintended gaps/duplicates; documented threshold and method; analyst-edit completion; explicit immutable ownership; approved CRS transformation. |
-| Maturity | Inventoried; target disposition requires review. |
+| Governed handoff | The reviewed segmentation is represented by durable Stream and Reach identities. Geometry copied or transformed into a reach-survey-event workspace is loaded only when it satisfies a separate governed downstream feature contract, such as Flowline. |
+| Persistence | Excluded. Do not create an `FG_StreamNetwork` target or load a convenience copy from a legacy reach geodatabase. The Stream-scale DEM and flow-direction/accumulation intermediates are also excluded. |
+| Reproducibility | Analysts may retain the Stream Geodatabase and its inputs locally when full process reconstruction is required. FGDB records provenance for retained results but is not a complete preprocessing archive. |
+| Evidence | Target prototype has no `FG_StreamNetwork`; supplied wild-caught XML has no `stream_network`; historical manual workflow; human clarification; ADR-0010. |
+| Maturity | Accepted excluded disposition. |
 
 ## Next catalog slice
 
-Resolve synthetic stream-network persistence/ownership, the exact Stream and
-Reach display-name grammar, and the legacy `boundary` crosswalk. Then proceed
-to Flowline.
+Resolve the exact Stream and Reach display-name grammar and the legacy
+`boundary` crosswalk. Then proceed to Flowline.

@@ -72,6 +72,9 @@ datasets.
 - Store reach-survey-event hydro-modified DEM and REM raster content through
   enterprise mosaic datasets; do not retain source terrain or watershed
   preparation products.
+- Preserve accepted Stream and Reach segmentation without retaining the local
+  Stream Geodatabase, its Stream-scale DEM, or its pre-segmentation synthetic
+  stream network.
 - Allow new work to use the new model while legacy project data is migrated
   incrementally without stopping current work.
 - Maintain a clear crosswalk from legacy project folders and reach-survey-event
@@ -154,6 +157,11 @@ datasets.
   acquisition, point-cloud cleaning, source DEM, watershed-product, or
   hillshade workflow. Cutline geometry is retained as a governed record of
   terrain inadequacy and hydro-modification assumptions.
+- The optional `Stream Geodatabase` (legacy `Site Geodatabase`) is a local
+  preprocessing workspace rather than an FGDB entity or migration unit. Its
+  Stream-scale DEM, synthetic stream network, and drainage intermediates are
+  not retained. Projects requiring complete process reconstruction retain
+  those materials locally; FGDB requires traceability for retained results.
 - Desktop analysis may use an appropriate local projected horizontal and
   vertical reference. Governed spatial content is transformed to Web Mercator
   (EPSG:3857) for consolidated Enterprise storage, with native analysis and

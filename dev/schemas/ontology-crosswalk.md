@@ -40,7 +40,7 @@ it does not invent HY class IRIs.
 | Derived Dataset | DCAT `Dataset`; PROV `Entity` | Current retained product associated with one Survey Event and its current derivation provenance; distinguish dataset identity from its individual features and GIS representation. |
 | Cutline | GeoSPARQL `Feature`; PROV `Entity` | Local terrain-correction assumption record. No direct HY match; link its geometry, method, parameters, input, output, and derivation activity. |
 | Hydro-modified DEM | DCAT `Dataset`; PROV `Entity` | Derived raster dataset. Its mosaic footprint is a geometry of its coverage/domain, not the raster itself. Coverage vocabulary evaluation remains open. |
-| Synthetic stream network | HY `HY_ChannelNetwork` | Strong candidate: a terrain-derived network of potential channels through which water may or may not flow. Do not classify it as a hydrographic network by default. |
+| Synthetic stream network | HY `HY_ChannelNetwork` | Candidate conceptual description for an excluded terrain-derived preprocessing representation. Do not classify it as a hydrographic network by default or assign it persistent FGDB identity. ADR-0010 excludes the Stream Geodatabase network from the physical model. |
 | Flowline | HY `HY_Flowpath` | Strong candidate if the FG line represents the path water follows through the reach. Orientation and derivation rules remain local constraints. |
 | Flowline station/point | HY `HY_IndirectPosition` and/or `HY_HydroLocation` | Candidate for a position referenced along a particular FGDB Flowline. The mapping does not adopt an external linear reference system; distinguish the local measure and reference Flowline from a materialized point geometry. |
 | Cross Section | HY `HY_CrossSection` | Strong conceptual alignment; FG sampling, orientation, stationing, and attribution are narrower local constraints. |
@@ -51,6 +51,12 @@ it does not invent HY class IRIs.
 The channel/water-body distinction is foundational. A dry channel landform can
 persist while the water occupying it changes. FG terms should not collapse
 these continuants merely because legacy feature-class names did so.
+
+The synthetic stream network remains in this crosswalk so its role can be
+distinguished from the persistent Stream and from governed Flowlines. It is
+not part of the current FGDB semantic kernel or physical schema. The accepted
+outcome of its analyst review is captured in durable Stream/Reach identities
+and separately governed downstream features.
 
 HY river-referencing concepts are interoperability patterns, not a requirement
 to adopt a national route. FGDB Stream and Reach extent remains project-defined
@@ -120,7 +126,8 @@ identity by itself.
 ## Competency questions for the first workshop
 
 1. Can the graph distinguish a named stream, its channel landform, water that
-   occupies it, and the synthetic network used to delineate it?
+   occupies it, and the excluded synthetic-network process evidence that may
+   have been used to delineate it, without fabricating a persistent network?
 2. What makes a Reach the same entity across survey events when its derived
    geometry changes or its analyst-defined segmentation is revised?
 3. Can a query retrieve all current Flowlines, Cross Sections, terrain
