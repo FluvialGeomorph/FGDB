@@ -1,6 +1,7 @@
 # FluvialGeomorph project history
 
 - Recorded: 2026-08-27
+- Updated: 2026-08-28
 - Evidence status: human-provided historical context from Michael Dougherty
 
 ## Origin
@@ -44,3 +45,22 @@ assistance supports inventory, comparison, traceability, contradiction
 detection, and drafting; scientific, technical, operational, program, and
 documentation judgments remain human responsibilities.
 
+## Terrain and research-data infrastructure gap
+
+The project developed in a period when no national system provided a
+high-resolution, multi-time-period terrain collection suitable for the needed
+fluvial geomorphic analysis. The team therefore created procedures to process
+terrain, derive analysis features, and organize repeated observations through
+time. FGDB is intended to make the accepted hydro-modified terrain and derived
+geometry centrally discoverable and analyzable rather than leaving each
+reach-survey-event isolated in a delivered file geodatabase.
+
+This addresses a broader historical limitation in fluvial geomorphology.
+Stream surveys were commonly collected manually, retained in paper field
+notebooks or researcher-specific files, represented without consistent digital
+standards, and unavailable through a shared clearinghouse. The resulting data
+fragmentation constrained reuse, comparison, and long-term change analysis.
+FGDB seeks to preserve governed digital representations, consistent identity,
+multi-time-period terrain products, and distributable derived geometry while
+remaining honest about legacy source metadata and artifacts that were never
+retained.

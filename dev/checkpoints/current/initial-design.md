@@ -145,6 +145,13 @@ logical and physical schemas and operating model have not yet been designed.
   contract against the live service.
 - Moved ontology design guidance from the repository root into the durable
   `dev/ontology/` route and registered that route in `AGENTS.md`.
+- Accepted project-defined Stream and Reach extent in ADR-0009: only stored
+  FGDB geometry directly asserts extent; national geometry, segmentation, and
+  route measures remain contextual and do not govern FGDB identity.
+- Established that no national linear referencing system is required. Local
+  stationing references a specific version-aware FGDB Flowline representation.
+- Recorded the historical terrain and research-data infrastructure gap that
+  motivates centralized, multi-time-period FGDB terrain and geometry.
 
 ## Remaining
 
@@ -177,6 +184,8 @@ logical and physical schemas and operating model have not yet been designed.
    delivery plan in their durable routes.
 15. Add FGDB to the organization repository catalog and capability map through
    a separately reviewed cross-repository change when its role is accepted.
+16. Specify the local Flowline stationing contract, including origin,
+    direction, units, representation version, and cross-survey alignment rules.
 
 ## Evidence and verification
 

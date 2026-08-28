@@ -93,6 +93,9 @@ rules remain to be specified.
   national identifiers.
 - Future workflows query a configured current national hydrography service for
   candidate names and identifiers and require analyst confirmation.
+- A small or nationally unnamed stream receives a governed FGDB project name
+  with an explicit `NO_NATIONAL_NAME` or equivalent disposition; that name is
+  not represented as an official national name.
 - Store the selected source product, external feature identifier, source name,
   service/version or retrieval date, and analyst disposition as naming
   provenance.
@@ -104,6 +107,23 @@ rules remain to be specified.
 - National hydrography is advisory for naming. The analyst still segments the
   terrain-derived network into FGDB Streams and Reaches based on investigation
   objectives.
+
+## Project-defined extent and local referencing
+
+- Stream and Reach spatial extent is defined only by the optional geometry
+  stored for that FGDB entity. External national geometry, segmentation, route
+  measures, and watershed boundaries do not define or constrain it.
+- If optional Stream or Reach geometry is absent, FGDB makes no direct polygon
+  extent assertion for that entity. Applications may display related child
+  content but must not silently adopt an external feature as its geometry.
+- No national linear referencing system is required. Many investigated streams
+  are small or unnamed and have no suitable standard route.
+- Local stationing references a specific stored FGDB Flowline representation,
+  not the abstract Stream or Reach identity. It must retain reference Flowline
+  ID, origin, direction, measure units, method, and applicable Survey Event or
+  representation version.
+- Station values from different Flowlines or Survey Events are not assumed
+  directly comparable without an explicit alignment method.
 
 ## Survey Event time and current derivation
 
@@ -148,6 +168,9 @@ horizontal unit, vertical datum, and vertical unit remain required provenance;
 horizontal reprojection does not define or normalize elevation values.
 Horizontal and vertical transformations are approved per source CRS. Raster
 item properties must conform to the Enterprise `hydro_dem` mosaic dataset.
+After applicable collection QA, the retained hydro-modified DEM and its derived
+features are authoritative FluvialGeomorph analysis products. This authority
+does not extend to discarded source point clouds or external national data.
 
 ## Desktop replacement unit
 

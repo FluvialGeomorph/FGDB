@@ -42,7 +42,7 @@ it does not invent HY class IRIs.
 | Hydro-modified DEM | DCAT `Dataset`; PROV `Entity` | Derived raster dataset. Its mosaic footprint is a geometry of its coverage/domain, not the raster itself. Coverage vocabulary evaluation remains open. |
 | Synthetic stream network | HY `HY_ChannelNetwork` | Strong candidate: a terrain-derived network of potential channels through which water may or may not flow. Do not classify it as a hydrographic network by default. |
 | Flowline | HY `HY_Flowpath` | Strong candidate if the FG line represents the path water follows through the reach. Orientation and derivation rules remain local constraints. |
-| Flowline station/point | HY `HY_IndirectPosition` and/or `HY_HydroLocation` | Candidate for a position referenced along a flowpath; distinguish the station value from a materialized point geometry. |
+| Flowline station/point | HY `HY_IndirectPosition` and/or `HY_HydroLocation` | Candidate for a position referenced along a particular FGDB Flowline. The mapping does not adopt an external linear reference system; distinguish the local measure and reference Flowline from a materialized point geometry. |
 | Cross Section | HY `HY_CrossSection` | Strong conceptual alignment; FG sampling, orientation, stationing, and attribution are narrower local constraints. |
 | Cross-section point | HY `HY_HydroLocation` | Candidate spatial realization associated with a cross section and sampled elevation observation. |
 | Relative Elevation Model | DCAT `Dataset`; PROV `Entity` | Specialized local derived raster with no identified direct HY class. Define its reference surface and derivation explicitly. |
@@ -51,6 +51,12 @@ it does not invent HY class IRIs.
 The channel/water-body distinction is foundational. A dry channel landform can
 persist while the water occupying it changes. FG terms should not collapse
 these continuants merely because legacy feature-class names did so.
+
+HY river-referencing concepts are interoperability patterns, not a requirement
+to adopt a national route. FGDB Stream and Reach extent remains project-defined
+by stored FGDB geometry. Any local indirect position must identify its exact
+Flowline reference, origin, direction, units, method, and temporal or
+representation scope.
 
 ## Bridge to the physical GIS model
 

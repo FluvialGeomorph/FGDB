@@ -102,6 +102,10 @@ locations.
 - Stream and Reach names use analyst-confirmed candidates from a configured
   current national hydrography service when available. External names and IDs
   are provenance, not FGDB identity or segmentation rules.
+- Stream and Reach extents are project-defined by their own optional FGDB
+  geometries. No national geometry, segmentation, measure, or linear
+  referencing system defines them. Local stationing, when used, references a
+  specific stored FGDB Flowline representation.
 
 ## Controlled feature-type vocabulary contract
 
@@ -267,14 +271,15 @@ Collection
 
 | Property | Current specification |
 |---|---|
-| Definition | A durable named watercourse or connected watercourse unit within one Study Area; the current manuals often call this unit a `site`. |
+| Definition | A durable project-identified watercourse or connected watercourse unit within one Study Area; it may be unnamed in national systems, and the current manuals often call this unit a `site`. |
 | Object kind | Mandatory domain entity with an optional spatial representation. |
 | Hierarchy owner | Exactly one Study Area. |
 | Temporal scope | Durable across Reaches and Survey Events. |
 | Identity | Immutable ID. Human name is proposed unique within its Study Area; legacy combined `ReachName` strings are aliases, not keys. |
 | Geometry | Zero or one optional polygon in EPSG:3857. Do not require a WBD HUC, catchment/drainage area, floodplain proxy, or analyst-drawn polygon. |
 | Geometry purpose | Optional cartographic AOI only; it is not required by the analysis and does not enforce parentage. |
-| Name discovery | Query Geoconnex through `hydrogeofetch` for intersecting/nearby reference-feature candidates. Prefer current USGS 3DHP-backed references when available, retaining `gnisidlabel`/`gnisid`, `mainstemid`, and `id3dhp` context returned or subsequently resolved. Analyst confirms the selected name or records an override/unnamed disposition. |
+| Extent authority | The stored FGDB geometry, when present, is the only direct assertion of Stream extent. National feature and watershed geometries are contextual references and are never substituted when it is absent. |
+| Name discovery | Query Geoconnex through `hydrogeofetch` for intersecting/nearby reference-feature candidates. Prefer current USGS 3DHP-backed references when available, retaining `gnisidlabel`/`gnisid`, `mainstemid`, and `id3dhp` context returned or subsequently resolved. Analyst confirms the selected name or records an override/`NO_NATIONAL_NAME` disposition and governed FGDB project name. |
 | Naming provenance | Source product/service, external identifier(s), supplied label, service/version or retrieval date, selection status, and override reason when applicable. |
 | National-data limitation | A national flowline or watershed unit does not define the FGDB Stream AOI. WBD HUCs are watershed context, not default Stream polygons or names. |
 | QA | One Study Area parent; non-null immutable ID; valid confirmed name; naming provenance; valid optional polygon when present; no hierarchy derived from name parsing or containment. |
@@ -292,6 +297,8 @@ Collection
 | Identity | Immutable ID. Human name is proposed unique within its Stream; legacy combined site/reach names are aliases, not relationship keys. |
 | Segmentation | Analyst divides the edited synthetic network into Reaches based on investigation objectives and geomorphic/operational criteria. National hydrography segments do not override that decision. |
 | Geometry | Zero or one optional polygon in EPSG:3857. Do not require an analyst to draw an arbitrary channel/floodplain AOI merely to spatialize the hierarchy. |
+| Extent authority | The stored FGDB geometry, when present, is the only direct assertion of Reach extent. It is independent of national segment endpoints, route measures, and geometry. |
+| Linear referencing | No external or national route is required. Derived stationing references a specific FGDB Flowline and must declare origin, direction, units, method, and representation/Survey Event scope. |
 | Name discovery | Use the confirmed national Stream name and relevant current hydrography identifiers as naming context. A national feature ID may be associated with a Reach but does not replace its FGDB ID or imply identical boundaries. Exact Reach display-name grammar remains unresolved. |
 | Legacy boundary | The legacy `boundary` polygon may represent a survey-specific DEM/analysis AOI rather than the durable Reach. Migration mapping therefore targets optional Survey Event geometry unless evidence establishes another meaning. |
 | QA | One Stream parent; non-null immutable ID; valid analyst-confirmed name; naming provenance; valid optional polygon when present; no hierarchy derived from `ReachName` or geometry containment. |

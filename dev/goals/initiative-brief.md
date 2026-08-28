@@ -91,6 +91,12 @@ datasets.
 - Let authenticated USACE Shiny users save a small-area self-service analysis,
   find it again by map or study-area selection, and resume or review it in a
   later session.
+- Support small and unnamed streams without requiring national geometry,
+  segmentation, or linear referencing; FGDB-stored geometry and stable IDs
+  govern project extent and identity.
+- Provide centralized, standards-ready access to governed high-resolution,
+  multi-time-period terrain analysis products and derived fluvial geometry that
+  historically lacked a durable shared digital representation.
 - Make design evidence and dependencies traceable enough that the team can
   review decisions from its scientific, technical, operational, program, and
   documentation perspectives without relying on one person's memory.

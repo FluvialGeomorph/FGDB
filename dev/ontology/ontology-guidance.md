@@ -81,6 +81,19 @@ Treat Reach as a potentially study- or analysis-specific segmentation of a persi
 
 Ensure the schema can represent different reach segmentations of the same stream across studies or analysis versions without corrupting stream identity.
 
+## Project-defined extent and referencing
+
+Do not align FGDB Stream or Reach extent to national feature geometry,
+segmentation, route measures, or watershed boundaries. When present, the
+entity's own stored FGDB geometry is its only direct extent assertion.
+
+Do not require a national linear referencing system. Local stationing may use
+a specific stored FGDB Flowline, but must retain its reference Flowline ID,
+origin, direction, units, method, and Survey Event or representation scope.
+HY_Features river-referencing concepts are candidate semantic mappings, not a
+requirement to adopt an external route or treat local measures as globally
+comparable.
+
 ## Survey Event versus derivation provenance
 
 Preserve the conceptual distinction between:
