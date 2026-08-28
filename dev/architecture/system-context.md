@@ -72,13 +72,15 @@ SDE feature classes     hydro DEM/REM mosaic datasets
   intended behavior. The deployed database and services provide operational
   evidence and must be checked for drift.
 
-## External naming assistance
+## External reference-feature and naming assistance
 
-A configured national hydrography query service may suggest Stream and Reach
-names and external identifiers during hierarchy creation or migration. As of
-the 2026-08-28 design review, the current starting provider is the USGS 3D
-Hydrography Program Flowline Feature Service. This is an advisory read-only
-dependency:
+Geoconnex is the standard interface for discovering external hydrologic
+reference features during hierarchy creation or migration. R clients use
+`hydrogeofetch`; current USGS 3D Hydrography Program references are preferred
+where Geoconnex coverage supports the needed feature. Product-specific
+services may supplement specialized attributes or processing, but they do not
+replace the governed external-reference contract. This is an advisory
+read-only dependency:
 
 - an analyst confirms, overrides, or marks a candidate unavailable/unnamed;
 - FGDB stores the selected source, external ID, supplied label, service version
@@ -87,6 +89,10 @@ dependency:
 - live external values never replace FGDB immutable IDs; and
 - temporary service unavailability must have an explicit manual/deferred
   fallback and must not corrupt an established hierarchy.
+
+The current `fluvgeo::pt_watershed_area()` NLDI processing calls are not direct
+Geoconnex reference queries. Dependency migration to `hydrogeofetch` and new
+Geoconnex identifier discovery are separately testable changes.
 
 ## Security boundary
 

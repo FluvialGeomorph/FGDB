@@ -49,8 +49,9 @@ Collection
 └── Study Area
     └── Stream
         └── Reach
-            └── Survey Event
-                └── FG Features
+            └── Survey/Acquisition Event
+                └── Analysis/Processing Run
+                    └── FG Features
 ```
 
 A reach-survey-event geodatabase represents derived conditions for one reach
@@ -100,6 +101,12 @@ datasets.
 - Align with current OGC and W3C semantic standards where meanings genuinely
   agree while preserving explicit FG extensions for specialized fluvial
   geomorphology concepts.
+- Use Geoconnex as the standard external hydrologic reference-feature
+  interface and `hydrogeofetch` as the supported R client.
+- Align any future normative ontology module with the namespace, candidate,
+  versioning, validation, and publication framework in
+  `usace-ukg-ontologies`, without making full ontology implementation a
+  prerequisite for the FGDB schema.
 
 ## Constraints and principles
 
@@ -146,6 +153,8 @@ datasets.
   vertical reference. Governed spatial content is transformed to Web Mercator
   (EPSG:3857) for consolidated Enterprise storage, with native analysis and
   vertical-reference metadata retained.
+- Acquisition/observation, source datasets, analysis/processing runs, and
+  derived results are distinct identities with explicit lineage.
 
 ## Open success criteria
 

@@ -14,7 +14,7 @@ implements and provides a controlled path into USACE knowledge graphs.
 External standards and reference identifiers
               |
               v
-FG ontology + controlled vocabularies + external crosswalk
+FG semantic crosswalk + controlled vocabularies
               |
               v
 Logical feature catalog and integrity rules
@@ -23,7 +23,7 @@ Logical feature catalog and integrity rules
 Esri/PostgreSQL physical schema and governed services
               |
               v
-Versioned RDF projection / USACE knowledge graph
+Future RDF projection / USACE Unified Knowledge Graph
 ```
 
 The arrows are governed mappings, not assertions that adjacent layers are the
@@ -34,17 +34,17 @@ make the effects of change explicit.
 
 | Artifact | Responsibility | Must not become |
 |---|---|---|
-| FG ontology | Machine-readable domain meaning and relationships | A copy of table structure |
+| FG semantic module | Kernel definitions, identity rules, and reviewed mappings | A full ontology required before schema implementation |
 | Controlled vocabularies | Governed values, definitions, aliases, and status | Unexplained coded-value lists |
 | External crosswalk | Evidence-backed alignment claims and versions | Label-based equivalence guesses |
 | Feature catalog | Human-reviewable logical object and attribute contract | An ontology serialization |
-| SHACL shapes | Constraints on RDF instance graphs | The only integrity mechanism |
+| Future SHACL shapes | Constraints on a future RDF instance graph | A current FGDB implementation dependency |
 | Physical schema | Operational storage, keys, relationships, topology, and services | The sole source of term definitions |
 | Mapping contract | Reproducible projection between physical records and semantic resources | Application-specific hidden logic |
 
-Database constraints remain authoritative for production writes. SHACL tests
-the semantic projection, while catalog and ingestion tests verify that the
-database implements the same rules.
+Database constraints remain authoritative for production writes. Catalog and
+ingestion tests verify current rules. Future SHACL tests will validate a
+semantic projection after that projection is authorized.
 
 ## Identity and geometry
 
@@ -61,10 +61,15 @@ database implements the same rules.
 - An optional geometry does not make its domain entity optional. Stream and
   Reach remain identifiable even when no defensible polygon exists.
 
-## Planned module boundary
+## Current module boundary
 
-The repository-level `ontology/` module begins as a design scaffold. If
-ADR-0007 is accepted, its likely release artifacts are:
+The repository-level `ontology/` directory is a semantic-design scaffold. Its
+current maintained artifacts are the crosswalk, controlled-vocabulary
+requirements, identity rules, and links to governing decisions. A complete
+ontology source tree is deferred.
+
+If future USACE knowledge-graph integration requires normative artifacts, they
+may include:
 
 ```text
 ontology/
@@ -77,9 +82,25 @@ ontology/
   tests/               # reasoning, validation, and mapping tests
 ```
 
-Directories and normative RDF sources should be added only when they contain
-reviewable content. A namespace must not be improvised from a source-control
-URL if USACE will own the persistent identifiers.
+These artifacts must be promoted through `usace-ukg-ontologies`, whose current
+framework uses `https://usace-data.com/` ontology, taxonomy, data, and named
+graph namespaces. FGDB will not improvise a public namespace or modify the
+TopBraid-compatible hierarchy independently.
+
+## Current-phase schema safeguards
+
+- Give Stream, Reach, acquisition, processing run, Flowline, Cross Section,
+  source dataset, derived dataset, and derived features explicit immutable IDs
+  and documented identity-change rules.
+- Separate persistent entities from their geometries and dataset
+  representations.
+- Separate acquisition from source-dataset creation, analysis execution, and
+  derived results.
+- Use normalized concept/reference tables with stable concept IDs, preferred
+  labels, definitions, citations, vocabulary versions, lifecycle status, and
+  aliases.
+- Store Geoconnex links as qualified external references with match evidence;
+  do not make them the FGDB primary key.
 
 ## Governance and release rules
 
@@ -89,8 +110,8 @@ URL if USACE will own the persistent identifiers.
    interoperability perspectives.
 4. Deprecate published terms and mappings rather than deleting or silently
    redefining them.
-5. Version ontology, physical schema, and mapping contract independently and
-   publish a compatibility matrix.
+5. Version the physical schema and semantic mapping independently and publish
+   a compatibility matrix when a USACE ontology candidate exists.
 6. Test representative legacy, desktop, and Shiny instances before release.
 7. Separate ontology term governance from reference-data stewardship; an
    external name suggestion does not redefine an FGDB entity.
@@ -102,9 +123,9 @@ URL if USACE will own the persistent identifiers.
 2. Define a small kernel: Collection, Study Area, Stream, Reach, Survey Event,
    hydro DEM, synthetic network, Flowline, and Cross Section.
 3. Review external alignments and issue stable local definitions.
-4. Select namespace governance and build a minimal OWL/SKOS/SHACL prototype.
-5. Map one read-only SDE view to RDF and verify identifiers, geometry,
-   provenance, and round-trip traceability.
-6. Expand the ontology only as the feature catalog advances through workflow
-   order.
-
+4. Finalize the ontology-ready relational schema and ingestion validation.
+5. When USACE knowledge-graph integration is scheduled, nominate a candidate
+   through `usace-ukg-ontologies`, reserve the approved namespace, and then
+   build a minimal OWL/SKOS/SHACL projection.
+6. Map one read-only SDE view using the USACE RML conventions and verify
+   identifiers, geometry, provenance, and round-trip traceability.

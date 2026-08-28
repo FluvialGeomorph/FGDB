@@ -119,11 +119,30 @@ logical and physical schemas and operating model have not yet been designed.
   complementary concerns, with Geoconnex as an integration candidate.
 - Reclassified hydrOntology and the USGS Surface Water Ontology as informative
   prior art rather than maintained normative foundations.
+- Accepted Geoconnex as the standard external hydrologic reference-feature
+  interface and `hydrogeofetch` as the supported R client in ADR-0008.
+- Verified that current `fluvgeo` calls use NLDI processing operations rather
+  than direct Geoconnex reference queries, and separated the package migration
+  from the new external-identifier discovery contract.
+- Established `usace-ukg-ontologies` as the authority for future namespace,
+  ontology promotion, versioning, named graphs, and semantic validation.
+- Applied `ontology-guidance.md`: full OWL/SHACL/RML development is outside the
+  implementation critical path; the present focus is immutable identity,
+  controlled concepts, provenance, kernel HY_Features mappings, and an
+  ontology-ready relational schema.
+- Split Survey/Acquisition Event from Analysis/Processing Run and documented
+  the lineage from acquisition through source dataset and processing to
+  derived datasets/features.
+- Updated `fluvgeo` to import `get_raindrop_trace()` and
+  `get_split_catchment()` from `hydrogeofetch` 2.0.1, replaced the dependency
+  in its reproducible lockfile, and verified the existing watershed return
+  contract against the live service.
 
 ## Remaining
 
-1. Review ADR-0007, answer the semantic-kernel competency questions, and
-   establish USACE ontology namespace and publication governance.
+1. Finalize kernel identity-change and cardinality rules, especially Stream,
+   Reach, acquisition, processing run, source/derived dataset, Flowline, and
+   Cross Section.
 2. Resolve synthetic stream-network persistence/ownership and the legacy
    `boundary` to optional Survey Event geometry crosswalk.
 3. Specify the per-source-CRS transformation registry and complete `hydro_dem`
@@ -163,19 +182,19 @@ logical and physical schemas and operating model have not yet been designed.
 
 ## Next safe action
 
-Conduct a semantic-kernel workshop using the competency questions in
-`dev/schemas/ontology-crosswalk.md`. Resolve the meanings and persistence rules
-for Stream, Reach, Survey Event, synthetic network, Flowline, and Cross Section
-before minting ontology terms. In parallel with governance review, use those
-answers to resolve synthetic-network persistence and the legacy `boundary`
-crosswalk. Do not cut over the production desktop workflow until the coherent
-replacement pipeline is ready.
+Complete the ontology-ready kernel relational model using the competency
+questions in `dev/schemas/ontology-crosswalk.md`, beginning with identity rules
+and cardinalities for Stream, Reach, acquisition, source dataset, processing
+run, derived dataset, Flowline, and Cross Section. Then resolve synthetic
+network persistence and the legacy `boundary` crosswalk. Do not wait for a
+complete OWL ontology or cut over the production desktop workflow before the
+coherent replacement pipeline is ready.
 
 ## Blockers or decisions
 
 Implementation authorization is still required before changing `fluvgeo`, the
 desktop toolbox, Shiny clients, or `FG-architecture`. The Study Area name
 separator, descriptive-component normalization, rename/alias behavior, and
-name reuse policy remain to be defined. Ontology namespace ownership and the
-USACE publication endpoint must be established before persistent semantic
-identifiers are minted.
+name reuse policy remain to be defined. A future FluvialGeomorph ontology
+namespace requires sponsorship and approval through `usace-ukg-ontologies`;
+no public semantic identifiers should be minted locally.

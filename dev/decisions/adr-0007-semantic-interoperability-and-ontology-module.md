@@ -21,36 +21,32 @@ foundation.
 
 ## Proposed decision
 
-1. Develop a versioned FluvialGeomorph ontology module as a semantic contract
-   distinct from both the logical feature catalog and physical FGDB schema.
+1. Develop the FluvialGeomorph semantic module first as a versioned crosswalk,
+   controlled-vocabulary contract, and identity specification distinct from
+   both the logical feature catalog and physical FGDB schema. A complete OWL
+   ontology is not a prerequisite for FGDB implementation.
 2. Use OGC HY_Features as the primary external conceptual alignment for
    hydrographic features. Local concepts remain local when HY_Features has no
    sufficiently precise equivalent.
-3. Use the following standards profile:
-   - RDF and OWL 2 for identifiers, classes, properties, and formal axioms;
-   - SKOS for controlled concepts, definitions, alternate labels, and
-     qualified mapping assertions;
-   - GeoSPARQL 1.1 for features, geometries, and spatial relations;
-   - PROV-O for derivation, loading, replacement, agents, and software
-     provenance;
-   - SOSA/SSN 2023 as a candidate model for observations and collections of
-     observations, subject to a Survey Event modeling exercise;
-   - DCAT 3 for discoverable datasets, distributions, and data services; and
-   - SHACL 1.0 for validating RDF graph constraints.
+3. Keep the relational design compatible with a future standards profile using
+   OWL 2, SKOS, GeoSPARQL 1.1, PROV-O, SOSA/SSN, DCAT 3, and SHACL. Do not
+   implement those projections until they are needed and accepted through the
+   USACE ontology framework.
 4. Maintain a versioned mapping contract from ontology terms and constraints
    to PostgreSQL/SDE tables, feature classes, relationship classes, domains,
-   and mosaic items. Evaluate R2RML for relational views that can be projected
-   as RDF, without requiring the operational geodatabase itself to store RDF.
-5. Base instance IRIs on immutable FGDB identifiers, never mutable names or
-   Esri `OBJECTID` values. Do not select or publish the persistent namespace
-   until USACE knowledge-graph ownership and identifier governance are known.
+   and mosaic items. Future RML/R2RML projection must follow the conventions of
+   `usace-ukg-ontologies`; the operational geodatabase will not store RDF.
+5. Base any future instance IRIs on immutable FGDB identifiers, never mutable
+   names or Esri `OBJECTID` values. Namespace registration, publication, and
+   versioning are governed by `usace-ukg-ontologies` and its
+   `https://usace-data.com/` framework.
 6. Treat mappings as reviewed claims with recorded evidence and scope.
    `owl:equivalentClass`, `owl:equivalentProperty`, and `owl:sameAs` require
    demonstrated identity; similarity alone uses a weaker relation or remains
    an explanatory note.
-7. Evaluate Geoconnex as a linked-data integration profile and source of
-   persistent reference-feature links, not as the normative definition of the
-   FG domain.
+7. Use Geoconnex as the standard external reference-feature interface and
+   source of persistent hydrologic links, not as the normative definition of
+   the FG domain. Apply ADR-0008's qualified-link rules.
 8. Treat hydrOntology and the USGS Surface Water Ontology/design pattern as
    informative prior art. Their distinctions—especially channel landform
    versus water body—remain useful, but their age and apparent maintenance
@@ -62,6 +58,8 @@ foundation.
   catalog, geodatabase, APIs, RDF projection, and documentation.
 - FGDB can participate in knowledge graphs without coupling production writes
   to a graph database.
+- Stable schema design and ingestion remain ahead of full ontology
+  implementation on the critical path.
 - Crosswalks and transformations become governed release artifacts that need
   tests, review, version pinning, and deprecation policy.
 - Some familiar words will require sharper local definitions. In particular,
@@ -72,12 +70,12 @@ foundation.
 
 ## Acceptance questions
 
-- Which USACE organization controls the persistent namespace and publication
-  endpoint?
-- Is a Survey Event principally an observation collection, a provenance
-  activity, a dataset grouping, or a local concept related to all three?
+- Which `usace-ukg-ontologies` maintainers will sponsor and review a future
+  FluvialGeomorph candidate and namespace reservation?
+- What are the distinct identity rules for acquisition events, source
+  datasets, processing runs, and derived datasets/features?
 - Does FG `Stream` denote a named hydrographic feature, a channel landform, a
   water body, or a managed aggregate with those aspects?
 - What continuity rule makes a Reach the same Reach across survey events?
-- Which physical-to-RDF mapping mechanism is supportable alongside SDE?
-
+- Which physical-to-RDF mapping mechanism is supportable alongside SDE if and
+  when semantic projection becomes an implementation requirement?
