@@ -62,6 +62,8 @@ datasets.
 
 - Establish stable identities and relationships for study areas, streams,
   reaches, survey events, and their derived FG features.
+- Require a Study Area AOI polygon while allowing Stream, Reach, and Survey
+  Event polygons to be absent when no defensible or retained extent exists.
 - Support repeat observations of a reach without conflating survey events.
 - Enable idempotent loading of locally processed artifacts into a central
   database system.
@@ -92,6 +94,12 @@ datasets.
 - Make design evidence and dependencies traceable enough that the team can
   review decisions from its scientific, technical, operational, program, and
   documentation perspectives without relying on one person's memory.
+- Define a maintained FluvialGeomorph ontology module that connects scientific
+  terminology, the logical feature catalog, the physical GIS model, and future
+  USACE knowledge graphs through versioned, evidence-backed mappings.
+- Align with current OGC and W3C semantic standards where meanings genuinely
+  agree while preserving explicit FG extensions for specialized fluvial
+  geomorphology concepts.
 
 ## Constraints and principles
 
@@ -109,6 +117,9 @@ datasets.
 - Study-area names are globally unique, human-readable values governed by a
   two-level district-code and descriptive-name convention; immutable IDs
   provide unambiguous identity.
+- Stream and Reach names should use analyst-confirmed suggestions from current
+  national hydrography services where available, while FGDB IDs and
+  investigation-specific segmentation remain authoritative.
 - Client-facing Feature Layer services are read-only. Creation, correction,
   replacement, and retirement occur only through controlled FGDB write
   workflows.
@@ -156,3 +167,5 @@ traceability, query usefulness, and operational recovery.
 - The relationship between filesystem organization and database organization.
 - Integration contracts with `FluvialGeomorph-toolbox`, `fluvgeo`, `ohwm2`,
   manuals, and future consumers.
+- Persistent ontology namespace ownership, publication infrastructure,
+  semantic versioning policy, and the approved external-alignment profile.

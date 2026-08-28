@@ -1,6 +1,6 @@
 # Checkpoint: Initial FGDB design
 
-- Updated: 2026-08-27
+- Updated: 2026-08-28
 - Status: active
 
 ## Objective
@@ -87,7 +87,7 @@ logical and physical schemas and operating model have not yet been designed.
 - Accepted a two-level Study Area name comprising a controlled three-letter
   USACE district code and descriptive name.
 - Accepted multipart-capable, analyst-defined Study Area polygons that are
-  editable in place as general project scope changes.
+  editable in place as the Area of Interest changes.
 - Accepted required Survey Event year with optional month/day, derived date
   precision/labels, and report-only default base-event selection.
 - Required per-source-CRS horizontal/vertical transformations and conformance
@@ -97,34 +97,58 @@ logical and physical schemas and operating model have not yet been designed.
 - Drafted the next catalog entries for Stream, Reach, and the synthetic stream
   network, exposing their unresolved geometry, boundary, persistence, and
   ownership contracts.
+- Accepted mandatory hierarchy identity with level-specific geometry
+  cardinality: required Study Area AOI, optional Stream/Reach polygons, and an
+  optional Survey Event DEM/analysis AOI that may be derived from the hydro DEM
+  footprint.
+- Clarified that Study Area means an area being evaluated and does not imply a
+  remediation project exists.
+- Accepted analyst-driven segmentation of the synthetic network into Streams
+  and Reaches according to investigation objectives.
+- Verified that USGS now maintains 3DHP while NHD, WBD, and NHDPlus HR are
+  legacy products; accepted configurable national-service name suggestions
+  with analyst confirmation and retained external-name provenance in ADR-0006.
+- Evaluated the current semantic-standards landscape and proposed a distinct
+  FG ontology layer linking external standards, the feature catalog, the
+  physical GIS schema, and a future RDF/knowledge-graph projection.
+- Drafted ADR-0007, a semantic interoperability architecture, an initial
+  kernel crosswalk, competency questions, and a non-normative `ontology/`
+  scaffold for team review.
+- Identified OGC HY_Features as the primary hydrographic conceptual alignment;
+  proposed GeoSPARQL, OWL, SKOS, PROV-O, SOSA/SSN, DCAT, and SHACL for
+  complementary concerns, with Geoconnex as an integration candidate.
+- Reclassified hydrOntology and the USGS Surface Water Ontology as informative
+  prior art rather than maintained normative foundations.
 
 ## Remaining
 
-1. Resolve the Stream geometry, Reach/boundary normalization, and synthetic
-   stream-network persistence/ownership questions in the new catalog slice.
-2. Specify the per-source-CRS transformation registry and complete `hydro_dem`
+1. Review ADR-0007, answer the semantic-kernel competency questions, and
+   establish USACE ontology namespace and publication governance.
+2. Resolve synthetic stream-network persistence/ownership and the legacy
+   `boundary` to optional Survey Event geometry crosswalk.
+3. Specify the per-source-CRS transformation registry and complete `hydro_dem`
    mosaic-item contract.
-3. Complete the Study Area string grammar and Survey Event tie/partial-date
+4. Complete the Study Area string grammar and Survey Event tie/partial-date
    ordering rules.
-4. Prepare separately scoped cross-repository implementation planning for
+5. Prepare separately scoped cross-repository implementation planning for
    accepted ADR-0004; treat flowline as a later paired-implementation contract
    pilot rather than the first catalog entry.
-5. Formalize required metadata for collection, study area, stream, reach,
-   survey event, and feature content.
-6. Specify immutable identifier formats and the remaining Study Area name,
+6. Formalize required metadata for Collection, Study Area, Stream, Reach,
+   Survey Event, optional hierarchy geometries, and feature content.
+7. Specify immutable identifier formats and the remaining Study Area name,
    rename, alias, and reuse rules.
-7. Formalize temporal semantics, spatial semantics, provenance, and integrity
+8. Formalize temporal semantics, spatial semantics, provenance, and integrity
    constraints.
-8. Complete the L1/L2/L3 feature-class and mosaic-dataset source-to-target
+9. Complete the L1/L2/L3 feature-class and mosaic-dataset source-to-target
    disposition and field crosswalks.
-9. Design ingestion, reconciliation, error handling, and rollback behavior.
-10. Define Feature Layer and raster-service boundaries and client contracts.
-11. Define environment, security, deployment, and operational requirements with
+10. Design ingestion, reconciliation, error handling, and rollback behavior.
+11. Define Feature Layer and raster-service boundaries and client contracts.
+12. Define environment, security, deployment, and operational requirements with
    the USACE hosting stakeholders.
-12. Define the legacy inventory and migration crosswalk.
-13. Record accepted decisions, schemas, workflows, and a staged
+13. Define the legacy inventory and migration crosswalk.
+14. Record accepted decisions, schemas, workflows, and a staged
    delivery plan in their durable routes.
-14. Add FGDB to the organization repository catalog and capability map through
+15. Add FGDB to the organization repository catalog and capability map through
    a separately reviewed cross-repository change when its role is accepted.
 
 ## Evidence and verification
@@ -139,15 +163,19 @@ logical and physical schemas and operating model have not yet been designed.
 
 ## Next safe action
 
-Review the draft Stream, Reach, and synthetic stream-network catalog entries
-and resolve their geometry, boundary normalization, persistence, and ownership
-questions. Then define the transformation registry and complete hydro DEM
-mosaic contract. Do not cut over the production desktop workflow until the
-coherent replacement pipeline is ready.
+Conduct a semantic-kernel workshop using the competency questions in
+`dev/schemas/ontology-crosswalk.md`. Resolve the meanings and persistence rules
+for Stream, Reach, Survey Event, synthetic network, Flowline, and Cross Section
+before minting ontology terms. In parallel with governance review, use those
+answers to resolve synthetic-network persistence and the legacy `boundary`
+crosswalk. Do not cut over the production desktop workflow until the coherent
+replacement pipeline is ready.
 
 ## Blockers or decisions
 
 Implementation authorization is still required before changing `fluvgeo`, the
 desktop toolbox, Shiny clients, or `FG-architecture`. The Study Area name
 separator, descriptive-component normalization, rename/alias behavior, and
-name reuse policy remain to be defined.
+name reuse policy remain to be defined. Ontology namespace ownership and the
+USACE publication endpoint must be established before persistent semantic
+identifiers are minted.

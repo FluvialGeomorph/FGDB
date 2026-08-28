@@ -43,6 +43,8 @@ locations.
 | Catalog ID | Stable identifier independent of a physical dataset name. |
 | Preferred name and definition | Unambiguous domain meaning. |
 | Legacy aliases | File-geodatabase, toolbox, manual, or application names. |
+| Semantic term | Stable local ontology term and identity criteria once published. |
+| External alignment | Versioned external concept, mapping relation, scope, rationale, and review status; no mapping is a valid explicit result. |
 | Object kind | Domain entity, vector feature, derived raster, or governed metadata. |
 | Workflow stage and level | Production order and applicable L1/L2/L3 stages. |
 | Hierarchy owner | Collection, study area, stream, reach, or survey event. |
@@ -56,6 +58,7 @@ locations.
 | Persistence disposition | Authoritative, recomputable, temporary, excluded, or unresolved. |
 | Publication behavior | Visibility, service representation, collection QA gate, and editability. |
 | Replacement behavior | Participation in desktop reach-survey-event replacement or Shiny in-place editing. |
+| Physical mapping | Implementing table, feature class, mosaic item, key, relationship, domain, and semantic-projection rule. |
 | Evidence | Documentation, code, samples, and decisions supporting the contract. |
 | Contract maturity | Inventoried, draft, reviewed, accepted, implemented, or verified. |
 
@@ -63,7 +66,8 @@ locations.
 
 - A Study Area is one governed multipart-capable polygon feature and domain
   entity, not a table plus multiple extent geometries. It is an editable
-  depiction of general project scope, not an official boundary.
+  depiction of the rough Area of Interest (AOI), not an official boundary or
+  evidence that a remediation project exists.
 - Its two-level name comprises a controlled three-letter uppercase USACE
   district code and a concise descriptive study-area name.
 - Every Study Area has one required extent-type value from the controlled
@@ -86,6 +90,12 @@ locations.
 - Survey Event year is required; month and day are optional, with day dependent
   on month. Its concise label is derived as `YYYY` or `YYYY-MM` without
   inventing unknown components. FGDB stores no base-event designation.
+- Stream and Reach entity records are mandatory, but their polygons are
+  optional. Survey Event polygon geometry is also optional and may be derived
+  from the hydro DEM footprint.
+- Stream and Reach names use analyst-confirmed candidates from a configured
+  current national hydrography service when available. External names and IDs
+  are provenance, not FGDB identity or segmentation rules.
 
 ## Workflow-foundation entries
 
@@ -93,15 +103,15 @@ locations.
 
 | Property | Current specification |
 |---|---|
-| Definition | The named geographic subject of a FluvialGeomorph project, represented by one polygon within which streams, reaches, survey events, and governed analysis products are organized. |
+| Definition | The named geographic Area of Interest being evaluated, represented by one polygon within which Streams, Reaches, Survey Events, and governed analysis products are organized. The evaluation may precede or never result in a remediation project. |
 | Object kind | Polygon domain entity; it is not a derived geomorphic feature. |
 | Workflow stage | 01 - establish study-area identity and location. |
 | Hierarchy owner | Exactly one Collection. |
 | Temporal scope | Durable across multiple Streams, Reaches, and Survey Events. |
 | Identity | Immutable ID plus a globally unique human-readable two-level name. `district_code` is a controlled three-letter uppercase USACE district code; `study_area_name` is a concise descriptive name. Separator and normalization rules remain unresolved. |
 | Geometry | Exactly one valid, nonempty, multipart-capable polygon feature in Enterprise Web Mercator (EPSG:3857). One feature may contain one or more polygon parts. |
-| Boundary meaning | General area currently under consideration, chosen by the analyst; not an official jurisdictional, regulatory, watershed, or scientific boundary. |
-| Mutation | Editable in place at any project-lifecycle stage to reflect scope changes; record last modifying actor/process and time. Deeper geometry history is unresolved. |
+| Boundary meaning | Rough AOI currently under consideration, chosen by the analyst; not an official jurisdictional, regulatory, watershed, or scientific boundary. |
+| Mutation | Editable in place throughout the investigation lifecycle to reflect AOI changes; record last modifying actor/process and time. Deeper geometry history is unresolved. |
 | Extent type | Required controlled value: `SMALL_REACH`, `LONG_REACH`, or `WATERSHED`. This describes project geographic extent and does not alter hierarchy. |
 | Producer | Desktop analyst or authorized Shiny workflow, subject to collection rules. |
 | Persistence | Authoritative governed feature. |
@@ -129,6 +139,8 @@ draw it are workflow inputs, not additional FGDB objects.
 | Display label | `YYYY` when month is unknown; otherwise `YYYY-MM`. Day is retained as data but omitted from the concise label. The label is not assumed globally unique. |
 | Ordering | Use known date components. Tie-breaking and ordering when precision differs remain unresolved. |
 | Base event | Not represented in FGDB. Reports use the latest Survey Event as their default base. |
+| Geometry | Zero or one optional polygon representing the DEM/analysis AOI. It may be supplied by the analyst or derived from the Hydro-modified DEM footprint; historical loads do not fabricate a source polygon. |
+| Geometry provenance | When materialized, required controlled value `ANALYST_SUPPLIED` or `HYDRO_DEM_FOOTPRINT`, plus derivation method/version when applicable. |
 | QA | One Reach parent; valid immutable ID; known valid year; valid component dependencies/ranges; precision and label agree with components. |
 | Evidence | Historical year-based event names; documented monthly reflights; accepted conceptual hierarchy; ADR-0005. |
 | Maturity | Accepted conceptual contract; logical fields remain draft. |
@@ -224,31 +236,38 @@ Collection
 
 ### FCAT-005: Stream
 
-| Property | Draft specification |
+| Property | Current specification |
 |---|---|
 | Definition | A durable named watercourse or connected watercourse unit within one Study Area; the current manuals often call this unit a `site`. |
-| Object kind | Domain entity. Whether it owns an independently stored geometry remains unresolved. |
+| Object kind | Mandatory domain entity with an optional spatial representation. |
 | Hierarchy owner | Exactly one Study Area. |
 | Temporal scope | Durable across Reaches and Survey Events. |
-| Identity | Immutable ID. Proposed human name unique within its Study Area; legacy combined `ReachName` strings are not keys. |
-| Geometry evidence | The target prototype represents `FG_Stream` as a polygon plus a parallel table. The current workflow primarily establishes a Stream through edited network lines and named tributaries. Neither artifact yet establishes the target geometry contract. |
-| QA | One Study Area parent; non-null immutable ID; valid name; no hierarchy derived from string parsing. |
-| Evidence | Level 1 "Criteria for Creating Sites"; Site-to-Stream terminology decision; target prototype `FG_Stream` and `FG_Stream_Table`. |
-| Maturity | Draft; geometry and naming contract require review. |
+| Identity | Immutable ID. Human name is proposed unique within its Study Area; legacy combined `ReachName` strings are aliases, not keys. |
+| Geometry | Zero or one optional polygon in EPSG:3857. Do not require a WBD HUC, catchment/drainage area, floodplain proxy, or analyst-drawn polygon. |
+| Geometry purpose | Optional cartographic AOI only; it is not required by the analysis and does not enforce parentage. |
+| Name discovery | Query a configured current national hydrography service for intersecting/nearby candidates. As of 2026-08-28, prefer USGS 3DHP Flowline `gnisidlabel`/`gnisid` with `mainstemid` and `id3dhp` context. Analyst confirms the selected name or records an override/unnamed disposition. |
+| Naming provenance | Source product/service, external identifier(s), supplied label, service/version or retrieval date, selection status, and override reason when applicable. |
+| National-data limitation | A national flowline or watershed unit does not define the FGDB Stream AOI. WBD HUCs are watershed context, not default Stream polygons or names. |
+| QA | One Study Area parent; non-null immutable ID; valid confirmed name; naming provenance; valid optional polygon when present; no hierarchy derived from name parsing or containment. |
+| Evidence | Level 1 "Criteria for Creating Sites"; Site-to-Stream terminology decision; target prototype; ADR-0006; current USGS 3DHP service. |
+| Maturity | Accepted entity/geometry/naming-source contract; exact name grammar and service integration remain draft. |
 
 ### FCAT-006: Reach
 
-| Property | Draft specification |
+| Property | Current specification |
 |---|---|
 | Definition | A durable analytical segment of one Stream, divided where drainage area, slope, sinuosity, infrastructure, or study objectives justify a separate unit. |
-| Object kind | Domain entity with a likely polygon representation. |
+| Object kind | Mandatory domain entity with an optional spatial representation. |
 | Hierarchy owner | Exactly one Stream. |
 | Temporal scope | Durable across Survey Events. |
-| Identity | Immutable ID. Proposed concise reach name unique within its Stream, such as `R1`; legacy combined site/reach names are aliases, not relationship keys. |
-| Geometry evidence | Legacy `boundary` is a manually drawn polygon associated with a reach-survey-event geodatabase. The target prototype represents `FG_Reach` as a polygon plus a parallel table. Whether the durable Reach polygon is the normalized legacy boundary or a different general scope polygon remains unresolved. |
-| QA | One Stream parent; non-null immutable ID; valid name; geometry contract once accepted; no hierarchy derived from `ReachName`. |
-| Evidence | Level 1 "Define Reaches"; Tech Manual `boundary`; User Manual "Create a Boundary"; target prototype `FG_Reach` and `FG_Reach_Table`. |
-| Maturity | Draft. |
+| Identity | Immutable ID. Human name is proposed unique within its Stream; legacy combined site/reach names are aliases, not relationship keys. |
+| Segmentation | Analyst divides the edited synthetic network into Reaches based on investigation objectives and geomorphic/operational criteria. National hydrography segments do not override that decision. |
+| Geometry | Zero or one optional polygon in EPSG:3857. Do not require an analyst to draw an arbitrary channel/floodplain AOI merely to spatialize the hierarchy. |
+| Name discovery | Use the confirmed national Stream name and relevant current hydrography identifiers as naming context. A national feature ID may be associated with a Reach but does not replace its FGDB ID or imply identical boundaries. Exact Reach display-name grammar remains unresolved. |
+| Legacy boundary | The legacy `boundary` polygon may represent a survey-specific DEM/analysis AOI rather than the durable Reach. Migration mapping therefore targets optional Survey Event geometry unless evidence establishes another meaning. |
+| QA | One Stream parent; non-null immutable ID; valid analyst-confirmed name; naming provenance; valid optional polygon when present; no hierarchy derived from `ReachName` or geometry containment. |
+| Evidence | Level 1 "Define Reaches"; Tech Manual `boundary`; User Manual "Create a Boundary"; target prototype; ADR-0006. |
+| Maturity | Accepted entity/optional-geometry/segmentation contract; exact naming and legacy-boundary crosswalk remain draft. |
 
 ### FCAT-007: Synthetic stream network
 
@@ -259,14 +278,15 @@ Collection
 | Object kind | Derived and analyst-edited polyline. Persistence disposition unresolved. |
 | Workflow stage | Level 1, after Hydro-modified DEM and before Flowline. |
 | Inputs | Hydro-modified DEM through unretained drainage intermediates; initiation `threshold`; derivation engine/version; analyst edits. |
+| Segmentation role | Analyst uses investigation objectives to divide the edited network into Streams and Reaches. National hydrography names and identifiers inform labels but do not dictate segment boundaries. |
 | Identity evidence | Legacy `ReachName` combines site/stream and reach semantics. Target relationships must instead use immutable Stream/Reach/Survey Event keys. |
-| Ownership issue | The current network is initially derived across a Study Area or Stream and can span several Reaches, while governed analysis features currently require Survey Event ownership under one Reach. The target must either retain reach-survey-event segments or classify the full network as a local construction artifact. |
+| Ownership issue | The current network is initially derived before final Stream/Reach segmentation and can span several Reaches, while governed analysis features require one Survey Event owner. The target must either retain post-segmentation reach-survey-event pieces or classify the pre-segmentation network as a local construction artifact. |
 | Persistence evidence | The target prototype has no `FG_StreamNetwork`; the supplied wild-caught reach XML does not contain `stream_network`. Absence is evidence, not a decision. |
 | QA if retained | Valid lines; no unintended gaps/duplicates; documented threshold and method; analyst-edit completion; explicit immutable ownership; approved CRS transformation. |
 | Maturity | Inventoried; target disposition requires review. |
 
 ## Next catalog slice
 
-Resolve the Stream geometry, Reach/boundary normalization, and synthetic
-stream-network persistence questions. Then accept the corresponding contracts
-before proceeding to Flowline.
+Resolve synthetic stream-network persistence/ownership, the exact Stream and
+Reach display-name grammar, and the legacy `boundary` crosswalk. Then proceed
+to Flowline.

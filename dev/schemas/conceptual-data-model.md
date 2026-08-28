@@ -55,14 +55,50 @@ physical-design decision.
   canonical separator and remaining character/normalization rules are not yet
   specified.
 - Each study area is one governed, multipart-capable polygon feature in Web
-  Mercator (EPSG:3857). It denotes the analyst's current general project scope,
-  not an official boundary, and may be edited in place throughout the project
-  lifecycle with modification actor/time recorded.
+  Mercator (EPSG:3857). It denotes the analyst's current rough Area of Interest
+  (AOI), including evaluation work that may precede any remediation project.
+  It is not an official boundary and may be edited in place as the investigation
+  scope changes, with modification actor/time recorded.
 - Each study area has one controlled extent type: `SMALL_REACH`, `LONG_REACH`,
   or `WATERSHED`.
 - Display names are not substitutes for immutable identifiers in foreign keys,
   ingestion keys, or service contracts.
 - Rename, alias, reservation, and reuse rules remain unresolved.
+
+## Spatial representation cardinality
+
+Hierarchy entities are mandatory; geometry availability is not what enforces
+their relationships.
+
+| Entity | Geometry cardinality | Meaning |
+|---|---:|---|
+| Study Area | exactly 1 polygon feature | Required rough AOI for discovery, communication, and spatial organization. |
+| Stream | 0 or 1 polygon feature | Optional cartographic AOI; no required HUC, drainage-area, floodplain, or hand-drawn proxy. |
+| Reach | 0 or 1 polygon feature | Optional cartographic/analysis AOI; identity remains valid without geometry. |
+| Survey Event | 0 or 1 polygon feature | Optional DEM/analysis AOI, supplied by an analyst or derived from the hydro DEM footprint. |
+
+Optional geometry absence is not a hierarchy-integrity failure. If a Survey
+Event polygon is materialized, its origin must distinguish
+`ANALYST_SUPPLIED` from `HYDRO_DEM_FOOTPRINT`. Exact derivation and refresh
+rules remain to be specified.
+
+## Stream and Reach names
+
+- Stream and Reach records retain FGDB immutable IDs regardless of external
+  national identifiers.
+- Future workflows query a configured current national hydrography service for
+  candidate names and identifiers and require analyst confirmation.
+- Store the selected source product, external feature identifier, source name,
+  service/version or retrieval date, and analyst disposition as naming
+  provenance.
+- Current implementation planning should begin with USGS 3DHP Flowline names
+  and identifiers. NHD, WBD, and NHDPlus HR are legacy products as of the
+  2026-08-28 design review.
+- WBD names/HUCs may inform watershed-type Study Areas but do not define Stream
+  or Reach polygons and are not automatically substituted for stream names.
+- National hydrography is advisory for naming. The analyst still segments the
+  terrain-derived network into FGDB Streams and Reaches based on investigation
+  objectives.
 
 ## Survey-event time
 

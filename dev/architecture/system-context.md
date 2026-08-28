@@ -72,6 +72,22 @@ SDE feature classes     hydro DEM/REM mosaic datasets
   intended behavior. The deployed database and services provide operational
   evidence and must be checked for drift.
 
+## External naming assistance
+
+A configured national hydrography query service may suggest Stream and Reach
+names and external identifiers during hierarchy creation or migration. As of
+the 2026-08-28 design review, the current starting provider is the USGS 3D
+Hydrography Program Flowline Feature Service. This is an advisory read-only
+dependency:
+
+- an analyst confirms, overrides, or marks a candidate unavailable/unnamed;
+- FGDB stores the selected source, external ID, supplied label, service version
+  or retrieval date, and disposition;
+- service geometry and watershed units do not define FGDB hierarchy or AOIs;
+- live external values never replace FGDB immutable IDs; and
+- temporary service unavailability must have an explicit manual/deferred
+  fallback and must not corrupt an established hierarchy.
+
 ## Security boundary
 
 The repository may define configuration schemas and deployment procedures, but
