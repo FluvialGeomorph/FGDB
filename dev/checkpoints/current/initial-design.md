@@ -112,7 +112,7 @@ logical and physical schemas and operating model have not yet been designed.
   FG ontology layer linking external standards, the feature catalog, the
   physical GIS schema, and a future RDF/knowledge-graph projection.
 - Drafted ADR-0007, a semantic interoperability architecture, an initial
-  kernel crosswalk, competency questions, and a non-normative `ontology/`
+  kernel crosswalk, competency questions, and a non-normative `dev/ontology/`
   scaffold for team review.
 - Identified OGC HY_Features as the primary hydrographic conceptual alignment;
   proposed GeoSPARQL, OWL, SKOS, PROV-O, SOSA/SSN, DCAT, and SHACL for
@@ -126,23 +126,31 @@ logical and physical schemas and operating model have not yet been designed.
   from the new external-identifier discovery contract.
 - Established `usace-ukg-ontologies` as the authority for future namespace,
   ontology promotion, versioning, named graphs, and semantic validation.
-- Applied `ontology-guidance.md`: full OWL/SHACL/RML development is outside the
+- Applied `dev/ontology/ontology-guidance.md`: full OWL/SHACL/RML development is outside the
   implementation critical path; the present focus is immutable identity,
   controlled concepts, provenance, kernel HY_Features mappings, and an
   ontology-ready relational schema.
-- Split Survey/Acquisition Event from Analysis/Processing Run and documented
-  the lineage from acquisition through source dataset and processing to
-  derived datasets/features.
+- Clarified the Survey Event model after operational review: one Reach has many
+  Survey Events; each Survey Event has one current derived result set and one
+  current derivation-provenance record. Reprocessing replaces incorrect
+  content and provenance rather than creating a persistent one-to-many
+  processing-run hierarchy.
+- Allowed sparse legacy Survey Events populated from required year and the best
+  available evidence, explicitly recording unknown/not-retained clearinghouse
+  metadata, point clouds, intermediates, and acquisition footprints instead of
+  fabricating provenance.
 - Updated `fluvgeo` to import `get_raindrop_trace()` and
   `get_split_catchment()` from `hydrogeofetch` 2.0.1, replaced the dependency
   in its reproducible lockfile, and verified the existing watershed return
   contract against the live service.
+- Moved ontology design guidance from the repository root into the durable
+  `dev/ontology/` route and registered that route in `AGENTS.md`.
 
 ## Remaining
 
 1. Finalize kernel identity-change and cardinality rules, especially Stream,
-   Reach, acquisition, processing run, source/derived dataset, Flowline, and
-   Cross Section.
+   Reach, Survey Event, current derivation provenance, retained derived
+   dataset, Flowline, and Cross Section.
 2. Resolve synthetic stream-network persistence/ownership and the legacy
    `boundary` to optional Survey Event geometry crosswalk.
 3. Specify the per-source-CRS transformation registry and complete `hydro_dem`
@@ -184,11 +192,11 @@ logical and physical schemas and operating model have not yet been designed.
 
 Complete the ontology-ready kernel relational model using the competency
 questions in `dev/schemas/ontology-crosswalk.md`, beginning with identity rules
-and cardinalities for Stream, Reach, acquisition, source dataset, processing
-run, derived dataset, Flowline, and Cross Section. Then resolve synthetic
-network persistence and the legacy `boundary` crosswalk. Do not wait for a
-complete OWL ontology or cut over the production desktop workflow before the
-coherent replacement pipeline is ready.
+and cardinalities for Stream, Reach, Survey Event, current derivation
+provenance, retained derived dataset, Flowline, and Cross Section. Then resolve
+synthetic network persistence and the legacy `boundary` crosswalk. Do not wait
+for a complete OWL ontology or cut over the production desktop workflow before
+the coherent replacement pipeline is ready.
 
 ## Blockers or decisions
 

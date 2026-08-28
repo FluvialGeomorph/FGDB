@@ -63,7 +63,7 @@ semantic projection after that projection is authorized.
 
 ## Current module boundary
 
-The repository-level `ontology/` directory is a semantic-design scaffold. Its
+The `dev/ontology/` route is a durable semantic-design scaffold. Its
 current maintained artifacts are the crosswalk, controlled-vocabulary
 requirements, identity rules, and links to governing decisions. A complete
 ontology source tree is deferred.
@@ -72,7 +72,7 @@ If future USACE knowledge-graph integration requires normative artifacts, they
 may include:
 
 ```text
-ontology/
+dev/ontology/
   README.md
   src/                 # OWL/RDF source modules
   vocab/               # SKOS concept schemes
@@ -89,13 +89,14 @@ TopBraid-compatible hierarchy independently.
 
 ## Current-phase schema safeguards
 
-- Give Stream, Reach, acquisition, processing run, Flowline, Cross Section,
-  source dataset, derived dataset, and derived features explicit immutable IDs
-  and documented identity-change rules.
+- Give Stream, Reach, Survey Event, current derivation provenance, Flowline,
+  Cross Section, retained derived datasets, and derived features explicit
+  identifiers and documented identity-change rules.
 - Separate persistent entities from their geometries and dataset
   representations.
-- Separate acquisition from source-dataset creation, analysis execution, and
-  derived results.
+- Distinguish acquisition meaning from current derivation provenance and
+  derived results without requiring discarded source/intermediate datasets or
+  processing attempts to become persistent domain entities.
 - Use normalized concept/reference tables with stable concept IDs, preferred
   labels, definitions, citations, vocabulary versions, lifecycle status, and
   aliases.

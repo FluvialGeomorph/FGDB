@@ -1,3 +1,5 @@
+# Ontology design guidance
+
 Continue FGDB development with the following semantic-interoperability constraints.
 
 ## Immediate objective
@@ -17,9 +19,9 @@ Prioritize a stable, production-ready FGDB logical/physical schema that can inge
    * Flowline location/stationing
    * Cross Section
    * Study Area
-   * Survey/acquisition event
-   * Analysis/processing event
-   * Source and derived datasets
+   * Survey Event
+   * Current derivation provenance
+   * Known source references and retained derived datasets
 4. Treat HY_Features as a conceptual interoperability model. Do not reproduce the HY_Features UML/database structure inside FGDB unless a specific requirement justifies it.
 5. Preserve the distinction between persistent real-world hydrologic entities and their geometric/data representations.
 
@@ -59,12 +61,12 @@ Define stable identifiers and explicit identity rules for at least:
 
 * Stream
 * Reach
-* Survey/acquisition
-* Analysis/processing run
+* Survey Event
+* Current derivation-provenance record
 * Flowline
 * Cross Section
 * derived geomorphic feature
-* source dataset
+* source dataset, when retained or externally identifiable
 * derived dataset
 
 For each entity document:
@@ -79,23 +81,34 @@ Treat Reach as a potentially study- or analysis-specific segmentation of a persi
 
 Ensure the schema can represent different reach segmentations of the same stream across studies or analysis versions without corrupting stream identity.
 
-## Survey versus analysis provenance
+## Survey Event versus derivation provenance
 
-Do not overload one `SurveyEvent` concept to mean all of:
+Preserve the conceptual distinction between:
 
 * field or remote-sensing acquisition;
-* source dataset creation;
-* analysis execution;
-* generation of derived features.
+* known source data or source references;
+* derivation of the current accepted content; and
+* the current derived features and rasters.
 
-Model enough separation to preserve lineage such as:
+Do not require those distinctions to become separate levels in the persistent
+domain hierarchy. The operational FGDB relationship is:
 
-acquisition/observation
-→ source dataset
-→ analysis/processing activity
-→ derived dataset/features
+Reach
+→ many Survey Events
+→ one current derivation-provenance record per populated Survey Event
+→ one current accepted derived result set
 
-The implementation does not need to use PROV-O now, but it should remain compatible with a future provenance mapping.
+Reprocessing an existing Survey Event replaces incorrect current content and
+updates its current derivation provenance; it does not create another Survey
+Event or a persistent one-to-many processing-run hierarchy. Optional execution
+or load-attempt history is operational audit data, not authoritative domain
+content.
+
+Legacy Survey Events may have no retained point clouds, intermediate products,
+tile footprints, clearinghouse URI, or complete acquisition metadata. Record
+those facts as unknown or not retained rather than fabricating source dataset
+instances. The implementation does not need to use PROV-O now, but the current
+derivation record should remain compatible with a future provenance mapping.
 
 ## Required provenance
 

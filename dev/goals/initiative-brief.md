@@ -49,9 +49,8 @@ Collection
 └── Study Area
     └── Stream
         └── Reach
-            └── Survey/Acquisition Event
-                └── Analysis/Processing Run
-                    └── FG Features
+            └── Survey Event
+                └── FG Features
 ```
 
 A reach-survey-event geodatabase represents derived conditions for one reach
@@ -153,8 +152,10 @@ datasets.
   vertical reference. Governed spatial content is transformed to Web Mercator
   (EPSG:3857) for consolidated Enterprise storage, with native analysis and
   vertical-reference metadata retained.
-- Acquisition/observation, source datasets, analysis/processing runs, and
-  derived results are distinct identities with explicit lineage.
+- Survey acquisition and feature derivation remain conceptually distinct.
+  Each Survey Event owns one current derived result set and one current
+  derivation-provenance record; reprocessing replaces them without creating a
+  second Survey Event or persistent processing-run hierarchy.
 
 ## Open success criteria
 

@@ -12,7 +12,7 @@ than create an independent publication and governance framework. The current
 processing calls. Its replacement, `hydrogeofetch`, preserves those APIs and
 also provides direct Geoconnex reference-feature discovery and retrieval.
 
-The design constraints in `ontology-guidance.md` require enough semantics to
+The design constraints in `dev/ontology/ontology-guidance.md` require enough semantics to
 protect the FGDB schema and future interoperability, while keeping a complete
 fluvial geomorphology ontology and RDF projection outside the implementation
 critical path.
@@ -42,9 +42,10 @@ critical path.
    with the maintainers of `usace-ukg-ontologies` and must follow the
    `https://usace-data.com/` conventions they approve.
 6. The current deliverable is an ontology-ready relational schema: immutable
-   IDs, explicit relationships, controlled concept tables, provenance, and
-   HY_Features kernel mappings. Full OWL, SHACL, RML/R2RML, and RDF generation
-   remain future semantic-projection work unless a physical-schema decision
+   IDs, explicit relationships, controlled concept tables, one-to-one current
+   derivation provenance for each populated Survey Event, and HY_Features
+   kernel mappings. Full OWL, SHACL, RML/R2RML, and RDF generation remain
+   future semantic-projection work unless a physical-schema decision
    demonstrably depends on them.
 
 ## Clarification of current service use
@@ -72,10 +73,9 @@ separate from adding a governed Geoconnex identifier-discovery workflow.
 
 ## Evidence
 
-- `ontology-guidance.md`
+- `dev/ontology/ontology-guidance.md`
 - `../usace-ukg-ontologies/README.md`
 - `../usace-ukg-ontologies/MANIFEST.md`
 - `../usace-ukg-ontologies/CONTRIBUTING.md`
 - `../fluvgeo/R/pt_watershed_area.R`
 - `hydrogeofetch` migration and reference documentation
-

@@ -72,8 +72,9 @@ foundation.
 
 - Which `usace-ukg-ontologies` maintainers will sponsor and review a future
   FluvialGeomorph candidate and namespace reservation?
-- What are the distinct identity rules for acquisition events, source
-  datasets, processing runs, and derived datasets/features?
+- What are the identity rules for Survey Events, their one-to-one current
+  derivation provenance, and their retained derived datasets/features when
+  legacy source metadata is incomplete?
 - Does FG `Stream` denote a named hydrographic feature, a channel landform, a
   water body, or a managed aggregate with those aspects?
 - What continuity rule makes a Reach the same Reach across survey events?

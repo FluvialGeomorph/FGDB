@@ -19,6 +19,7 @@
 - Governance or artifact lifecycle: `dev/governance/`
 - Repeatable development procedures: `dev/workflows/`
 - Exact structural contracts: `dev/schemas/`
+- Ontology design and semantic-interoperability guidance: `dev/ontology/`
 - Cohesive user-visible capabilities: `dev/features/`
 - Resumable unfinished work: `dev/checkpoints/current/`
 - Repository-type-specific rules: inspect the repository's native configuration and workflows.
