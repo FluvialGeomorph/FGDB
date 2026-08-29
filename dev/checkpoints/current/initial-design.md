@@ -1,6 +1,6 @@
 # Checkpoint: Initial FGDB design
 
-- Updated: 2026-08-28
+- Updated: 2026-08-29
 - Status: active
 
 ## Objective
@@ -88,8 +88,9 @@ logical and physical schemas and operating model have not yet been designed.
   USACE district code and descriptive name.
 - Accepted multipart-capable, analyst-defined Study Area polygons that are
   editable in place as the Area of Interest changes.
-- Accepted required Survey Event year with optional month/day, derived date
-  precision/labels, and report-only default base-event selection.
+- Accepted required Survey Event year with optional month/day and derived date
+  precision/labels. The contemporaneous report-only base-event assumption was
+  later superseded by ADR-0014.
 - Required per-source-CRS horizontal/vertical transformations and conformance
   to the Enterprise `hydro_dem` mosaic parameters.
 - Corrected the terrain boundary to retain Cutlines and their material
@@ -154,45 +155,151 @@ logical and physical schemas and operating model have not yet been designed.
   motivates centralized, multi-time-period FGDB terrain and geometry.
 - Accepted ADR-0010: the optional `Stream Geodatabase` (legacy
   `Site Geodatabase`) is a local preprocessing workspace, not an FGDB entity
-  or load package. Its Stream-scale DEM, pre-segmentation synthetic network,
-  and drainage intermediates are excluded from persistence.
-- Resolved synthetic stream-network persistence and ownership: durable Stream
-  and Reach records capture accepted segmentation; only separately governed
-  downstream content from a reach-survey-event package is loadable. Full local
-  process reconstruction requires analyst retention outside FGDB.
+  or load package. Its Stream-scale DEM and drainage intermediates remain
+  excluded from persistence; ADR-0014 later superseded ADR-0010's exclusion of
+  the reviewed synthetic network.
+- Recorded the initial, subsequently superseded conclusion that Stream and
+  Reach records alone captured accepted segmentation. Full local process
+  reconstruction still requires analyst retention outside FGDB.
+- Accepted ADR-0011: the manually added legacy `boundary` feature class is
+  excluded and is not mapped automatically to Study Area, Stream, Reach, or
+  Survey Event geometry.
+- Drafted `dev/schemas/kernel-relational-model.md` as the next design slice,
+  translating accepted hierarchy and current-result semantics into proposed
+  relations, cardinalities, integrity invariants, identity-change rules, and
+  uniqueness constraints for review.
+- Accepted ADR-0012: the normative derivation/load unit is one Reach and one
+  Survey Event; the legacy ArcPy dissolve-by-`ReachName` behavior is
+  non-normative residue rather than a `{fluvgeo}` parity requirement.
+- Accepted one current Flowline per populated Survey Event and assigned
+  multi-Reach/Stream scale-up to hierarchy-aware FGDB queries rather than
+  multi-Reach producer execution or duplicated authoritative geometry.
+- Drafted `dev/features/multiscale-scientific-query.md`, including Stream
+  longitudinal-profile composition, explicit cross-Reach temporal selection,
+  and method/provenance safeguards for historic manual and modern
+  remote-sensing observations.
+- Verified that the ArcPy Flowline-points tool uses a manually supplied
+  `km_to_mouth` offset while the current R implementation starts local measures
+  at zero. This exposes the need for a governed Reach-order/topology and
+  Stream-scale station-alignment contract.
+- Accepted ADR-0013: FGDB governs a project longitudinal reference frame owned
+  by one Study Area and scoped either to one Stream or to a connected Study
+  Area/watershed network. One explicit mouth is zero kilometers and distance
+  increases upstream along selected paths.
+- Drafted `dev/schemas/longitudinal-reference-model.md` with Network Scope,
+  frame, mouth, reusable network path, Reach assignment, explicit base
+  Flowline, comparison calibration, identity, validation, and legacy-migration
+  contracts.
+- Clarified that the Stream Geodatabase remains excluded while its reviewed
+  calibration output is governed. Legacy `km_to_mouth` is not identity and is
+  canonical only after explicit frame binding and validation.
+- Accepted ADR-0014: retain each reviewed synthetic network as a governed,
+  time-specific Network Observation within a Study-Area-owned Network Scope.
+  One connected Study Area may use one multi-Stream scope; a discontinuous
+  Study Area may use separate single-Stream scopes in the same physical
+  enterprise feature class.
+- Established an N:M association between Network Observations and applicable
+  Reach Survey Events, explicit Stream/Reach classification of network
+  segments, and explicit reviewed correspondence between segments at
+  different terrain times.
+- Corrected base-event semantics: a longitudinal reference frame selects one
+  base Flowline per participating Reach assignment and may select a compatible
+  base Network Observation. Base status is frame-relative, alternative base
+  choices may coexist, and changing the base creates a different frame rather
+  than mutating a global Survey Event flag.
+- Drafted `dev/schemas/synthetic-network-model.md` and updated the kernel,
+  longitudinal-reference, feature-catalog, ontology, architecture, migration,
+  and scientific-query specifications to reflect ADR-0014.
+- Reduced ADR-0014 to an immediately implementable legacy-import slice. The
+  initially proposed FGDB **Register Synthetic Network** tool hid normalized
+  writes behind one guided dialog and required only Network Scope, scope
+  membership, Network Observation, and the enterprise segment feature class.
+  Proposed ADR-0015 subsequently limits that richer FGDB behavior to legacy
+  migration and recommends a producer package plus lightweight loader for new
+  work.
+- Documented whole-network, Reach-fragment batch, correction-replacement, and
+  disconnected-Stream import behavior in
+  `dev/workflows/import-synthetic-network.md`.
+- Verified that the Papillion R1 2016 XML contains no `stream_network`
+  feature-class definition; the term occurs only in Flowline lineage pointing
+  to a Stream-Geodatabase path. Legacy Reach results therefore remain loadable
+  with explicit `NETWORK_NOT_RETAINED` completeness rather than fabricated
+  network geometry.
+- Confirmed the implementation boundary: FGDB owns the ArcGIS Pro tools and
+  database-write orchestration for network registration, reference-frame
+  creation, loading, and reconciliation; reusable scientific topology and
+  calibration algorithms belong in `fluvgeo` and are called by those tools.
+- Clarified that the governed reference frame does not make stationing
+  independent of Flowline geometry. Comparison-event `km_to_mouth` values
+  remain calibrated to explicitly selected base-event Flowlines. The normal
+  operational preset is `LATEST_VALIDATED_EVENT`, offered only after an
+  analyst initiates frame creation; resolved IDs are stored.
+- Reaffirmed the foundational analyst-control invariant: loading or publishing
+  a newer Survey Event never creates a frame, recalibrates previous Flowlines,
+  or changes a current/default frame. The analyst chooses the base and
+  comparison events, initiates the tool, reviews and accepts results, and
+  explicitly designates a default when desired.
+- Accepted ADR-0015 to protect a local-first analysis boundary.
+  Analyst-facing tools write derived features and scientific metadata to a
+  local file-geodatabase exchange package; FGDB tools validate, map, load,
+  reconcile, and publish without absorbing scientific derivation. Legacy FGDB
+  migration adapters may collect missing historical metadata as an explicit
+  exception.
+- Corrected provisional tool placement: **Create Longitudinal Reference
+  Frame** belongs in the producer workflow (`FluvialGeomorph-toolbox` calling
+  `fluvgeo`), while FGDB owns the corresponding package loader. The earlier
+  FGDB **Register Synthetic Network** concept becomes a legacy migration tool
+  plus a future lightweight package loader.
+- Defined Shiny as a local-first platform when user-initiated analysis can
+  complete in application-managed state without first persisting to FGDB.
+- Strengthened the target ownership boundary: `fluvgeo` is the long-term home
+  for all computable scientific analysis and geospatial derivation functions;
+  ArcGIS Pro and future QGIS toolboxes are wrappers/adapters, and Shiny calls
+  the same contracts through application orchestration.
+- Established the Stream Geodatabase as the ArcGIS binding of a logical local
+  Network Workspace for network observations, topology, classifications,
+  frames, and package metadata. A connected multi-Stream scope may use a Study
+  Area Network Geodatabase; platform-neutral contracts also support Shiny,
+  direct R, and future GeoPackage/QGIS bindings. Drafted
+  `dev/schemas/local-analysis-package.md`.
 
 ## Remaining
 
-1. Finalize kernel identity-change and cardinality rules, especially Stream,
-   Reach, Survey Event, current derivation provenance, retained derived
-   dataset, Flowline, and Cross Section.
-2. Resolve the legacy `boundary` to optional Survey Event geometry crosswalk.
-3. Specify the per-source-CRS transformation registry and complete `hydro_dem`
+1. Review and finalize the proposed kernel identity-change, uniqueness, and
+   cardinality rules, especially project-scoped Stream identity, Reach
+   resegmentation, stable current-result slots, and Cross Section
+   keys/alignment.
+2. Specify the per-source-CRS transformation registry and complete `hydro_dem`
    mosaic-item contract.
-4. Complete the Study Area string grammar and Survey Event tie/partial-date
+3. Complete the Study Area string grammar and Survey Event tie/partial-date
    ordering rules.
-5. Prepare separately scoped cross-repository implementation planning for
+4. Prepare separately scoped cross-repository implementation planning for
    accepted ADR-0004; treat flowline as a later paired-implementation contract
    pilot rather than the first catalog entry.
-6. Formalize required metadata for Collection, Study Area, Stream, Reach,
+5. Formalize required metadata for Collection, Study Area, Stream, Reach,
    Survey Event, optional hierarchy geometries, and feature content.
-7. Specify immutable identifier formats and the remaining Study Area name,
+6. Specify immutable identifier formats and the remaining Study Area name,
    rename, alias, and reuse rules.
-8. Formalize temporal semantics, spatial semantics, provenance, and integrity
+7. Formalize temporal semantics, spatial semantics, provenance, and integrity
    constraints.
-9. Complete the L1/L2/L3 feature-class and mosaic-dataset source-to-target
+8. Complete the L1/L2/L3 feature-class and mosaic-dataset source-to-target
    disposition and field crosswalks.
-10. Design ingestion, reconciliation, error handling, and rollback behavior.
-11. Define Feature Layer and raster-service boundaries and client contracts.
-12. Define environment, security, deployment, and operational requirements with
+9. Design ingestion, reconciliation, error handling, and rollback behavior.
+10. Define Feature Layer and raster-service boundaries and client contracts.
+11. Define environment, security, deployment, and operational requirements with
    the USACE hosting stakeholders.
-13. Define the legacy inventory and migration crosswalk.
-14. Record accepted decisions, schemas, workflows, and a staged
+12. Define the legacy inventory and migration crosswalk.
+13. Record accepted decisions, schemas, workflows, and a staged
    delivery plan in their durable routes.
-15. Add FGDB to the organization repository catalog and capability map through
+14. Add FGDB to the organization repository catalog and capability map through
    a separately reviewed cross-repository change when its role is accepted.
-16. Specify the local Flowline stationing contract, including origin,
-    direction, units, representation version, and cross-survey alignment rules.
+15. Review and finalize the logical/physical synthetic-network and project
+    longitudinal-reference contracts, including node/edge topology,
+    cross-time segment correspondence, base-Flowline realization, QA
+    tolerances, measure materialization, and manual-survey calibration.
+16. Define query/service contracts for Study Area-, Stream-, Reach-, and
+    Survey Event-scale selection, including explicit cross-Reach temporal
+    selection and observation-method compatibility behavior.
 
 ## Evidence and verification
 
@@ -206,13 +313,12 @@ logical and physical schemas and operating model have not yet been designed.
 
 ## Next safe action
 
-Complete the ontology-ready kernel relational model using the competency
-questions in `dev/schemas/ontology-crosswalk.md`, beginning with identity rules
-and cardinalities for Stream, Reach, Survey Event, current derivation
-provenance, retained derived dataset, Flowline, and Cross Section. Then resolve
-the legacy `boundary` crosswalk. Do not wait for a complete OWL ontology or cut
-over the production desktop workflow before the coherent replacement pipeline
-is ready.
+Review the platform-neutral package and ArcGIS Stream/Network Geodatabase
+binding proposed in `dev/schemas/local-analysis-package.md`. Then separately
+specify (1) its exact local fields/tables and cross-workspace identity rules,
+(2) the lightweight FGDB package-loader contract, and (3) the more permissive
+legacy migration adapter in `dev/workflows/import-synthetic-network.md`. Do not
+design the FGDB loader to absorb scientific analysis.
 
 ## Blockers or decisions
 

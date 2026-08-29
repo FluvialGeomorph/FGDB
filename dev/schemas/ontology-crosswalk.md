@@ -1,7 +1,7 @@
 # Initial ontology and physical-model crosswalk
 
 - Status: exploratory
-- Updated: 2026-08-28
+- Updated: 2026-08-29
 - Scope: semantic kernel and early workflow objects
 
 ## Crosswalk discipline
@@ -40,8 +40,9 @@ it does not invent HY class IRIs.
 | Derived Dataset | DCAT `Dataset`; PROV `Entity` | Current retained product associated with one Survey Event and its current derivation provenance; distinguish dataset identity from its individual features and GIS representation. |
 | Cutline | GeoSPARQL `Feature`; PROV `Entity` | Local terrain-correction assumption record. No direct HY match; link its geometry, method, parameters, input, output, and derivation activity. |
 | Hydro-modified DEM | DCAT `Dataset`; PROV `Entity` | Derived raster dataset. Its mosaic footprint is a geometry of its coverage/domain, not the raster itself. Coverage vocabulary evaluation remains open. |
-| Synthetic stream network | HY `HY_ChannelNetwork` | Candidate conceptual description for an excluded terrain-derived preprocessing representation. Do not classify it as a hydrographic network by default or assign it persistent FGDB identity. ADR-0010 excludes the Stream Geodatabase network from the physical model. |
+| Synthetic Network Observation | HY `HY_ChannelNetwork`; SOSA `Observation`/`ObservationCollection`; PROV `Entity` | Candidate conceptual description for a governed, time-specific terrain-derived network. FGDB assigns the observation and its segments persistent identity while distinguishing them from durable Stream/Reach classifications and external hydrography. Exact HY/SOSA projection requires review. |
 | Flowline | HY `HY_Flowpath` | Strong candidate if the FG line represents the path water follows through the reach. Orientation and derivation rules remain local constraints. |
+| Project longitudinal reference frame | HY river-referencing conceptual model | Candidate conformance for a project-defined network reference anchored to a local mouth and realized by explicitly selected base-event Flowlines. It is not a national route, Stream identity, or a global base-event flag. Exact HY classes/relations require review. |
 | Flowline station/point | HY `HY_IndirectPosition` and/or `HY_HydroLocation` | Candidate for a position referenced along a particular FGDB Flowline. The mapping does not adopt an external linear reference system; distinguish the local measure and reference Flowline from a materialized point geometry. |
 | Cross Section | HY `HY_CrossSection` | Strong conceptual alignment; FG sampling, orientation, stationing, and attribution are narrower local constraints. |
 | Cross-section point | HY `HY_HydroLocation` | Candidate spatial realization associated with a cross section and sampled elevation observation. |
@@ -52,17 +53,18 @@ The channel/water-body distinction is foundational. A dry channel landform can
 persist while the water occupying it changes. FG terms should not collapse
 these continuants merely because legacy feature-class names did so.
 
-The synthetic stream network remains in this crosswalk so its role can be
-distinguished from the persistent Stream and from governed Flowlines. It is
-not part of the current FGDB semantic kernel or physical schema. The accepted
-outcome of its analyst review is captured in durable Stream/Reach identities
-and separately governed downstream features.
+The Synthetic Network Observation is part of the FGDB semantic kernel and
+requires a physical segment representation. Its explicit identity keeps it
+distinct from the persistent Stream, the analyst's Reach classifications, and
+Reach/Survey Event Flowlines. This also permits reviewed network change and
+correspondence to be represented across observation times.
 
 HY river-referencing concepts are interoperability patterns, not a requirement
 to adopt a national route. FGDB Stream and Reach extent remains project-defined
 by stored FGDB geometry. Any local indirect position must identify its exact
-Flowline reference, origin, direction, units, method, and temporal or
-representation scope.
+project reference frame/version, base Flowline selection, Reach assignment,
+comparison-Flowline calibration, origin, direction, units, method, and
+temporal or representation scope.
 
 ## Bridge to the physical GIS model
 
@@ -76,6 +78,8 @@ representation scope.
 | SKOS concept scheme | Governed reference table and/or coded-value domain with stable concept identifiers |
 | PROV entity/activity/agent | One-to-one current derivation provenance linked to its Survey Event and results; optional operational load log remains outside the domain hierarchy |
 | Raster dataset | Mosaic item plus governed metadata, footprint, and provenance |
+| Synthetic Network Observation | Normalized observation table plus one SDE segment feature class keyed by immutable observation ID, with scope membership and reviewed cross-time correspondence tables |
+| Longitudinal reference frame | Frame, mouth, Reach assignment, reusable path, base-Flowline selection, and comparison-calibration relations rather than a flag or unqualified station field |
 | External identifier | Qualified identifier/link table with authority, version, evidence, and match status |
 
 The eventual mapping manifest must name exact classes, columns, transforms,
@@ -125,9 +129,9 @@ identity by itself.
 
 ## Competency questions for the first workshop
 
-1. Can the graph distinguish a named stream, its channel landform, water that
-   occupies it, and the excluded synthetic-network process evidence that may
-   have been used to delineate it, without fabricating a persistent network?
+1. Can the graph distinguish a named Stream, its channel landform, water that
+   occupies it, and each persistent time-specific Synthetic Network
+   Observation used to delineate project topology and segmentation?
 2. What makes a Reach the same entity across survey events when its derived
    geometry changes or its analyst-defined segmentation is revised?
 3. Can a query retrieve all current Flowlines, Cross Sections, terrain
@@ -144,6 +148,15 @@ identity by itself.
    hierarchy or fabricating missing legacy source metadata?
 8. Can both desktop replacement and Shiny in-place editing be represented
    without exposing known-bad superseded feature content as current truth?
+9. Can a Stream-scale query compose several Reach-owned Flowlines while
+   preserving each Survey Event, method, and provenance and without asserting
+   that the representations share identity or observation time?
+10. Can historic manual observations and modern remote-sensing derivatives be
+    queried under common feature concepts without hiding method-dependent
+    differences in meaning, resolution, datum, or quality?
+11. Can it state which base-event Flowline realizes every Reach assignment in
+    a reference frame and compare alternative base selections without
+    assigning global base status to a Survey Event?
 
 ## Conformance ladder
 

@@ -14,8 +14,9 @@ repository.
 Develop the FluvialGeomorph Database (FGDB) initiative to consolidate
 independently maintained, site-oriented analysis datasets into a coherent
 ArcGIS Enterprise geodatabase that supports multiple study areas and
-observations through time. FGDB will be the single authoritative data source
-for geospatial content derived using the `FluvialGeomorph-toolbox` tools.
+observations through time. FGDB will be the single authoritative enterprise
+data source for accepted geospatial content produced by ArcGIS Pro, Shiny,
+direct-R, and future QGIS clients using canonical `fluvgeo` contracts.
 
 The initiative also externalizes a design problem that had become too large to
 hold reliably in one developer's working memory while maintaining continuous
@@ -65,6 +66,12 @@ datasets.
 - Require a Study Area AOI polygon while allowing Stream, Reach, and Survey
   Event polygons to be absent when no defensible or retained extent exists.
 - Support repeat observations of a reach without conflating survey events.
+- Compose separately derived Reach/Survey Event content into reproducible
+  Stream- and Study Area-scale queries while retaining direct ownership and
+  provenance.
+- Govern a common project longitudinal coordinate measured upstream from a
+  selected Stream mouth or connected Study Area/watershed outlet so separately
+  processed Reaches and tributaries can participate in the same analysis.
 - Enable idempotent loading of locally processed artifacts into a central
   database system.
 - Publish database feature classes to client applications through a defined
@@ -72,9 +79,9 @@ datasets.
 - Store reach-survey-event hydro-modified DEM and REM raster content through
   enterprise mosaic datasets; do not retain source terrain or watershed
   preparation products.
-- Preserve accepted Stream and Reach segmentation without retaining the local
-  Stream Geodatabase, its Stream-scale DEM, or its pre-segmentation synthetic
-  stream network.
+- Preserve accepted Stream and Reach segmentation and each reviewed,
+  time-specific synthetic stream network without retaining the local Stream
+  Geodatabase, its Stream-scale DEM, or drainage/construction intermediates.
 - Allow new work to use the new model while legacy project data is migrated
   incrementally without stopping current work.
 - Maintain a clear crosswalk from legacy project folders and reach-survey-event
@@ -88,6 +95,10 @@ datasets.
   optional expert editing client, future QGIS integration is feasible, and
   ArcGIS Enterprise is the required Esri dependency only at the enterprise
   deployment and service boundary.
+- Preserve local-first capability across ArcGIS Pro, Shiny, direct R, and
+  future QGIS clients: all computable scientific operations live in
+  `fluvgeo`, complete without FGDB, and produce an optional local exchange
+  package for lightweight enterprise loading.
 - Let previous and future customers discover and inspect derived geometry for
   delivered analyses, including repeat survey events used to assess change
   through time.
@@ -100,6 +111,9 @@ datasets.
 - Provide centralized, standards-ready access to governed high-resolution,
   multi-time-period terrain analysis products and derived fluvial geometry that
   historically lacked a durable shared digital representation.
+- Support empirical analysis of fluvial geomorphic process over decades by
+  preserving comparable observations across spatial scales, time periods, and
+  historic manual or modern remote-sensing methods.
 - Make design evidence and dependencies traceable enough that the team can
   review decisions from its scientific, technical, operational, program, and
   documentation perspectives without relying on one person's memory.
@@ -123,6 +137,9 @@ datasets.
 - Migration is stepwise and pay-as-you-go; it must not require a big-bang
   conversion.
 - Local derivation workflows remain part of the starting operating model.
+- The normative desktop derivation unit is one Reach and one Survey Event.
+  Legacy multi-Reach vectorization is not a target processing capability;
+  FGDB hierarchy queries provide Stream- and Study Area-scale composition.
 - Database loads must be safely repeatable.
 - The desktop collection uses idempotent reach-survey-event replacement:
   corrected loads remove and replace the prior active records rather than
@@ -158,10 +175,14 @@ datasets.
   hillshade workflow. Cutline geometry is retained as a governed record of
   terrain inadequacy and hydro-modification assumptions.
 - The optional `Stream Geodatabase` (legacy `Site Geodatabase`) is a local
-  preprocessing workspace rather than an FGDB entity or migration unit. Its
-  Stream-scale DEM, synthetic stream network, and drainage intermediates are
-  not retained. Projects requiring complete process reconstruction retain
-  those materials locally; FGDB requires traceability for retained results.
+  Network Workspace rather than an FGDB hierarchy entity or retained
+  enterprise object. A forward-looking version may store local scientific
+  metadata and participate in an exchange package. Its Stream-scale DEM and
+  drainage/construction intermediates are not retained in FGDB. Its reviewed
+  synthetic network is retained as a governed, time-specific Network
+  Observation. Projects requiring complete process reconstruction retain the
+  remaining materials locally; FGDB requires traceability for its retained
+  network and Reach/Survey Event results.
 - Desktop analysis may use an appropriate local projected horizontal and
   vertical reference. Governed spatial content is transformed to Web Mercator
   (EPSG:3857) for consolidated Enterprise storage, with native analysis and
@@ -170,6 +191,14 @@ datasets.
   Each Survey Event owns one current derived result set and one current
   derivation-provenance record; reprocessing replaces them without creating a
   second Survey Event or persistent processing-run hierarchy.
+- Co-location in FGDB does not establish scientific comparability. Queries and
+  analyses must retain observation/derivation method, units/datums, spatial
+  and temporal scope, quality, and provenance, and must explicitly select
+  Survey Events when composing results across Reaches.
+- Project `distance_to_mouth_km` values require an explicit reference
+  frame/version, mouth, selected Stream paths, Reach assignments, and Flowline
+  calibrations. The numeric measure is not identity and is not accepted solely
+  because it exists in a legacy feature class.
 
 ## Open success criteria
 

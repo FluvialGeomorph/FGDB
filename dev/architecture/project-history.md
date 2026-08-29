@@ -37,6 +37,32 @@ terrain into manageable Reach inputs. The governed outputs are then developed
 in reach-survey-event geodatabases. This local workspace was a means to produce
 those results, not a consistently retained archival product.
 
+Some early ArcPy tools also retained an experimental ability to dissolve or
+vectorize by `ReachName` so one run might process several Reaches. As REM and
+production workflows matured, the team standardized operationally on one Reach
+at a time. The unfinished multi-Reach path remained in production code because
+unwinding it offered little benefit relative to refactoring risk; it was
+intentionally omitted from later `{fluvgeo}` replacements. FGDB now supplies
+the intended scale-up by querying independently derived Reach results through
+the Study Area/Stream/Reach/Survey Event hierarchy.
+
+The Stream Geodatabase also supported the project's longitudinal reference
+workflow. Analysts chose the downstream-most project point of a Stream as its
+mouth, or chose the watershed/network outlet when a Study Area represented
+connected Streams. They manually segmented and linearly referenced the network
+so each Reach received `km_to_mouth` stationing against that common origin.
+This enabled multi-Reach and multi-tributary longitudinal profiles, but
+integrity depended on expert manual checks because the tooling did not enforce
+origin, topology, continuity, or calibration rules.
+
+The initial FGDB design treated this network as disposable preprocessing. The
+2026-08-29 review reversed that conclusion: the reviewed synthetic network is
+the durable, time-specific evidence used to establish topology, segmentation,
+and stationing. FGDB therefore governs network observations while continuing
+to exclude the local workspace, Stream-scale DEM, and construction
+intermediates. Base-event Flowlines are explicit realizations of a selected
+longitudinal reference frame rather than a report-only convention.
+
 ## Database motivation
 
 Reach-survey-event file geodatabases have been produced independently for many
@@ -73,7 +99,16 @@ multi-time-period terrain products, and distributable derived geometry while
 remaining honest about legacy source metadata and artifacts that were never
 retained.
 
+Its primary scientific goal is to make direct observations and derived
+representations of fluvial conditions comparable across space and time so
+geomorphic processes can be studied empirically over decades. That requires
+method-neutral identities with method-specific provenance: historic manual
+field surveys and modern remote-sensing products can coexist, but their
+measurement definitions, units/datums, quality, temporal scope, and derivation
+methods must remain distinguishable.
+
 Accordingly, FGDB does not claim complete reconstruction of the local
 preprocessing chain. Analysts may retain point clouds, Stream Geodatabases, and
 intermediates locally when that level of reproducibility is required; FGDB
-centralizes accepted Reach/Survey Event results and their provenance.
+centralizes governed synthetic-network observations and accepted Reach/Survey
+Event results with their provenance.

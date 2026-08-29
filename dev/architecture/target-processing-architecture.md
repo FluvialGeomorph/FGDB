@@ -10,8 +10,8 @@ implementation completeness.
 
 | Component | Target responsibility |
 |---|---|
-| `{fluvgeo}` | Canonical, client-independent geospatial feature derivation, fluvial geomorphic calculations, validation contracts, and reusable reporting logic |
-| Shiny applications | Browser interaction, small-area self-service orchestration, presentation, and FGDB save/restore integration |
+| `{fluvgeo}` | Canonical, client-independent implementation of all computable scientific analysis and geospatial derivation functions, validation contracts, and reusable reporting logic |
+| Shiny applications | Local-first browser interaction, small-area self-service orchestration, presentation, package creation, and optional FGDB save/restore integration |
 | ArcGIS Pro toolbox | Optional expert editing experience, desktop orchestration, and geodatabase adapters that call canonical R functions |
 | Future QGIS toolbox | Optional open-source desktop editing and orchestration adapter calling the same canonical R functions |
 | FGDB tooling | Schema setup, controlled ingestion, replacement/edit policies, reconciliation, and management |
@@ -27,13 +27,16 @@ separately scoped cross-repository change when implementation planning begins.
                            +---------------------+
 Shiny application --------|                     |
                            |                     |
-ArcGIS Pro adapter --------|      fluvgeo        |----> controlled FGDB writes
-                           | canonical processing|               |
-Future QGIS adapter -------| and validation      |               v
-                           |                     |     ArcGIS Enterprise FGDB
+ArcGIS Pro adapter --------|      fluvgeo        |---> local results + package
+                           | all scientific      |               |
+Future QGIS adapter -------| processing and      |               v optional
+                           | validation          |       FGDB package loader
 Batch/other client --------|                     |               |
                            +---------------------+               v
-                                                     read-only data services
+                                                   ArcGIS Enterprise FGDB
+                                                              |
+                                                              v
+                                                   read-only data services
 ```
 
 Client adapters may collect inputs, support editing, display progress, and
@@ -68,7 +71,9 @@ derivation or scientific calculation behavior.
 ### Phase 4: Coordinated ArcGIS Pro cutover
 
 - Refactor the toolbox into an editing/orchestration and format-adapter layer.
-- Call canonical `{fluvgeo}` functions for all viable processing stages.
+- Call canonical `{fluvgeo}` functions for every scientific processing stage;
+  retain only client-specific editing, UI, and format-I/O behavior in the
+  ArcGIS adapter.
 - Preserve an explicit rollback path during transition.
 - Retire duplicate ArcPy derivations only after production acceptance.
 
@@ -89,3 +94,7 @@ but it must:
 - define feature contracts jointly with the canonical `fluvgeo` outputs; and
 - distinguish actual geomorphic change from processing-method changes.
 
+Local-first analysis produces complete local results and package metadata
+before the optional FGDB boundary. FGDB loading must not be embedded inside a
+`fluvgeo` scientific function or required to complete a Shiny, ArcGIS Pro,
+direct-R, or future QGIS analysis.

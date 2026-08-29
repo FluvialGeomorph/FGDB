@@ -22,12 +22,22 @@ The R tests verify single-feature structure, the expected schema through
 to an older module/function signature and a network file path, so it is not
 current parity evidence for `_05a_Flowline.py`.
 
+The ArcPy dissolve-by-`ReachName` behavior is a relic of an early, uncompleted
+multi-Reach processing design. Production settled on one Reach per derivation
+workspace because REM and downstream analysis assumptions are Reach-scale.
+Under ADR-0012, multi-Reach vectorization is not a canonical parity
+requirement: `{fluvgeo}` derives one Reach at a time, and FGDB composes those
+results through hierarchy queries.
+
 ## Required canonical contract
 
 Before replacing the Python flowline path, the owning repositories must define:
 
-- accepted input geometry and multipart/network behavior;
-- reach grouping and identity behavior;
+- accepted single-Reach input geometry and multipart behavior;
+- verification that the input and output bind to exactly one Reach and Survey
+  Event identity;
+- binding of terrain-derived input geometry to its governed Synthetic Network
+  Observation and source segment identities;
 - output geometry type, fields, nullability, and topology;
 - required CRS and horizontal/vertical unit handling;
 - smoothing purpose, algorithm, parameter units, and acceptable geometric
@@ -75,6 +85,11 @@ feature family:
 - material parameters such as smoothing tolerance and station interval;
 - source/load manifest; and
 - validation contract version.
+
+For longitudinal comparison, provenance also identifies the governed
+reference frame, whether the Flowline is the selected base realization for its
+Reach assignment, and the reviewed calibration used for a comparison
+Flowline. Base status is not stored as a global Survey Event attribute.
 
 This provenance supports scientific interpretation; it does not justify
 retaining known-bad feature records in the active desktop collection.

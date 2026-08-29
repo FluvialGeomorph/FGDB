@@ -119,9 +119,12 @@ mandatory hierarchy in `conceptual-data-model.md`.
 
 ### No clear target in the prototype
 
-- `stream_network` is now intentionally excluded as a Stream Geodatabase
-  preprocessing artifact under ADR-0010; its lack of an `FG_StreamNetwork`
-  target is consistent with the accepted scope.
+- `stream_network` has no target in the prototype, but ADR-0014 now requires a
+  governed enterprise representation. The physical schema needs an
+  `FG_StreamNetwork`-equivalent feature class keyed by Network Observation.
+- `boundary` is now intentionally excluded under ADR-0011. It was manually
+  added and neither written nor required by a tool; do not infer a Study Area,
+  Stream, Reach, or Survey Event geometry from it.
 - `bankline_points`
 - `flood_prone`
 - `gradient_100`
@@ -146,10 +149,20 @@ a mature workflow output is unnecessary.
 - Legacy and future records need application, derivation method, `{fluvgeo}`,
   schema, and material-parameter provenance so processing differences are not
   interpreted as geomorphic change.
-- A loader must not map a pre-segmentation `stream_network`, Stream-scale DEM,
-  or associated drainage intermediate into FGDB. If a legacy reach
-  geodatabase contains a convenience copy, it remains excluded unless used as
-  evidence to transform and validate a separately governed downstream feature.
+- A loader must not map the Stream-scale DEM or drainage/construction
+  intermediates into FGDB. It may load a reviewed `stream_network` from a
+  Stream Geodatabase or legacy convenience copy only after establishing its
+  Network Scope, terrain-time observation identity, provenance, topology, and
+  relationships to the applicable Streams, Reaches, and Survey Events.
+- A loader ignores legacy `boundary`. If an analyst consults it while creating
+  a governed optional polygon, that target geometry is a new explicit
+  assertion with its own provenance rather than a direct source-to-target
+  migration.
+- Legacy `km_to_mouth`, `POINT_M`, `from_measure`, and `to_measure` values are
+  not direct authoritative mappings. Canonical longitudinal positions require
+  binding to a governed project reference frame, Reach assignment, and
+  applicable Flowline calibration under ADR-0013. Unverifiable values remain
+  source evidence or are recomputed.
 
 ## Next specification work
 

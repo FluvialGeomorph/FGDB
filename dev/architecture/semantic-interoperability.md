@@ -121,9 +121,11 @@ TopBraid-compatible hierarchy independently.
 
 1. Answer competency questions using real L1/L2/L3 records and intended graph
    queries.
-2. Define a small persistent kernel: Collection, Study Area, Stream, Reach,
-   Survey Event, hydro DEM, Flowline, and Cross Section. Retain synthetic
-   network only as a crosswalked preprocessing concept excluded by ADR-0010.
+2. Define a small persistent kernel: Collection, Study Area, Network Scope,
+   time-specific Synthetic Network Observation, Stream, Reach, Survey Event,
+   hydro DEM, Flowline, longitudinal reference frame/base realization, and
+   Cross Section. Exclude the local Stream Geodatabase and its construction
+   intermediates under ADR-0010 as partially superseded by ADR-0014.
 3. Review external alignments and issue stable local definitions.
 4. Finalize the ontology-ready relational schema and ingestion validation.
 5. When USACE knowledge-graph integration is scheduled, nominate a candidate

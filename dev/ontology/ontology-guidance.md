@@ -87,27 +87,48 @@ Do not align FGDB Stream or Reach extent to national feature geometry,
 segmentation, route measures, or watershed boundaries. When present, the
 entity's own stored FGDB geometry is its only direct extent assertion.
 
-Do not require a national linear referencing system. Local stationing may use
-a specific stored FGDB Flowline, but must retain its reference Flowline ID,
-origin, direction, units, method, and Survey Event or representation scope.
-HY_Features river-referencing concepts are candidate semantic mappings, not a
-requirement to adopt an external route or treat local measures as globally
-comparable.
+Do not require a national linear referencing system. FGDB uses a governed
+project longitudinal reference frame anchored to a project-defined Stream or
+Study Area/watershed mouth. Reach path/interval assignments and Flowline
+calibrations relate Survey Event representations to that frame. Materialized
+positions must retain frame/version, reference Flowline, direction, units,
+method, and representation scope. HY_Features river-referencing concepts are
+candidate semantic mappings, not a requirement to adopt an external route or
+treat project measures as globally comparable.
+
+The reference frame, Stream path, Reach assignment, Flowline calibration, and
+materialized hydro-location are distinct semantic resources. Do not encode
+their meanings only in a numeric `km_to_mouth` attribute. The numeric position
+is not an identifier and may repeat on separate tributaries.
+
+Reach-owned representations may be composed for Stream- or Study Area-scale
+analysis, but semantic projection must preserve each feature's direct Survey
+Event owner and provenance. A composed Stream longitudinal profile is a query
+or analysis result, not evidence that its Reach Flowlines share identity.
+Cross-Reach station alignment and temporal selection must be explicit.
+
+Keep the kernel observation-method neutral. Historic manual surveys and modern
+remote-sensing derivations may instantiate common feature concepts only when
+their method, measurement definition, units/datums, quality, temporal scope,
+and provenance remain available for fitness and comparability assessment.
 
 ## Stream entity versus preprocessing workspace
 
 Do not model the local `Stream Geodatabase` (legacy `Site Geodatabase`) as a
 domain class or confuse it with the persistent FGDB Stream. It is an optional
 desktop workspace used to derive/edit a synthetic network and establish Reach
-segmentation. Its Stream-scale DEM, pre-segmentation network, and construction
-intermediates are outside FGDB persistence scope.
+segmentation. Its Stream-scale DEM and construction intermediates are outside
+FGDB persistence scope.
 
-The synthetic network may be described in the semantic crosswalk as a
-derivation-stage representation, but the current physical model does not
-assign it persistent FGDB identity. Durable Stream/Reach identities and any
-separately governed downstream features carry the accepted result of the
-analyst's segmentation decision. Full reconstruction remains dependent on
-local retention outside FGDB.
+The reviewed synthetic network is a governed, time-specific observation with
+persistent FGDB identity. Model it separately from the durable Stream and Reach
+entities: a Study-Area-owned Network Scope defines whether the observation
+represents a connected multi-Stream network or one independently derived
+Stream, while each Network Observation represents the terrain time from which
+its segment geometry and topology were derived. Candidate semantic alignment
+is HY `HY_ChannelNetwork`, qualified by local derivation, temporal, and
+provenance constraints. Full process reconstruction still depends on local
+retention outside FGDB. See ADR-0014.
 
 ## Survey Event versus derivation provenance
 

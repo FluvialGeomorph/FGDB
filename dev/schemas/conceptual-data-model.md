@@ -10,6 +10,9 @@ or physical Esri geodatabase schema.
 ```text
 Collection
 └── Study Area
+    ├── Network Scope
+    │   └── Synthetic Network Observation
+    │       └── Stream-network segment
     └── Stream
         └── Reach
             └── Survey Event
@@ -24,7 +27,10 @@ create records that bypass a level:
 - each reach belongs to exactly one stream;
 - each Survey Event belongs to exactly one Reach; and
 - every governed feature record and raster item belongs to exactly one Survey
-  Event.
+  Event, except governed synthetic-network segments, which belong to one
+  time-specific Synthetic Network Observation within a Study-Area-owned
+  Network Scope and relate to the applicable Streams, Reaches, and Survey
+  Events.
 
 One Reach may have many Survey Events. Each Survey Event identifies one terrain
 condition/acquisition period and owns one current set of derived content.
@@ -87,6 +93,13 @@ Event polygon is materialized, its origin must distinguish
 `ANALYST_SUPPLIED` from `HYDRO_DEM_FOOTPRINT`. Exact derivation and refresh
 rules remain to be specified.
 
+The manually added legacy feature class named `boundary` is not a governed
+representation source. It was neither created nor required by a
+FluvialGeomorph tool and may ambiguously depict a Stream or Reach. Migration
+therefore ignores it rather than mapping it to any hierarchy geometry. An
+analyst may consult it as informal evidence only when separately asserting a
+governed polygon under the applicable contract. See ADR-0011.
+
 ## Stream and Reach names
 
 - Stream and Reach records retain FGDB immutable IDs regardless of external
@@ -118,12 +131,47 @@ rules remain to be specified.
   content but must not silently adopt an external feature as its geometry.
 - No national linear referencing system is required. Many investigated streams
   are small or unnamed and have no suitable standard route.
-- Local stationing references a specific stored FGDB Flowline representation,
-  not the abstract Stream or Reach identity. It must retain reference Flowline
-  ID, origin, direction, measure units, method, and applicable Survey Event or
-  representation version.
-- Station values from different Flowlines or Survey Events are not assumed
-  directly comparable without an explicit alignment method.
+- FGDB governs a project longitudinal reference frame owned by one Network
+  Scope beneath a Study Area. Its scope is either one Stream or a connected
+  Study Area/watershed network.
+  It has one explicit mouth at zero kilometers and distance increases upstream
+  along each selected network path.
+- Each reference frame explicitly selects one base Flowline for every
+  participating Reach assignment and may identify a compatible base synthetic
+  network observation. Reach assignments retain topology/order and
+  downstream/upstream measures; comparison Flowlines are calibrated to those
+  base-event realizations of the common frame.
+- A materialized `distance_to_mouth_km` must identify its reference frame and
+  applicable Reach assignment/Flowline calibration. It is not a unique key;
+  equal values may occur on different tributaries.
+- Station values from different Flowlines or Survey Events are comparable only
+  when they are validly calibrated to the same frame/version or transformed by
+  an explicit reviewed alignment method.
+
+## Reach-scoped derivation and hierarchical aggregation
+
+- The normative derivation and desktop replacement unit is one Reach and one
+  Survey Event. Legacy ArcPy dissolve-by-`ReachName` behavior is residue from
+  an abandoned multi-Reach processing design, not a target capability.
+- Each retained feature has one direct Survey Event owner. Stream- and Study
+  Area-scale queries traverse the mandatory hierarchy and preserve that direct
+  owner rather than duplicating or reassigning authoritative geometry.
+- One populated Survey Event has at most one current Flowline. A combined
+  Stream Flowline or longitudinal profile is a query-derived composition of
+  Reach-owned observations.
+- Hierarchy membership does not define cross-Reach longitudinal order. The
+  project longitudinal reference frame supplies the governed mouth,
+  Reach topology/path, direction, units, intervals, and Flowline calibration.
+  A composed analysis additionally selects Survey Events and validates method,
+  datum, and temporal compatibility.
+- The kernel is observation-method neutral. Historic manual field surveys and
+  modern remote-sensing derivations require explicit method, measurement,
+  datum/unit, quality, temporal scope, and provenance metadata so differences
+  are not silently interpreted as geomorphic change.
+
+See ADR-0012, ADR-0013, ADR-0014,
+`dev/schemas/longitudinal-reference-model.md`, and
+`dev/features/multiscale-scientific-query.md`.
 
 ## Survey Event time and current derivation
 
@@ -135,8 +183,12 @@ rules remain to be specified.
 - The display label is not an identity and is not assumed globally unique.
 - Chronological operations use the known date components, not the label or load
   timestamp. Ordering events with equal or incomplete dates remains unresolved.
-- Base-event status is not stored in FGDB. Reports select the latest event as
-  the default comparison base.
+- Base-event status is not a global property of a Survey Event. A governed
+  longitudinal reference frame explicitly relates each participating Reach
+  assignment to its selected base Flowline. The same Survey Event may
+  therefore be a base in one frame and a comparison event in another. A
+  client may propose the latest event as a default, but reproducible analysis
+  resolves that choice to an immutable frame/base relation.
 - Each Survey Event has exactly one current derivation-provenance record when
   governed derived content exists. It records the best available source
   metadata, processing timestamp, method/tool and version, material parameters,
@@ -180,18 +232,29 @@ analyst may use it to hold a Stream-scale DEM, derive and manually edit a
 synthetic stream network, establish investigation-specific Stream and Reach
 segmentation, and clip terrain into Reach-scale inputs.
 
-FGDB represents the accepted segmentation through durable Stream and Reach
-records, but does not retain the Stream-scale DEM, pre-segmentation synthetic
-network, or its drainage intermediates. A copied or transformed geometry is
-loaded only when it becomes a separately governed downstream feature in an
-accepted reach-survey-event package. A legacy convenience copy of
-`stream_network` is not loadable FGDB content.
+FGDB does not retain the Stream-scale DEM or drainage/construction
+intermediates. It does retain each reviewed synthetic network as a governed,
+time-specific Synthetic Network Observation. One physical enterprise
+`stream_network` feature class may hold all segment rows, keyed by observation;
+logical ownership is through a Study-Area-owned Network Scope. A connected
+watershed analysis uses one multi-Stream scope. A discontinuous Study Area
+uses separate Stream scopes without requiring artificial connectivity.
+
+Every accepted terrain time creates a distinct network observation because
+the drainage network itself may change. Its segments are explicitly related
+to the applicable Streams and, after segmentation, Reaches and Reach Survey
+Events. Correcting an erroneous derivation replaces the current segments for
+that same observation; it does not erase valid observations from other times.
+A legacy `stream_network` convenience copy is loadable only when its source,
+observation identity, scope, topology, and relationship to Survey Events can
+be established and validated.
 
 This boundary intentionally distinguishes reproducibility of the complete
 local process from traceability of governed results. Projects requiring full
 reconstruction retain their local inputs and Stream Geodatabase outside FGDB;
-FGDB retains the current accepted Reach/Survey Event results and their required
-provenance. See ADR-0010.
+FGDB retains governed network observations and current accepted Reach/Survey
+Event results with their required provenance. See ADR-0010 as partially
+superseded by ADR-0014 and refined for local package use by ADR-0015.
 
 ## Desktop replacement unit
 
@@ -247,10 +310,16 @@ review, spatial scope, or fitness for a particular use.
 
 ## Required future contracts
 
+- Review and accept the recommended identity-change and cardinality rules in
+  `dev/schemas/kernel-relational-model.md`.
 - Collection codes and immutable ID formats.
 - Tiered study-area naming grammar and uniqueness enforcement.
 - Desktop QA states and publication gates.
 - Feature-class and mosaic-dataset ownership keys.
+- Network Scope, Synthetic Network Observation, node/edge topology,
+  Reach-event association, and cross-time correspondence fields/constraints.
+- Longitudinal frame, base-Flowline realization, and comparison-calibration
+  fields/constraints.
 - Hydro DEM raster transformation, cell alignment, resampling, NoData, pixel,
   and vertical-value rules.
 - Approved per-source-CRS horizontal and vertical transformation registry.
