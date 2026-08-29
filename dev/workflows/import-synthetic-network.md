@@ -43,7 +43,8 @@ initial network geometry:
   registered or reconciled;
 - `network_segment_correspondence`, added when cross-time change mapping is
   implemented;
-- a governed node feature/table if node/edge topology requires it; and
+- a governed enterprise node feature/table; package v0.1 instead carries
+  logical endpoint IDs on directed segments and derives node geometry; and
 - longitudinal reference-frame, path, base-Flowline, and comparison-calibration
   tables, populated by a later calibration tool.
 
@@ -198,9 +199,21 @@ network.
 Load otherwise valid legacy Reach Survey Event results without a Network
 Observation association and record `NETWORK_NOT_RETAINED` (or an equivalent
 controlled completeness status). Flowline lineage may identify that a network
-once existed, but a smoothed Reach Flowline is not substituted for the lost
-network. A future network derived from a newly processed terrain is a new
-observation, not a reconstruction of the missing historical one.
+once existed, but a smoothed Reach Flowline is never silently substituted for
+the lost network during loading.
+
+Proposed ADR-0017 defines a separate, explicit reconstruction pathway when
+adequate Reach Flowlines survive. That analyst-initiated producer operation may
+assemble a reviewed Network Observation with evidence class
+`RECONSTRUCTED_FROM_REACH_FLOWLINES`, source-Flowline lineage, qualified
+coverage, and recorded topology repairs. The result is a new reconstruction
+from preserved evidence, not a claim that the original `stream_network` was
+recovered. Loading remains a subsequent operation and never performs this
+reconstruction as a hidden side effect.
+
+A future network derived again from a terrain is likewise a new documented
+derivation. It must not be represented as the missing historical source
+network merely because it uses the same nominal observation time.
 
 ### Several disconnected Stream networks
 
@@ -241,10 +254,11 @@ rigorous stationing workflow.
 ## Immediate feasibility conclusion
 
 No change to `_04_StreamNetwork.py` is required to prove the database design.
-The first migration deliverable can be an FGDB legacy registration/import tool
-operating on surviving output. It will not populate a Network Observation for
-every historical Reach geodatabase because many did not retain that geometry.
-The target producer workflow should later emit a richer local manifest and
-stable source keys, enabling a lighter FGDB loader. Those improvements are not
-a prerequisite for loading legacy Reach results with an explicit completeness
+The first migration deliverable can use a package validator and FGDB legacy
+registration/import tool operating on surviving or separately reconstructed
+output. It will not populate a Network Observation for every historical Reach
+geodatabase because some projects retained insufficient evidence. The target
+producer workflow should later emit a richer local manifest and stable source
+keys, enabling a lighter FGDB loader. Full extraction automation is not a
+prerequisite for loading legacy Reach results with an explicit completeness
 status.

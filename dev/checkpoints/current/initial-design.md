@@ -262,6 +262,35 @@ logical and physical schemas and operating model have not yet been designed.
   Area Network Geodatabase; platform-neutral contracts also support Shiny,
   direct R, and future GeoPackage/QGIS bindings. Drafted
   `dev/schemas/local-analysis-package.md`.
+- Verified the current User Manual's single-network manual edit behavior:
+  analysts delete unwanted branches, split/edit vertices, create and snap
+  connecting linework, smooth and visually recheck the result, and synchronize
+  `ReachName`. The manual supports project-goal-based Reach definition but does
+  not fully document the historical multi-Stream/multi-Reach segmentation and
+  copy procedure. Accepted ADR-0016 accordingly isolates one Network
+  Observation per editable local geodatabase while permitting normalized
+  multi-observation storage in the enterprise feature class.
+- Evaluated the dependency between automated synthetic-network extraction and
+  FGDB migration. Accepted ADR-0017 separates three concerns: forward-looking
+  `fluvgeo` extraction automation, explicit legacy reconstruction from retained
+  Reach Flowlines, and lightweight FGDB package loading. A Flowline-derived
+  network must retain its reconstruction evidence and limitations; absence of
+  a network remains a valid explicit legacy completeness state rather than a
+  broken foreign key.
+- Replaced the initial mixed list of local objects with a candidate
+  object-relational model that separates scientific entities, relationship
+  rows, Reach–Survey Event output fields, and operational submission-manifest
+  records. Defined row meaning, identifiers, foreign keys, required fields,
+  cardinalities, deliberate local denormalization, and a two-slice delivery
+  boundary for network persistence versus longitudinal calibration.
+- Drafted `dev/schemas/network-package-v0.1.md` as the exact first-slice
+  Network Observation exchange contract. It defines four always-present local
+  objects, conditional segment-source lineage, logical and ArcGIS/open physical
+  types, one-observation cardinality, evidence and coverage domains, directed
+  singlepart edge topology with logical endpoint IDs, explicit identity
+  reconciliation, working/submission validation, deterministic fingerprints,
+  canonical JSON manifest, correction semantics, and required conformance
+  fixtures.
 
 ## Remaining
 
@@ -293,11 +322,13 @@ logical and physical schemas and operating model have not yet been designed.
    delivery plan in their durable routes.
 14. Add FGDB to the organization repository catalog and capability map through
    a separately reviewed cross-repository change when its role is accepted.
-15. Review and finalize the logical/physical synthetic-network and project
-    longitudinal-reference contracts, including node/edge topology,
-    cross-time segment correspondence, base-Flowline realization, QA
-    tolerances, measure materialization, and manual-survey calibration.
-16. Define query/service contracts for Study Area-, Stream-, Reach-, and
+15. Review and accept/revise Network Package Contract v0.1, build its
+    cross-platform conformance fixtures, then specify the `fluvgeo` Network
+    Observation preparation functions and the FGDB package loader against it.
+16. Finalize the project longitudinal-reference contract, including cross-time
+    segment correspondence, base-Flowline realization, QA tolerances, measure
+    materialization, and manual-survey calibration.
+17. Define query/service contracts for Study Area-, Stream-, Reach-, and
     Survey Event-scale selection, including explicit cross-Reach temporal
     selection and observation-method compatibility behavior.
 

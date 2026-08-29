@@ -172,8 +172,9 @@ status fields for filtering without copying authoritative geometry.
 
 ## Open design questions
 
-1. Exact node/edge topology implementation and whether nodes are persisted as
-   a governed companion feature class.
+1. Network Package v0.1 uses directed singlepart edges with shared logical
+   endpoint IDs and no persisted node feature class. Whether the normalized
+   enterprise model later materializes governed node rows remains open.
 2. Connectivity rules for braided, distributary, artificial, intermittent, or
    intentionally partial networks.
 3. Whether observation time should reuse a shared acquisition reference when
