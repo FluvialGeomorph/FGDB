@@ -121,7 +121,7 @@ mandatory hierarchy in `conceptual-data-model.md`.
 
 - `stream_network` has no target in the prototype, but ADR-0014 now requires a
   governed enterprise representation. The physical schema needs an
-  `FG_StreamNetwork`-equivalent feature class keyed by Network Observation.
+  `FG_StreamNetwork`-equivalent feature class keyed by Stream Network Observation.
 - `boundary` is now intentionally excluded under ADR-0011. It was manually
   added and neither written nor required by a tool; do not infer a Study Area,
   Stream, Reach, or Survey Event geometry from it.
@@ -152,7 +152,7 @@ a mature workflow output is unnecessary.
 - A loader must not map the Stream-scale DEM or drainage/construction
   intermediates into FGDB. It may load a reviewed `stream_network` from a
   Stream Geodatabase or legacy convenience copy only after establishing its
-  Network Scope, terrain-time observation identity, provenance, topology, and
+  Stream Network Configuration, terrain-time observation identity, provenance, topology, and
   relationships to the applicable Streams, Reaches, and Survey Events.
 - A loader ignores legacy `boundary`. If an analyst consults it while creating
   a governed optional polygon, that target geometry is a new explicit

@@ -13,7 +13,7 @@ components and interfaces remain under design.
 | FGDB conceptual and physical schema specifications | `FGDB` | accepted intended boundary |
 | Validation and idempotent loading into the enterprise geodatabase | `FGDB` | accepted intended boundary |
 | FGDB database setup and management toolbox | `FGDB` | accepted intended boundary |
-| ArcGIS Pro tools for enterprise package validation, loading, and database reconciliation | `FGDB` | accepted intended boundary |
+| ArcGIS Pro tools for enterprise geodatabase validation, loading, and database reconciliation | `FGDB` | accepted intended boundary |
 | All computable scientific analysis and geospatial derivation functions | `fluvgeo` | accepted target boundary in ADR-0004 and ADR-0015 |
 | ArcGIS Pro analyst experience, editing, and local geodatabase I/O | `FluvialGeomorph-toolbox` wrappers around `fluvgeo` | accepted target boundary in ADR-0015 |
 | Shiny and future QGIS analyst experiences | Client-specific wrappers/orchestration around `fluvgeo` | accepted target boundary in ADR-0015 |
@@ -31,7 +31,7 @@ FGDB is the repository home for ArcGIS tools that validate, load, reconcile,
 and manage enterprise records. ADR-0015 requires that analyst-facing network
 documentation and longitudinal-reference creation remain local producer
 capabilities in `FluvialGeomorph-toolbox`, calling canonical `fluvgeo`
-algorithms, while FGDB consumes a versioned exchange package. The existing
+algorithms, while FGDB loads analyst-approved geodatabase relations. The existing
 `FluvialGeomorph-toolbox` remains the production derivation client during
 transition and does not become the owner of enterprise loading logic.
 
@@ -42,15 +42,15 @@ Desktop path:                          Self-service path:
 Local terrain and survey inputs        Authenticated Shiny user
               |                                  |
               v                                  v
-Optional Stream Geodatabase            Shiny inputs + derived outputs
-(local segmentation/preprocessing)                |
+Study Area/Stream Geodatabase           Shiny relational inputs + outputs
+(feature classes and tables)                       |
        |                 |                        v
-       |                 v             App-mediated FGDB submission
+       |                 v             App-mediated FGDB load
        |      FluvialGeomorph-toolbox             |
        |                 |                        |
        |                 v                        |
        |      Local features + scientific         |
-       |      metadata/load package               |
+       |      metadata tables                     |
        |                 |                        |
        +-----------------+------------------------+
                          v
@@ -73,14 +73,13 @@ SDE feature classes     hydro DEM/REM mosaic datasets
 ## Authority and lifecycle
 
 - Local file geodatabases are production and migration inputs.
-- The optional Stream Geodatabase (legacy `Site Geodatabase`) is a local
-  Network Workspace, not an FGDB hierarchy entity or enterprise object. Under
-  ADR-0015, a forward-looking version may store network scientific metadata
-  and participate in a local exchange package. Its Stream-scale DEM and
+- The Stream Geodatabase (legacy `Site Geodatabase`) is the local database of
+  record for Stream Network feature classes and related scientific metadata;
+  it is not an FGDB hierarchy entity or enterprise object. Its Stream-scale DEM and
   construction intermediates remain excluded from enterprise persistence. Its
   reviewed synthetic network crosses the loading boundary as a governed,
-  time-specific Network Observation; Reach/Survey Event results and metadata
-  join it through stable package identities.
+  time-specific Stream Network Observation; Reach/Survey Event results and metadata
+  join it through stable object and relationship identities.
 - Analysts retain local inputs and preprocessing workspaces when complete
   process reconstruction is required. FGDB governs traceability of retained
   results rather than archiving every input and intermediate.
@@ -96,7 +95,7 @@ SDE feature classes     hydro DEM/REM mosaic datasets
 - `collection` is the top-level domain and policy boundary separating the
   authoritative desktop source from the informative Shiny source.
 - Both source paths use the `{fluvgeo}` scientific backend for portions of
-  their derivation. Application and package versions are part of provenance.
+  their derivation. Application and `fluvgeo` versions are part of provenance.
 - The schema specification and service contracts in this repository describe
   intended behavior. The deployed database and services provide operational
   evidence and must be checked for drift.
@@ -160,7 +159,7 @@ with the USACE hosting stakeholders.
 - Physical enforcement of collection ownership and globally unique tiered
   study-area names.
 - Partial/unknown legacy survey dates and revision/correction behavior.
-- Physical representation and service exposure of Network Scopes, versioned
+- Physical representation and service exposure of Stream Network Configurations, versioned
   synthetic networks, and frame-relative base-event calibration.
 - Source-to-target feature-class crosswalk and geometry constraints.
 - Enterprise geodatabase dataset organization and naming conventions.

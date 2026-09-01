@@ -10,8 +10,8 @@ or physical Esri geodatabase schema.
 ```text
 Collection
 └── Study Area
-    ├── Network Scope
-    │   └── Synthetic Network Observation
+    ├── Stream Network Configuration
+    │   └── Stream Network Observation
     │       └── Stream-network segment
     └── Stream
         └── Reach
@@ -28,8 +28,8 @@ create records that bypass a level:
 - each Survey Event belongs to exactly one Reach; and
 - every governed feature record and raster item belongs to exactly one Survey
   Event, except governed synthetic-network segments, which belong to one
-  time-specific Synthetic Network Observation within a Study-Area-owned
-  Network Scope and relate to the applicable Streams, Reaches, and Survey
+  time-specific Stream Network Observation within a Study-Area-owned
+  Stream Network Configuration and relate to the applicable Streams, Reaches, and Survey
   Events.
 
 One Reach may have many Survey Events. Each Survey Event identifies one terrain
@@ -131,14 +131,14 @@ governed polygon under the applicable contract. See ADR-0011.
   content but must not silently adopt an external feature as its geometry.
 - No national linear referencing system is required. Many investigated streams
   are small or unnamed and have no suitable standard route.
-- FGDB governs a project longitudinal reference frame owned by one Network
-  Scope beneath a Study Area. Its scope is either one Stream or a connected
-  Study Area/watershed network.
+- FGDB governs a project longitudinal reference frame owned by one Stream
+  Network Configuration beneath a Study Area. Its configuration contains
+  either one Stream or a connected Study Area/watershed network.
   It has one explicit mouth at zero kilometers and distance increases upstream
   along each selected network path.
 - Each reference frame explicitly selects one base Flowline for every
-  participating Reach assignment and may identify a compatible base synthetic
-  network observation. Reach assignments retain topology/order and
+  participating Reach assignment and may identify a compatible base Stream
+  Network Observation. Reach assignments retain topology/order and
   downstream/upstream measures; comparison Flowlines are calibrated to those
   base-event realizations of the common frame.
 - A materialized `distance_to_mouth_km` must identify its reference frame and
@@ -224,37 +224,39 @@ After applicable collection QA, the retained hydro-modified DEM and its derived
 features are authoritative FluvialGeomorph analysis products. This authority
 does not extend to discarded source point clouds or external national data.
 
-## Local Stream workspace boundary
+## Local Study Area/Stream Geodatabase boundary
 
-The optional desktop `Stream Geodatabase` (historically `Site Geodatabase`) is
-a local preprocessing workspace, not the persistent FGDB `Stream` entity. An
+The desktop Study Area/`Stream Geodatabase` (historically `Site Geodatabase`)
+is the local database of record for Stream Network feature classes and related
+tables; it is not the persistent FGDB `Stream` entity. An
 analyst may use it to hold a Stream-scale DEM, derive and manually edit a
 synthetic stream network, establish investigation-specific Stream and Reach
 segmentation, and clip terrain into Reach-scale inputs.
 
 FGDB does not retain the Stream-scale DEM or drainage/construction
 intermediates. It does retain each reviewed synthetic network as a governed,
-time-specific Synthetic Network Observation. One physical enterprise
+time-specific Stream Network Observation. One physical enterprise
 `stream_network` feature class may hold all segment rows, keyed by observation;
-logical ownership is through a Study-Area-owned Network Scope. A connected
-watershed analysis uses one multi-Stream scope. A discontinuous Study Area
-uses separate Stream scopes without requiring artificial connectivity.
+logical ownership is through a Study-Area-owned Stream Network Configuration. A connected
+watershed analysis uses one multi-Stream configuration. A discontinuous Study
+Area uses separate single-Stream configurations without requiring artificial
+connectivity.
 
-Every accepted terrain time creates a distinct network observation because
+Every accepted terrain time creates a distinct stream network observation because
 the drainage network itself may change. Its segments are explicitly related
 to the applicable Streams and, after segmentation, Reaches and Reach Survey
 Events. Correcting an erroneous derivation replaces the current segments for
 that same observation; it does not erase valid observations from other times.
 A legacy `stream_network` convenience copy is loadable only when its source,
-observation identity, scope, topology, and relationship to Survey Events can
+observation identity, configuration, topology, and relationship to Survey Events can
 be established and validated.
 
 This boundary intentionally distinguishes reproducibility of the complete
 local process from traceability of governed results. Projects requiring full
 reconstruction retain their local inputs and Stream Geodatabase outside FGDB;
-FGDB retains governed network observations and current accepted Reach/Survey
+FGDB retains governed stream network observations and current accepted Reach/Survey
 Event results with their required provenance. See ADR-0010 as partially
-superseded by ADR-0014 and refined for local package use by ADR-0015.
+superseded by ADR-0014 and refined by ADR-0015 and ADR-0019.
 
 ## Desktop replacement unit
 
@@ -316,7 +318,7 @@ review, spatial scope, or fitness for a particular use.
 - Tiered study-area naming grammar and uniqueness enforcement.
 - Desktop QA states and publication gates.
 - Feature-class and mosaic-dataset ownership keys.
-- Network Scope, Synthetic Network Observation, node/edge topology,
+- Stream Network Configuration, Stream Network Observation, node/edge topology,
   Reach-event association, and cross-time correspondence fields/constraints.
 - Longitudinal frame, base-Flowline realization, and comparison-calibration
   fields/constraints.

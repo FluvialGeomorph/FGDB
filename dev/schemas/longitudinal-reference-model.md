@@ -22,8 +22,8 @@ project method.
 
 ```text
 Study Area
-  -> Network Scope
-       -> Synthetic Network Observation(s)
+  -> Stream Network Configuration
+       -> Stream Network Observation(s)
        -> Longitudinal Reference Frame(s)
        -> explicit Mouth/Origin
        -> Reach Reference Assignment(s)
@@ -38,7 +38,7 @@ Study Area
 
 | Relation | Owner | Cardinality | Purpose |
 |---|---|---|---|
-| `longitudinal_reference_frame` | one network scope | scope 1:0..N frames | Identifies one base-realization-specific project coordinate and calibration method. |
+| `longitudinal_reference_frame` | one Stream Network Configuration | configuration 1:0..N frames | Identifies one base-realization-specific project coordinate and calibration method. |
 | `reference_mouth` | one frame | frame 1:1 mouth | Stores the zero-position point and its analyst-defined meaning/provenance. |
 | `reach_reference_assignment` | one frame and one Reach | frame 1:1..N assignments | Stores each Reach once per frame with topology and governed downstream/upstream measure interval. |
 | `reference_path` | one frame | frame 1:1..N paths | Names a main-stem or tributary-to-mouth analysis path through the calibrated network. |
@@ -46,8 +46,9 @@ Study Area
 | `reference_base_flowline` | one Reach assignment and one Flowline | assignment 1:1 base for every participating Reach; Flowline 1:0..N frames | Selects the Survey Event representation that defines common stationing for that Reach in this frame. |
 | `flowline_calibration` | one Reach assignment, one base selection, and one comparison Flowline | comparison Flowline 1:0..1 calibration per frame | Maps a non-base Survey Event representation onto the selected base stationing. |
 
-A frame inherits its Study Area, scope mode, and included Streams from one
-`network_scope` defined in `synthetic-network-model.md`. `STREAM` has exactly
+A frame inherits its Study Area, configuration mode, and included Streams from
+one `stream_network_configuration` defined in
+`stream-network-geodatabase-schema.md`. `STREAM` has exactly
 one Stream; `STUDY_AREA_NETWORK` represents the connected Streams calibrated
 to the selected common mouth.
 
@@ -56,8 +57,8 @@ to the selected common mouth.
 | Field/concept | Required rule |
 |---|---|
 | `reference_frame_id` | Immutable identifier for the governed frame/version. |
-| `network_scope_id` | Required owner; supplies Study Area, scope mode, and included Streams. |
-| `base_network_observation_id` | Optional only when no governed network observation can support the frame; otherwise identifies the selected topology realization and must belong to the same scope. |
+| `stream_network_configuration_id` | Required owner; supplies Study Area, configuration mode, and included Streams. |
+| `base_stream_network_observation_id` | Optional only when no governed Stream Network Observation can support the frame; otherwise identifies the selected topology realization and must belong to the same configuration. |
 | `preferred_label` | Human-readable project label; never identity. |
 | `canonical_measure` | `distance_to_mouth_km`. |
 | `measure_unit` | Canonical value `KILOMETER`; source units and conversions remain provenance. |
@@ -74,10 +75,10 @@ one reference frame:
 
 - every participating Reach assignment selects exactly one base Flowline and
   therefore one explicit base Survey Event;
-- a frame may select one base synthetic-network observation for topology and
+- a frame may select one base stream network observation for topology and
   path context;
-- all selected base Flowlines must belong to the frame's network scope and be
-  compatible with its selected base network observation when one is declared;
+- all selected base Flowlines must belong to the frame's stream network configuration and be
+  compatible with its selected base stream network observation when one is declared;
 - the base Flowline's calibrated measure begins at its governed Reach interval
   and participates in the common mouth-based coordinate; and
 - every other included Survey Event Flowline is calibrated to the applicable
@@ -118,12 +119,12 @@ inputs, and scientific purpose. FGDB validation may reject invalid results and
 a client may suggest eligible inputs, but the database does not initiate
 scientific derivation.
 
-## Mouth/origin contract
+## Mouth/origin model
 
 The mouth is a required governed point representation in Enterprise CRS with
 native/source CRS provenance when applicable.
 
-| Scope | Meaning |
+| Configuration mode | Meaning |
 |---|---|
 | `STREAM` | Analyst-selected downstream-most point of the project-defined Stream extent/path. |
 | `STUDY_AREA_NETWORK` | Analyst-selected outlet of the connected watershed/network represented by the Study Area analysis. |
@@ -186,13 +187,13 @@ needed to say which selection produced that value.
 ## Identity and version rules
 
 Preserve a reference-frame identity when correcting labels, documentation, or
-an erroneous calibration while retaining the same intended scope, base
+an erroneous calibration while retaining the same intended configuration, base
 realization, mouth, and network-path semantics. Create a new frame/version when
 changing:
 
-- the base network observation or any base Flowline selection;
+- the base stream network observation or any base Flowline selection;
 - the mouth/origin;
-- `STREAM` versus `STUDY_AREA_NETWORK` scope;
+- `STREAM` versus `STUDY_AREA_NETWORK` configuration mode;
 - the subject or included Stream network;
 - a selected path through an ambiguous/branching network;
 - measure direction or canonical unit semantics; or

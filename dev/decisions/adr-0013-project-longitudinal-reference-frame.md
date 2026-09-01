@@ -16,27 +16,28 @@ selected network path to that origin.
 This produced `km_to_mouth`, a common longitudinal coordinate that allowed
 independently processed Reaches and tributaries to be assembled for analysis.
 The historical workflow depended on analyst expertise and contained no durable
-mechanism to enforce scope, origin, topology, direction, calibration, units, or
-continuity. The Stream Geodatabase itself remains an excluded preprocessing
-workspace under ADR-0010, but the accepted reference-frame definition and
-calibration are scientifically meaningful governed outputs.
+mechanism to enforce configuration, origin, topology, direction, calibration,
+units, or continuity. The Study Area/Stream Geodatabase is the local database
+of record for the Stream Network and reference-frame relations.
 
 ## Decision
 
 1. FGDB will govern a project-defined longitudinal reference frame independent
-   of national linear referencing systems and independent of any one Survey
-   Event Flowline geometry.
-2. A reference frame has exactly one Study Area owner and one scope mode:
+   of national linear referencing systems. The frame identifies the coordinate
+   definition, while its stationing is realized by explicitly selected base
+   Survey Event Flowline geometry.
+2. A reference frame belongs to exactly one Stream Network Configuration, with
+   configuration mode:
    `STREAM` for one Stream or `STUDY_AREA_NETWORK` for a connected set of
    Streams within the Study Area.
 3. The frame has one explicit mouth/origin. Canonical
    `distance_to_mouth_km` is zero at that origin, nonnegative, and increases
    upstream along each selected network path.
-4. A Stream-scoped frame uses the project's downstream-most Stream point as
+4. A `STREAM` frame uses the project's downstream-most Stream point as
    its mouth. A Study-Area-network frame uses the analyst-selected watershed or
    connected-network outlet and references every included Reach to that common
    mouth.
-5. The durable contract retains frame identity/version, scope, mouth geometry
+5. The durable model retains frame identity/version, configuration, mouth geometry
    and meaning, included Streams, Reach topology/path, direction, units,
    derivation/calibration method, responsible actor/process, validation state,
    and provenance.
@@ -47,28 +48,29 @@ calibration are scientifically meaningful governed outputs.
 7. `distance_to_mouth_km` is a position, not an identifier. Equal values may
    occur on different tributaries or representations and must be qualified by
    reference-frame, Stream/Reach, Flowline, and feature identity as applicable.
-8. The reference frame is not defined by the discarded synthetic-network
-   feature class. FGDB retains the reviewed calibration contract and values,
-   not the local preprocessing geometry or intermediate route products.
+8. The reference frame may select a reviewed Stream Network Observation as its
+   topology context and selects one base Flowline for each participating Reach.
+   FGDB retains those relationships, the reviewed Stream Network geometry, and
+   calibration values; temporary route products remain local.
 9. Legacy `km_to_mouth` values are imported only with explicit frame binding
    and validation. Unverifiable values remain unverified or are recomputed;
    missing frame metadata is not fabricated.
-10. Changing the mouth, scope mode, included network, or path semantics creates
+10. Changing the mouth, configuration mode, included Stream Network, or path semantics creates
     a new reference-frame identity/version. Correcting erroneous calibration
     within the same intended frame follows controlled replacement and QA.
 
 ## Consequences
 
 - Independently processed Reach results can share a reproducible Stream- or
-  watershed-scale x-axis without sharing one derivation workspace.
+  watershed-scale x-axis without sharing one derivation geodatabase.
 - Multiple tributaries can appear in sophisticated longitudinal analyses while
   remaining distinguishable by Stream/path; `km_to_mouth` alone is not unique.
-- Survey Event Flowlines may change through time without redefining the common
-  project reference frame.
+- Survey Event Flowlines may change through time; each frame records the exact
+  base and comparison Flowlines used.
 - The logical schema requires reference-frame, included-Stream/path,
   Reach-assignment, and Flowline-calibration contracts.
 - Load validation must test topology, monotonicity, endpoint continuity,
-  scope membership, units, mouth definition, and calibration quality rather
+  configuration membership, units, mouth definition, and calibration quality rather
   than trusting analyst-entered offsets.
 - A branch, distributary, loop, gap, or ambiguous route requires an explicit
   selected path/disposition; hierarchy membership cannot resolve it silently.
@@ -82,4 +84,3 @@ calibration are scientifically meaningful governed outputs.
 - ADR-0009: project-defined Stream/Reach extent and referencing.
 - ADR-0010: Stream Geodatabase preprocessing boundary.
 - ADR-0012: Reach-scoped derivation and hierarchical aggregation.
-

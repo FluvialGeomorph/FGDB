@@ -1,6 +1,6 @@
 # ADR-0010: Stream Geodatabase preprocessing boundary
 
-- Status: accepted
+- Status: accepted as amended by ADR-0014 and ADR-0019
 - Date: 2026-08-28
 
 ## Context
@@ -12,47 +12,48 @@ and edit a synthetic stream network, divide a long Stream into Reaches, and
 optionally clip the Stream-scale DEM into manageable Reach-scale terrains.
 
 This work establishes analysis units and prepares inputs for the governed
-reach-survey-event workflow. It is not itself a durable analysis result. Any
-geometry needed downstream is copied or transformed into the applicable
-reach-survey-event workspace. Historical practice has not required retention
-of every Stream Geodatabase, source point cloud, terrain intermediate, or
-synthetic-network construction artifact.
+reach-survey-event workflow. Historical practice has not required retention of
+every Stream Geodatabase, source point cloud, terrain intermediate, or
+synthetic-network construction artifact. The reviewed `stream_network` and its
+related configuration, observation, lineage, review, and validation records are
+now governed outputs under ADR-0014 and ADR-0019.
 
 ## Decision
 
 1. `Stream Geodatabase` is the preferred name for this optional local
    preprocessing workspace. `Site Geodatabase` is a legacy alias and does not
    define an FGDB domain entity.
-2. A Stream Geodatabase is not an FGDB hierarchy level, migration unit, load
-   package, or governed database object. The FGDB `Stream` entity remains a
-   durable hierarchy object and must not be conflated with this workspace.
+2. A Stream Geodatabase is the local database of record for Stream Network
+   feature classes and related tables, but it is not itself an FGDB hierarchy
+   entity. The FGDB `Stream` remains a durable hierarchy object and must not be
+   conflated with the physical geodatabase.
 3. FGDB does not retain the Stream-scale DEM, the pre-segmentation synthetic
    stream network, flow-direction/accumulation products, or other construction
    intermediates from this workspace.
 4. The analyst's reviewed Stream and Reach segmentation is represented by the
-   durable FGDB hierarchy records. Only downstream features and rasters that
-   enter an accepted reach-survey-event package and have a governed catalog
-   contract are loaded. Copying source geometry into that workspace does not,
-   by itself, make the preprocessing artifact governed.
+   durable hierarchy records and approved `stream_network` feature rows. FGDB
+   loads only feature classes, tables, and rasters defined by the governed
+   schema. Copying source geometry into a geodatabase does not, by itself, make
+   that geometry governed.
 5. The retained Reach/Survey Event hydro-modified DEM and governed downstream
    features are the authoritative FGDB analysis products after applicable QA.
 6. A project that requires complete process reproducibility must retain its
    local inputs and preprocessing workspace outside FGDB. FGDB requires
    traceability and provenance for retained results, but does not promise
    reconstruction from every discarded input and intermediate.
-7. A future need to retain a Stream-scale terrain or synthetic network requires
-   a reviewed catalog contract and a new decision; it must not be introduced
-   implicitly by a loader.
+7. The reviewed `stream_network` feature class and related governed tables load
+   under the Stream Network Geodatabase schema. Stream-scale terrain and
+   construction intermediates remain excluded unless separately governed.
 
 ## Consequences
 
-- The unresolved ownership problem for a network created before final
-  Stream/Reach segmentation is removed from the FGDB physical model.
-- No target `FG_StreamNetwork` or Stream-scale terrain mosaic item is required
-  for the current scope.
-- Migration tooling must classify these preprocessing artifacts as excluded,
-  even if a legacy reach geodatabase contains a convenience copy. It may use
-  them as transformation evidence for a separately governed downstream object.
+- Stream Network Configuration and Observation identities resolve ownership
+  before and across final Stream/Reach segmentation.
+- The enterprise `stream_network` feature class is required; a Stream-scale
+  terrain mosaic item is not.
+- Migration tooling distinguishes reviewed Stream Network geometry from
+  pre-segmentation and construction artifacts. A legacy convenience copy may be
+  used as evidence only after classification and validation.
 - FGDB preserves the scientifically reviewed segmentation and accepted results
   without becoming a complete archive of the analyst's local processing state.
 - Tech and User Manual terminology should be updated separately and carefully,
@@ -67,4 +68,3 @@ synthetic-network construction artifact.
 - `FG-User-Manual/Concepts.qmd` and `FG-User-Manual/Level-1.qmd`.
 - ADR-0005: governed foundation scope.
 - ADR-0006: optional hierarchy geometry and hydrography names.
-

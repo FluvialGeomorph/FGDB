@@ -11,7 +11,7 @@ implementation completeness.
 | Component | Target responsibility |
 |---|---|
 | `{fluvgeo}` | Canonical, client-independent implementation of all computable scientific analysis and geospatial derivation functions, validation contracts, and reusable reporting logic |
-| Shiny applications | Local-first browser interaction, small-area self-service orchestration, presentation, package creation, and optional FGDB save/restore integration |
+| Shiny applications | Local-first browser interaction, small-area self-service orchestration, presentation, relational data creation, and optional FGDB save/restore integration |
 | ArcGIS Pro toolbox | Optional expert editing experience, desktop orchestration, and geodatabase adapters that call canonical R functions |
 | Future QGIS toolbox | Optional open-source desktop editing and orchestration adapter calling the same canonical R functions |
 | FGDB tooling | Schema setup, controlled ingestion, replacement/edit policies, reconciliation, and management |
@@ -27,10 +27,10 @@ separately scoped cross-repository change when implementation planning begins.
                            +---------------------+
 Shiny application --------|                     |
                            |                     |
-ArcGIS Pro adapter --------|      fluvgeo        |---> local results + package
+ArcGIS Pro adapter --------|      fluvgeo        |---> local feature classes + tables
                            | all scientific      |               |
 Future QGIS adapter -------| processing and      |               v optional
-                           | validation          |       FGDB package loader
+                           | validation          |       FGDB geodatabase loader
 Batch/other client --------|                     |               |
                            +---------------------+               v
                                                    ArcGIS Enterprise FGDB
@@ -94,7 +94,7 @@ but it must:
 - define feature contracts jointly with the canonical `fluvgeo` outputs; and
 - distinguish actual geomorphic change from processing-method changes.
 
-Local-first analysis produces complete local results and package metadata
+Local-first analysis produces complete local feature classes, tables, and scientific metadata
 before the optional FGDB boundary. FGDB loading must not be embedded inside a
 `fluvgeo` scientific function or required to complete a Shiny, ArcGIS Pro,
 direct-R, or future QGIS analysis.

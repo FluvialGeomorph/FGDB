@@ -23,6 +23,8 @@
 - Cohesive user-visible capabilities: `dev/features/`
 - Resumable unfinished work: `dev/checkpoints/current/`
 - Repository-type-specific rules: inspect the repository's native configuration and workflows.
+- R package development or tests: `DESCRIPTION`, `R/`, `tests/testthat/`, and
+  `dev/workflows/r-package-development.md`.
 
 Full session transcripts are not normal context sources. Use maintained durable artifacts and concise checkpoints.
 

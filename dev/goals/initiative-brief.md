@@ -97,8 +97,8 @@ datasets.
   deployment and service boundary.
 - Preserve local-first capability across ArcGIS Pro, Shiny, direct R, and
   future QGIS clients: all computable scientific operations live in
-  `fluvgeo`, complete without FGDB, and produce an optional local exchange
-  package for lightweight enterprise loading.
+  `fluvgeo`, complete without FGDB, and write object-relational geodatabase
+  feature classes and tables that FGDB can load.
 - Let previous and future customers discover and inspect derived geometry for
   delivered analyses, including repeat survey events used to assess change
   through time.
@@ -174,10 +174,9 @@ datasets.
   acquisition, point-cloud cleaning, source DEM, watershed-product, or
   hillshade workflow. Cutline geometry is retained as a governed record of
   terrain inadequacy and hydro-modification assumptions.
-- The optional `Stream Geodatabase` (legacy `Site Geodatabase`) is a local
-  Network Workspace rather than an FGDB hierarchy entity or retained
-  enterprise object. A forward-looking version may store local scientific
-  metadata and participate in an exchange package. Its Stream-scale DEM and
+- The `Stream Geodatabase` (legacy `Site Geodatabase`) is the local database of
+  record for Stream Network feature classes and related scientific metadata;
+  it is not an FGDB hierarchy entity or retained enterprise object. Its Stream-scale DEM and
   drainage/construction intermediates are not retained in FGDB. Its reviewed
   synthetic network is retained as a governed, time-specific Network
   Observation. Projects requiring complete process reconstruction retain the

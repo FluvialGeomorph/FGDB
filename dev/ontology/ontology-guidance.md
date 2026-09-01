@@ -112,19 +112,19 @@ remote-sensing derivations may instantiate common feature concepts only when
 their method, measurement definition, units/datums, quality, temporal scope,
 and provenance remain available for fitness and comparability assessment.
 
-## Stream entity versus preprocessing workspace
+## Stream entity versus Stream Geodatabase
 
 Do not model the local `Stream Geodatabase` (legacy `Site Geodatabase`) as a
-domain class or confuse it with the persistent FGDB Stream. It is an optional
-desktop workspace used to derive/edit a synthetic network and establish Reach
-segmentation. Its Stream-scale DEM and construction intermediates are outside
-FGDB persistence scope.
+domain class or confuse it with the persistent FGDB Stream. It is the local
+database of record used to derive, review, and retain a Stream Network and
+establish Reach segmentation. Its Stream-scale DEM and construction
+intermediates are outside FGDB persistence scope.
 
 The reviewed synthetic network is a governed, time-specific observation with
 persistent FGDB identity. Model it separately from the durable Stream and Reach
-entities: a Study-Area-owned Network Scope defines whether the observation
+entities: a Study-Area-owned Stream Network Configuration defines whether the observation
 represents a connected multi-Stream network or one independently derived
-Stream, while each Network Observation represents the terrain time from which
+Stream, while each Stream Network Observation represents the terrain time from which
 its segment geometry and topology were derived. Candidate semantic alignment
 is HY `HY_ChannelNetwork`, qualified by local derivation, temporal, and
 provenance constraints. Full process reconstruction still depends on local

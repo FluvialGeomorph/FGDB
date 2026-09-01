@@ -31,12 +31,12 @@ Synthetic-network segments follow a parallel governed path because one
 terrain-time network may span several Reaches:
 
 ```text
-Collection -> Study Area -> Network Scope -> Network Observation -> Segment
+Collection -> Study Area -> Stream Network Configuration -> Stream Network Observation -> Segment
                                       |-> Stream/Reach classifications
                                       `-> associated Reach Survey Events
 ```
 
-A query must return the Network Observation identity and may not collapse
+A query must return the Stream Network Observation identity and may not collapse
 segments from different terrain times into one apparently timeless network.
 
 | Requested scope | Required selection behavior |
@@ -131,13 +131,13 @@ provenance. Missing legacy values remain unknown rather than fabricated.
 5. A historic manual cross section and a modern terrain-derived cross section
    can coexist without asserting equivalence unless an approved comparison
    contract supports it.
-6. Selecting a Network Scope returns distinct synthetic Network Observations
+6. Selecting a Stream Network Configuration returns distinct stream network Observations
    by terrain time, including Stream/Reach classifications and explicit
    cross-time segment correspondence where it has been reviewed.
 
 ## Open contracts
 
-- Physical representation and validation tolerances for Network Observation
+- Physical representation and validation tolerances for Stream Network Observation
   topology, cross-time segment correspondence, base Flowline selection, and
   comparison-Flowline calibration.
 - Cross-Reach temporal snapshot selection or grouping.

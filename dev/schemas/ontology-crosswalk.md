@@ -40,7 +40,7 @@ it does not invent HY class IRIs.
 | Derived Dataset | DCAT `Dataset`; PROV `Entity` | Current retained product associated with one Survey Event and its current derivation provenance; distinguish dataset identity from its individual features and GIS representation. |
 | Cutline | GeoSPARQL `Feature`; PROV `Entity` | Local terrain-correction assumption record. No direct HY match; link its geometry, method, parameters, input, output, and derivation activity. |
 | Hydro-modified DEM | DCAT `Dataset`; PROV `Entity` | Derived raster dataset. Its mosaic footprint is a geometry of its coverage/domain, not the raster itself. Coverage vocabulary evaluation remains open. |
-| Synthetic Network Observation | HY `HY_ChannelNetwork`; SOSA `Observation`/`ObservationCollection`; PROV `Entity` | Candidate conceptual description for a governed, time-specific terrain-derived network. FGDB assigns the observation and its segments persistent identity while distinguishing them from durable Stream/Reach classifications and external hydrography. Exact HY/SOSA projection requires review. |
+| Stream Network Observation | HY `HY_ChannelNetwork`; SOSA `Observation`/`ObservationCollection`; PROV `Entity` | Candidate conceptual description for a governed, time-specific terrain-derived network. FGDB assigns the observation and its segments persistent identity while distinguishing them from durable Stream/Reach classifications and external hydrography. Exact HY/SOSA projection requires review. |
 | Flowline | HY `HY_Flowpath` | Strong candidate if the FG line represents the path water follows through the reach. Orientation and derivation rules remain local constraints. |
 | Project longitudinal reference frame | HY river-referencing conceptual model | Candidate conformance for a project-defined network reference anchored to a local mouth and realized by explicitly selected base-event Flowlines. It is not a national route, Stream identity, or a global base-event flag. Exact HY classes/relations require review. |
 | Flowline station/point | HY `HY_IndirectPosition` and/or `HY_HydroLocation` | Candidate for a position referenced along a particular FGDB Flowline. The mapping does not adopt an external linear reference system; distinguish the local measure and reference Flowline from a materialized point geometry. |
@@ -53,7 +53,7 @@ The channel/water-body distinction is foundational. A dry channel landform can
 persist while the water occupying it changes. FG terms should not collapse
 these continuants merely because legacy feature-class names did so.
 
-The Synthetic Network Observation is part of the FGDB semantic kernel and
+The Stream Network Observation is part of the FGDB semantic kernel and
 requires a physical segment representation. Its explicit identity keeps it
 distinct from the persistent Stream, the analyst's Reach classifications, and
 Reach/Survey Event Flowlines. This also permits reviewed network change and
@@ -78,7 +78,7 @@ temporal or representation scope.
 | SKOS concept scheme | Governed reference table and/or coded-value domain with stable concept identifiers |
 | PROV entity/activity/agent | One-to-one current derivation provenance linked to its Survey Event and results; optional operational load log remains outside the domain hierarchy |
 | Raster dataset | Mosaic item plus governed metadata, footprint, and provenance |
-| Synthetic Network Observation | Normalized observation table plus one SDE segment feature class keyed by immutable observation ID, with scope membership and reviewed cross-time correspondence tables |
+| Stream Network Observation | Normalized observation table plus one SDE `stream_network` feature class keyed by immutable observation ID, with configuration membership and reviewed cross-time correspondence tables |
 | Longitudinal reference frame | Frame, mouth, Reach assignment, reusable path, base-Flowline selection, and comparison-calibration relations rather than a flag or unqualified station field |
 | External identifier | Qualified identifier/link table with authority, version, evidence, and match status |
 

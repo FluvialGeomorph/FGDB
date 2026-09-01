@@ -17,8 +17,8 @@ to govern them.
 
 The catalog defines governed FGDB objects and records explicit exclusion
 decisions needed to prevent legacy workflow artifacts from being loaded by
-mistake. Analyst choices and local data preparation that produce an accepted
-load package remain outside FGDB. They can be documented in the Tech Manual
+mistake. Analyst choices and local data preparation that produce accepted
+geodatabase relations remain outside FGDB. They can be documented in the Tech Manual
 without becoming database entities or retained database content.
 
 Catalog order follows the analysis workflow and dependency graph. Flowline is
@@ -234,7 +234,7 @@ catalog objects or retained data:
 | Initial coarse longitudinal hydrography | Not retained. |
 | Contributing-watershed DEM and drainage-basin products | Not retained. |
 | LiDAR clearinghouse searches, downloads, point clouds, and cleaning | Outside FGDB scope. |
-| Stream Geodatabase (legacy `Site Geodatabase`) | Local ArcGIS Network Workspace; not an FGDB hierarchy entity or retained enterprise object. A forward-looking version may store network metadata and participate in the local exchange package under ADR-0015. |
+| Stream Geodatabase (legacy `Site Geodatabase`) | Local database of record for the `stream_network` feature class and its related scientific, review, validation, and lineage tables; not an FGDB hierarchy entity or retained enterprise object. FGDB loads its approved relations under ADR-0015 and ADR-0019. |
 | Stream-scale DEM | Local terrain preparation input; not retained in the Enterprise hydro DEM mosaic. |
 | Flow direction, flow accumulation, raster threshold, and temporary network-construction products | Local construction artifacts; not retained. The reviewed synthetic network is governed under FCAT-007. |
 | Legacy manually added `boundary` feature class | Excluded. It was not produced or required by a tool and must not be mapped automatically to any governed hierarchy geometry. |
@@ -318,21 +318,21 @@ Collection
 | Property | Current specification |
 |---|---|
 | Definition | A time-specific terrain-derived polyline network created from flow accumulation and then reviewed/edited to represent the project watercourses, topology, Streams, and Reaches used for analysis and stationing. |
-| Legacy aliases | `stream_network`; intermediate raster/vector names include `derived_streams`. The containing local workspace was historically called a `Site Geodatabase`; `Stream Geodatabase` is now preferred. |
+| Legacy aliases | `stream_network`; intermediate raster/vector names include `derived_streams`. The containing local database was historically called a `Site Geodatabase`; `Stream Geodatabase` is now preferred. |
 | Object kind | Governed derived observation dataset containing polyline segment features. It is a temporal representation, not the persistent real-world Stream identity. |
 | Workflow stage | Study Area- or Stream-scale terrain derivation, analyst topology/segmentation review, and longitudinal-reference preparation before Reach/Survey Event analysis. |
 | Inputs | Local Stream-scale DEM through unretained drainage intermediates; initiation `threshold`; derivation engine/version; analyst edits. |
-| Logical ownership | Exactly one `synthetic_network_observation`, which belongs to one Study-Area-owned network scope. `STUDY_AREA_NETWORK` represents a connected multi-Stream scope; `STREAM` represents one independently processed Stream. |
+| Logical ownership | Exactly one `stream_network_observation`, which belongs to one Study-Area-owned `stream_network_configuration`. `STUDY_AREA_NETWORK` represents a connected multi-Stream configuration; `STREAM` represents one independently processed Stream. |
 | Physical storage | One enterprise polyline feature class is recommended. Every segment row has a non-null network-observation ID; dataset/source provenance remains normalized rather than repeated as free text. |
 | Temporal identity | Every terrain-observation time creates a distinct network-observation identity. A correction for the same intended observation replaces its current segment set; a later valid observation is retained alongside it. |
 | Segmentation role | Reviewed segments receive explicit Stream identity and optional Reach identity. National references inform names/context but do not dictate project segmentation. |
-| Reach Survey Event relationship | A normalized association records which Reach Survey Events used the network observation for topology, stationing, derivation context, or comparison. The network is not forced under one arbitrary Reach. |
+| Reach Survey Event relationship | A normalized association records which Reach Survey Events used the stream network observation for topology, stationing, derivation context, or comparison. The network is not forced under one arbitrary Reach. |
 | Change through time | Network segments from different observations have distinct identities. Persistence, split, merge, appearance, disappearance, or realignment requires an explicit reviewed correspondence record. |
-| Longitudinal role | A network observation may be selected as the base topology context for FCAT-008 and supplies reviewed network paths/segmentation; applicable base and comparison Flowlines remain explicit. |
-| Persistence | Authoritative governed network observation after QA. The Stream Geodatabase, Stream-scale DEM unless separately governed, flow-direction/accumulation rasters, threshold rasters, and temporary routes remain excluded. |
-| QA | Valid scope/date; non-null immutable ownership; valid line topology; derivation method/version/threshold; source CRS/resolution; analyst review; Stream/Reach membership integrity; publication state; complete current segment-set replacement on correction. |
+| Longitudinal role | A stream network observation may be selected as the base topology context for FCAT-008 and supplies reviewed network paths/segmentation; applicable base and comparison Flowlines remain explicit. |
+| Persistence | Authoritative governed Stream Network Observation after QA. The Study Area/Stream Geodatabase is the local database of record; its governed feature classes and tables load to FGDB. The Stream-scale DEM unless separately governed, flow-direction/accumulation rasters, threshold rasters, and temporary routes remain excluded from enterprise persistence. |
+| QA | Valid configuration/date; non-null immutable ownership; valid line topology; derivation method/version/threshold; source CRS/resolution; analyst review; Stream/Reach membership integrity; publication state; complete current segment-set replacement on correction. |
 | Evidence | Historical Stream Geodatabase workflow; network/Flowline tools; methodological clarification; ADR-0010 as superseded in part by ADR-0014. |
-| Maturity | Accepted persistence, temporal-observation, and normalized-scope contract; physical topology and correspondence workflow remain draft. |
+| Maturity | Accepted persistence, temporal-observation, and normalized-configuration model; physical topology and correspondence workflow remain draft. |
 
 ### FCAT-008: Project longitudinal reference frame
 
@@ -340,20 +340,20 @@ Collection
 |---|---|
 | Definition | A governed, base-realization-specific project coordinate for locating Reach-owned observations by along-network distance upstream from one explicitly selected mouth. |
 | Object kind | Non-geometric domain/reference entity with one governed mouth point, included-Stream memberships, Reach assignments, reusable analysis paths, and Flowline calibrations. |
-| Ownership | Exactly one FCAT-007 network scope, and therefore exactly one Study Area. Scope is `STREAM` for one subject Stream or `STUDY_AREA_NETWORK` for a connected set of Streams. |
+| Ownership | Exactly one FCAT-007 Stream Network Configuration, and therefore exactly one Study Area. Configuration mode is `STREAM` for one subject Stream or `STUDY_AREA_NETWORK` for a connected set of Streams. |
 | Origin and direction | Mouth/outlet is zero kilometers; canonical `distance_to_mouth_km` is nonnegative and increases upstream along each selected path. |
 | Mouth meaning | For `STREAM`, the downstream-most point of the project-defined Stream path. For `STUDY_AREA_NETWORK`, the analyst-selected connected watershed/network outlet. It is not required to match a national endpoint. |
 | Reach ownership | Each participating Reach has one assignment per frame containing topology and downstream/upstream measures. Several tributary analysis paths may reuse a shared downstream Reach assignment. |
 | Survey Event representation | Each applicable Survey Event Flowline is calibrated to its Reach assignment. Materialized positions remain traceable to frame/version and calibration. |
-| Base realization | Selects an explicit base synthetic-network observation when topology is part of the calibration and exactly one base Survey Event Flowline per participating Reach/path position. Base status is relative to this frame, never a global Survey Event flag. |
+| Base realization | Selects an explicit base stream network observation when topology is part of the calibration and exactly one base Survey Event Flowline per participating Reach/path position. Base status is relative to this frame, never a global Survey Event flag. |
 | Default base-selection preset | `LATEST_VALIDATED_EVENT`: when an analyst initiates frame creation, propose the latest validated/published Survey Event Flowline for each participating Reach, require confirmation, and store the resolved IDs. Loading a newer event never creates a frame, recalibrates data, or changes a default. |
 | Execution authority | Calibration is an explicit analyst-initiated tool operation. The analyst chooses the base and comparison events, reviews staged results, accepts/publishes the frame, and separately designates a current operational default when desired. |
 | Measure meaning | Comparison-event `km_to_mouth`/`distance_to_mouth_km` values remain calibrated with respect to the selected base-event Flowline geometry. The frame records that dependency; it does not replace it with an abstract geometry-independent coordinate. |
-| Identity | Immutable frame/calibration ID. A change of base selection, mouth, scope mode, included network, selected path semantics, direction/unit semantics, or scientific interpretation creates a new identity/version. |
+| Identity | Immutable frame/calibration ID. A change of base selection, mouth, configuration mode, included Stream Network, selected path semantics, direction/unit semantics, or scientific interpretation creates a new identity/version. |
 | Non-identity measure | `distance_to_mouth_km` is never a key and may repeat on different tributaries. Qualify it with frame, hierarchy, representation, and feature identity. |
 | Legacy migration | Existing `km_to_mouth` becomes canonical only after explicit frame reconstruction/binding and validation; otherwise retain it only as unverified evidence or recompute it. |
-| Persistence | Governed frame, base-selection, path, Reach-assignment, and calibration records. The reviewed synthetic Network Observation is retained; the local Stream Geodatabase and temporary route products remain excluded. |
-| QA | One mouth; valid scope membership; nonnegative upstream-increasing measures; topology and continuity within tolerance; explicit branches/gaps/ambiguities; valid Flowline-to-Reach binding; method/provenance complete. |
+| Persistence | Governed frame, base-selection, path, Reach-assignment, and calibration records. The reviewed stream network Observation is retained; the local Stream Geodatabase and temporary route products remain excluded. |
+| QA | One mouth; valid configuration membership; nonnegative upstream-increasing measures; topology and continuity within tolerance; explicit branches/gaps/ambiguities; valid Flowline-to-Reach binding; method/provenance complete. |
 | Evidence | Historical Stream Geodatabase and Flowline-points calibration workflow; human clarification; ADR-0009; ADR-0010; ADR-0012; ADR-0013; ADR-0014. |
 | Maturity | Accepted conceptual contract; physical topology, tolerances, and materialization remain draft. |
 

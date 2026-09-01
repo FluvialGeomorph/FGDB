@@ -121,8 +121,8 @@ TopBraid-compatible hierarchy independently.
 
 1. Answer competency questions using real L1/L2/L3 records and intended graph
    queries.
-2. Define a small persistent kernel: Collection, Study Area, Network Scope,
-   time-specific Synthetic Network Observation, Stream, Reach, Survey Event,
+2. Define a small persistent kernel: Collection, Study Area, Stream Network Configuration,
+   time-specific Stream Network Observation, Stream, Reach, Survey Event,
    hydro DEM, Flowline, longitudinal reference frame/base realization, and
    Cross Section. Exclude the local Stream Geodatabase and its construction
    intermediates under ADR-0010 as partially superseded by ADR-0014.

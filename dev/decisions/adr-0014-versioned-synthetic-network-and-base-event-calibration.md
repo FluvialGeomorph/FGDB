@@ -29,19 +29,20 @@ or permanent property of a Survey Event.
 
 ## Decision
 
-1. FGDB retains the reviewed synthetic stream network as governed,
-   time-specific derived geometry. The Stream Geodatabase and intermediate
-   flow-direction/accumulation products remain excluded.
-2. One Study-Area-owned `network_scope` normalizes ownership. It has scope mode
+1. FGDB retains the reviewed synthetic Stream Network as governed,
+   time-specific derived geometry. The Study Area/Stream Geodatabase is the
+   local database of record; its intermediate flow-direction/accumulation
+   products remain excluded from enterprise persistence.
+2. One Study-Area-owned `stream_network_configuration` normalizes ownership. It has configuration mode
    `STUDY_AREA_NETWORK` for one connected multi-Stream network or `STREAM` for
    one independently processed Stream. A discontinuous Study Area therefore
-   owns several Stream-scoped network scopes rather than one falsely connected
-   network.
+   owns several single-Stream configurations rather than one falsely connected
+   Stream Network.
 3. A physical enterprise `stream_network` feature class may contain all
    segment rows, but every row belongs to exactly one immutable
-   `synthetic_network_observation`. Rows are never distinguished only by
+   `stream_network_observation`. Rows are never distinguished only by
    appended names or source strings.
-4. Each `synthetic_network_observation` belongs to exactly one network scope
+4. Each `stream_network_observation` belongs to exactly one stream network configuration
    and represents one terrain-observation time and one derivation/review
    result. A later valid observation creates a new identity; correcting an
    erroneous derivation for the same intended observation replaces that
@@ -49,14 +50,14 @@ or permanent property of a Survey Event.
 5. Network segments belong directly to their observation. After analyst
    review, they carry explicit Stream identity and optional Reach identity as
    classifications/relationships; these do not replace observation ownership.
-6. A network observation may relate to many Reach-owned Survey Events, and a
-   Reach Survey Event may identify the network observation used to establish
+6. A stream network observation may relate to many Reach-owned Survey Events, and a
+   Reach Survey Event may identify the stream network observation used to establish
    its topology/stationing. This association bridges scales without moving
    Survey Event out of the accepted Reach hierarchy.
 7. Network observations are preserved across time as valid scientific
    observations. Cross-time segment correspondence is explicit and is never
    inferred from equal geometry, order, or names.
-8. A longitudinal reference frame is owned by one network scope and selects a
+8. A longitudinal reference frame is owned by one stream network configuration and selects a
    base calibration realization. It has one project-defined mouth and one base
    Flowline for each participating Reach/path position needed by the analysis.
 9. Base-event status is frame-relative. Do not store a global `is_base` flag on
@@ -66,7 +67,7 @@ or permanent property of a Survey Event.
     Flowline and common mouth-based stationing. A new base selection creates a
     new reference-frame/calibration identity so alternative scientific
     comparisons can coexist reproducibly.
-11. A frame may select a base synthetic-network observation when network
+11. A frame may select a base stream network observation when network
     topology is part of the calibration context. The selected base Flowlines
     and their Survey Events must be explicit even when they share the same
     year/date label.
@@ -88,8 +89,8 @@ or permanent property of a Survey Event.
 - Connected and discontinuous Study Areas use the same normalized schema
   without nullable polymorphic ownership.
 - One physical feature class can serve Enterprise GIS efficiently while
-  logical dataset identity, time, scope, and provenance remain normalized.
-- Valid historical network observations are retained rather than overwritten
+  logical dataset identity, time, configuration, and provenance remain normalized.
+- Valid historical stream network observations are retained rather than overwritten
   by later terrain observations; only corrections of the same intended
   observation use idempotent replacement.
 - Network change can be studied directly, subject to explicit cross-version
@@ -100,7 +101,7 @@ or permanent property of a Survey Event.
 - New observations never trigger automatic scientific recomputation. Clients
   may suggest the latest eligible event, but the analyst controls execution,
   included comparison events, review, acceptance, and default designation.
-- The loading workflow must validate scope membership, observation time,
+- The loading workflow must validate configuration membership, observation time,
   topology, Stream/Reach assignments, source provenance, and calibration
   relationships before publication.
 

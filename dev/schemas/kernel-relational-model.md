@@ -35,10 +35,10 @@ Reach 1 ---- N Survey Event
 Survey Event 1 ---- 0..1 Flowline
 Flowline    1 ---- 0..N Cross Section
 
-Study Area 1 ---- 0..N Network Scope ---- 0..N Network Observation
-Network Observation 1 ---- 1..N Stream Network Segment
+Study Area 1 ---- 0..N Stream Network Configuration ---- 0..N Stream Network Observation
+Stream Network Observation 1 ---- 1..N Stream Network Segment
 Network Segment N ---- N Cross-time Segment Correspondence
-Network Scope 1 ---- 0..N Longitudinal Reference Frame
+Stream Network Configuration 1 ---- 0..N Longitudinal Reference Frame
 Reference Frame 1 ---- 1..N Reach Assignment ---- 1 Base Flowline
 Reach Assignment 1 ---- 0..N Comparison Flowline Calibration
 Reference Frame 1 ---- 1..N Analysis Path ---- N:M Reach Assignment
@@ -65,13 +65,13 @@ Event must satisfy the conditional invariants below.
 | `derived_dataset` | `derived_dataset_id` | one Survey Event and its current derivation | Survey Event 1:0..N datasets | Identity and metadata for each retained current dataset or mosaic item. |
 | `flowline` | `flowline_id` | one Survey Event and one derived-dataset record | Survey Event 1:0..1 Flowline; exactly one when the Flowline product exists | Current event-specific reference path and local stationing basis. |
 | `cross_section` | `cross_section_id` | one Survey Event, one Flowline, and one derived-dataset record | Flowline 1:0..N Cross Sections | Current event-specific transect identity and geometry. |
-| `network_scope` | `network_scope_id` | one Study Area | Study Area 1:0..N scopes | Normalizes connected Study Area networks and independently processed Stream scopes. |
-| `network_scope_stream` | (`network_scope_id`, `stream_id`) | one scope and one Stream | scope 1:1..N memberships | Declares participating Streams without polymorphic ownership. |
-| `synthetic_network_observation` | `network_observation_id` | one network scope | scope 1:0..N observations | One time-specific terrain-derived and reviewed network dataset. |
-| `stream_network_segment` | `network_segment_id` | one network observation | observation 1:1..N segments | Governed network polyline geometry with Stream and optional Reach classification. |
-| `network_observation_reach_event` | (`network_observation_id`, `survey_event_id`, `relationship_role`) | one observation and one Reach Survey Event | N:M association | Preserves topology/stationing/derivation provenance across scale. |
+| `stream_network_configuration` | `stream_network_configuration_id` | one Study Area | Study Area 1:0..N configurations | Normalizes connected Study Area networks and independently processed Stream configurations. |
+| `stream_network_configuration_stream` | (`stream_network_configuration_id`, `stream_id`) | one configuration and one Stream | configuration 1:1..N memberships | Declares participating Streams without polymorphic ownership. |
+| `stream_network_observation` | `stream_network_observation_id` | one Stream Network Configuration | configuration 1:0..N observations | One time-specific terrain-derived and reviewed Stream Network. |
+| `stream_network` | `stream_network_segment_id` | one Stream Network Observation | observation 1:1..N segments | Governed Stream Network polyline geometry with Stream and optional Reach classification. |
+| `stream_network_observation_reach_event` | (`stream_network_observation_id`, `survey_event_id`, `relationship_role`) | one observation and one Reach Survey Event | N:M association | Preserves topology/stationing/derivation provenance across scale. |
 | `network_segment_correspondence` | `network_correspondence_id` | two version-qualified network segments/observations | optional N:M across observations | Stores reviewed persistence, split, merge, appearance, disappearance, realignment, or uncertainty through time. |
-| `longitudinal_reference_frame` | `reference_frame_id` | one network scope | scope 1:0..N frames | Versioned project coordinate with one mouth and explicit base realization. |
+| `longitudinal_reference_frame` | `reference_frame_id` | one Stream Network Configuration | configuration 1:0..N frames | Versioned project coordinate with one mouth and explicit base realization. |
 | `reach_reference_assignment` | `reach_reference_assignment_id`; unique (`reference_frame_id`, `reach_id`) | one frame and one Reach | frame 1:1..N assignments | Stores each Reach calibration interval/topology once per frame. |
 | `reference_path` | `reference_path_id` | one frame | frame 1:1..N paths | Named main-stem or tributary-to-mouth analysis path. |
 | `reference_path_reach` | (`reference_path_id`, `reach_reference_assignment_id`) | one path and one Reach assignment | ordered N:M association | Allows paths to reuse shared downstream Reach assignments without duplication. |
@@ -101,7 +101,7 @@ contracts.
    reach-survey-event replacement unit without changing the Survey Event ID.
 7. The local Stream Geodatabase, its temporary drainage/route intermediates,
    and legacy `boundary` feature class have no kernel relation. The reviewed
-   synthetic-network observation and segments are governed kernel content.
+   stream network observation and segments are governed kernel content.
 8. ArcGIS `OBJECTID`, geometry, names, filesystem paths, and display labels are
    never persistent identifiers.
 9. Derivation occurs for one Reach and one Survey Event. Study Area- and
@@ -113,7 +113,7 @@ contracts.
 11. A governed project longitudinal position names one reference frame/version
     and the applicable Reach assignment/Flowline calibration. The common
     measure increases upstream from one explicit mouth and is never identity.
-12. Every network segment belongs to one time-specific network observation.
+12. Every network segment belongs to one time-specific stream network observation.
     New observation times coexist; corrections replace only the same intended
     observation's current segment set.
 13. Base-event status exists only through a reference-frame base Flowline
@@ -135,10 +135,10 @@ constraints can be finalized.
 | Derived dataset | current content is corrected/replaced for the same Survey Event, feature family, and semantic role | Survey Event, feature family, or semantic role changes |
 | Flowline | geometry/attributes are corrected for the same Survey Event and reference-path role | Survey Event or semantic role changes; a materially different concurrent reference path is introduced |
 | Cross Section | geometry/attributes are corrected for the same Survey Event and intended transect | Survey Event, cross-section type/role, or intended transect changes |
-| Network scope | label/documentation or reviewed membership error is corrected for the same intended derivation scope | scope mode or intended connected/included Stream set changes materially |
-| Synthetic network observation | derivation/attributes are corrected for the same intended terrain-observation occurrence | terrain-observation occurrence or network scope changes |
-| Network segment | geometry/attributes are corrected within replacement of the same observation and reviewed segment correspondence is preserved | observation changes or review establishes a different time-specific segment |
-| Longitudinal reference frame | labels, documentation, or erroneous calibration are corrected for the same scope, base realization, mouth, and path semantics | base network/Flowline selection, mouth, scope, selected path semantics, direction/unit semantics, or scientific interpretation changes |
+| Stream Network Configuration | label/documentation or reviewed membership error is corrected for the same intended configuration | configuration mode or intended connected/included Stream set changes materially |
+| Stream Network Observation | derivation/attributes are corrected for the same intended terrain-observation occurrence | terrain-observation occurrence or Stream Network Configuration changes |
+| Stream Network segment | geometry/attributes are corrected within replacement of the same observation and reviewed segment correspondence is preserved | observation changes or review establishes a different time-specific segment |
+| Longitudinal reference frame | labels, documentation, or erroneous calibration are corrected for the same configuration, base realization, mouth, and path semantics | base Stream Network/Flowline selection, mouth, configuration, selected path semantics, direction/unit semantics, or scientific interpretation changes |
 
 The recommended rule for derived datasets treats identity as the stable
 "current dataset of this type and role for this Survey Event" slot. Dataset
@@ -158,8 +158,8 @@ rows without exposing known-bad versions as current data.
 | `derived_dataset` | unique (`survey_event_id`, `dataset_type_id`, `role_code`) | Enforces one current dataset per governed semantic slot while allowing distinct roles/subtypes. |
 | `flowline` | unique `survey_event_id` | Accepted one current reference Flowline per reach-survey-event under ADR-0012. |
 | `cross_section` | source-stable key unique within (`survey_event_id`, `cross_section_type_id`) | Needed for idempotent replacement; exact source key is unresolved and must not default silently to `OBJECTID`. |
-| `synthetic_network_observation` | no date-only uniqueness; candidate source manifest uniqueness within scope | Distinct observations can share a date; immutable ID and reviewed evidence disambiguate them. |
-| `stream_network_segment` | immutable segment ID unique globally; source-stable key unique within observation when available | Supports complete replacement and explicit cross-time correspondence without using `OBJECTID`. |
+| `stream_network_observation` | no date-only uniqueness; candidate source fingerprint uniqueness within configuration | Distinct observations can share a date; immutable ID and reviewed evidence disambiguate them. |
+| `stream_network` | immutable segment ID unique globally; source-stable key unique within observation when available | Supports complete replacement and explicit cross-time correspondence without using `OBJECTID`. |
 
 ## Legacy implementation evidence affecting the recommendations
 
@@ -192,7 +192,7 @@ frame for mouth/origin, selected base network/Flowlines, paths, Reach topology
 and intervals, units, and comparison Flowline calibration. It additionally
 requires explicit Survey Event selection and datum/method compatibility
 checks. See ADR-0012 through ADR-0014,
-`dev/schemas/synthetic-network-model.md`,
+`dev/schemas/stream-network-model.md`,
 `dev/schemas/longitudinal-reference-model.md`, and
 `dev/features/multiscale-scientific-query.md`.
 

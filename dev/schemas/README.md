@@ -4,5 +4,5 @@ Store exact, reviewable structural contracts here. Prefer explicit required fiel
 
 ## Active contracts
 
-- `network-package-v0.1.md` defines the draft minimum Network Observation
-  exchange contract and its ArcGIS and open-platform bindings.
+- `stream-network-geodatabase-schema.md` defines the proposed Stream Network
+  feature classes, related tables, and local-to-enterprise mapping.

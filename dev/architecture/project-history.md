@@ -55,13 +55,12 @@ This enabled multi-Reach and multi-tributary longitudinal profiles, but
 integrity depended on expert manual checks because the tooling did not enforce
 origin, topology, continuity, or calibration rules.
 
-The initial FGDB design treated this network as disposable preprocessing. The
-2026-08-29 review reversed that conclusion: the reviewed synthetic network is
-the durable, time-specific evidence used to establish topology, segmentation,
-and stationing. FGDB therefore governs network observations while continuing
-to exclude the local workspace, Stream-scale DEM, and construction
-intermediates. Base-event Flowlines are explicit realizations of a selected
-longitudinal reference frame rather than a report-only convention.
+The reviewed synthetic Stream Network is durable, time-specific evidence used
+to establish topology, segmentation, and stationing. The Study Area/Stream
+Geodatabase is its local database of record, and FGDB governs the corresponding
+feature classes and tables while excluding the Stream-scale DEM and
+construction intermediates. Base-event Flowlines are explicit realizations of
+a selected longitudinal reference frame rather than a report-only convention.
 
 ## Database motivation
 
@@ -110,5 +109,5 @@ methods must remain distinguishable.
 Accordingly, FGDB does not claim complete reconstruction of the local
 preprocessing chain. Analysts may retain point clouds, Stream Geodatabases, and
 intermediates locally when that level of reproducibility is required; FGDB
-centralizes governed synthetic-network observations and accepted Reach/Survey
+centralizes governed stream network observations and accepted Reach/Survey
 Event results with their provenance.
