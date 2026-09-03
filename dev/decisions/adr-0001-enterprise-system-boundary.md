@@ -25,7 +25,7 @@ database tooling.
   datasets.
 - Client applications will access published content through a defined series
   of ArcGIS Feature Layer services and any additional raster-capable service
-  types required by the eventual mosaic-dataset design.
+  types required by the eventual mosaic dataset design.
 - The FGDB repository will initially own both:
   1. design records and specifications for the database; and
   2. an ArcGIS toolbox and supporting functions for database creation, loading,
@@ -43,7 +43,7 @@ database tooling.
 - Idempotent ingestion, provenance, validation, and reconciliation are core
   product behavior rather than one-time migration utilities.
 - The design must explicitly cover both vector/tabular feature content and
-  raster mosaic datasets.
+  raster content managed through enterprise mosaic datasets.
 - Published-service contracts are part of the system design and must be
   versioned alongside database schema contracts.
 - Environment provisioning, database administration, ArcGIS Server
@@ -56,4 +56,3 @@ database tooling.
 - Reports, maps, exports, and other non-database artifacts are not assigned a
   storage design by this decision and require explicit treatment if they are to
   be included in FGDB's authoritative scope.
-

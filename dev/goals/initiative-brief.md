@@ -4,7 +4,8 @@
 
 This is an initial working brief derived from
 [`FG-Tech-Manual/DB-migration.qmd`](../../../FG-Tech-Manual/DB-migration.qmd),
-reviewed on 2026-08-25. It records user-provided direction, not a completed
+reviewed beginning 2026-08-25 and updated through 2026-09-02. It records
+user-provided direction, not a completed
 system design. The technical-manual chapter remains authoritative for its own
 published content; accepted FGDB decisions and contracts will live in this
 repository.
@@ -29,8 +30,10 @@ historical, and deployment requirements collectively tractable.
 This repository has two initial responsibilities:
 
 1. Document the FGDB design process and maintain its specifications.
-2. Contain an ArcGIS toolbox and supporting functions for database setup,
-   repeatable data loading, and subsequent database management.
+2. Provide an R package for schema validation, service-mediated data access,
+   repeatable loading, and subsequent database management, plus licensed
+   administrative adapters for enterprise setup and configuration where
+   supported web GIS interfaces are insufficient.
 3. Assemble and preserve relevant historical requirements, schema prototypes,
    production examples, and workflow evidence so fragmented prior work can be
    evaluated through one unified design process.
@@ -95,6 +98,10 @@ datasets.
   optional expert editing client, future QGIS integration is feasible, and
   ArcGIS Enterprise is the required Esri dependency only at the enterprise
   deployment and service boundary.
+- Maintain versioned field, geometry, constraint, CRS, and raster type
+  crosswalks with value-bearing round-trip tests so file geodatabase,
+  GeoPackage, Feature Service, PostgreSQL/PostGIS, and SDE conversions cannot
+  silently change scientific meaning.
 - Preserve local-first capability across ArcGIS Pro, Shiny, direct R, and
   future QGIS clients: all computable scientific operations live in
   `fluvgeo`, complete without FGDB, and write object-relational geodatabase
@@ -152,9 +159,10 @@ datasets.
 - Stream and Reach names should use analyst-confirmed suggestions from current
   national hydrography services where available, while FGDB IDs and
   investigation-specific segmentation remain authoritative.
-- Client-facing Feature Layer services are read-only. Creation, correction,
-  replacement, and retirement occur only through controlled FGDB write
-  workflows.
+- Viewer access to Feature Services is read-only. Creation, correction,
+  replacement, and retirement occur only through controlled, authenticated
+  FGDB or application-mediated workflows using separately authorized edit
+  capabilities.
 - Reports, maps, and export files remain outside FGDB's authoritative database
   scope initially; FGDB makes their associated derived geometry accessible but
   does not replace the delivered report archive.
@@ -162,9 +170,10 @@ datasets.
   explicit database identity and integrity rules.
 - Existing repositories retain ownership of their established capabilities
   unless an explicit cross-repository decision changes an ownership boundary.
-- The target is the USACE cloud-hosted ArcGIS Enterprise suite, with an Esri
-  enterprise geodatabase backed by PostgreSQL and managed through ArcGIS SDE
-  capabilities.
+- The target is the USACE private-cloud ArcGIS Enterprise deployment, currently
+  hosted in AWS GovCloud IL4, with an Esri enterprise geodatabase in PostgreSQL
+  RDS registered with ArcGIS Enterprise and exposed to applications through
+  Portal Feature Services.
 - Credentials, connection files, server names, and other environment-specific
   or sensitive configuration must remain outside version control.
 - Historical artifacts are evidence, not automatically authoritative
@@ -187,9 +196,9 @@ datasets.
   (EPSG:3857) for consolidated Enterprise storage, with native analysis and
   vertical-reference metadata retained.
 - Survey acquisition and feature derivation remain conceptually distinct.
-  Each Survey Event owns one current derived result set and one current
-  derivation-provenance record; reprocessing replaces them without creating a
-  second Survey Event or persistent processing-run hierarchy.
+  Each Survey Event owns typed derived-dataset slots with one current accepted
+  edition per populated slot; reprocessing updates those editions without
+  creating a second Survey Event or persistent processing-run hierarchy.
 - Co-location in FGDB does not establish scientific comparability. Queries and
   analyses must retain observation/derivation method, units/datums, spatial
   and temporal scope, quality, and provenance, and must explicitly select
@@ -198,20 +207,30 @@ datasets.
   frame/version, mouth, selected Stream paths, Reach assignments, and Flowline
   calibrations. The numeric measure is not identity and is not accepted solely
   because it exists in a legacy feature class.
+- Successful storage or conversion does not establish interoperability. Every
+  supported platform binding must demonstrate its declared data-type,
+  missing-value, geometry, CRS, constraint, and raster fidelity under a
+  versioned crosswalk and conformance test.
+- **Mosaic dataset** means the Esri geodatabase data type used to catalog,
+  manage, process, and serve raster collections. It does not mean a traditional
+  combined raster mosaic or the operation of mosaicking rasters.
 
-## Open success criteria
+## Success criteria
 
-Measurable success criteria will be defined during design. At minimum they
-need to address data integrity, repeatable ingestion, provenance, migration
-traceability, query usefulness, and operational recovery.
+The measurable open-development, storage, service, administration, and
+enterprise-conformance criteria are defined in
+`open-development-and-enterprise-conformance.md`. Feature-specific criteria
+remain in the applicable schema, feature, and workflow contracts.
 
 ## Explicitly unresolved
 
 - The authoritative source for each metadata and feature field.
-- Exact feature-class, table, relationship, domain, subtype, topology, mosaic,
-  and indexing designs.
-- ArcGIS service boundaries, editing rules, permissions, and client contracts.
-- The implementation form of the FGDB setup and data-management toolbox.
+- Exact feature-class, table, relationship, domain, subtype, topology, mosaic
+  dataset, and indexing designs.
+- Exact Feature Service grouping, layer composition, batching, editing
+  transactions, permissions, and client contract versions.
+- The exact division between R-based administration, supported Portal
+  administration APIs, and licensed ArcPy adapters for FGDB setup.
 - Ownership, editing concurrency, sharing, and retention rules for self-service
   Shiny analyses.
 - Customer authorization and service-partitioning requirements.

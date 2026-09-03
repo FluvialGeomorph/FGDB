@@ -89,14 +89,14 @@ TopBraid-compatible hierarchy independently.
 
 ## Current-phase schema safeguards
 
-- Give Stream, Reach, Survey Event, current derivation provenance, Flowline,
-  Cross Section, retained derived datasets, and derived features explicit
-  identifiers and documented identity-change rules.
+- Give Stream, Reach, Survey Event, derived-dataset slots, accepted dataset
+  editions, Flowline, Cross Section, and derived features explicit identifiers
+  and documented identity-change rules.
 - Separate persistent entities from their geometries and dataset
   representations.
-- Distinguish acquisition meaning from current derivation provenance and
-  derived results without requiring discarded source/intermediate datasets or
-  processing attempts to become persistent domain entities.
+- Distinguish acquisition meaning from accepted-edition derivation provenance
+  and derived results without requiring discarded source/intermediate datasets
+  or raw processing attempts to become persistent domain entities.
 - Use normalized concept/reference tables with stable concept IDs, preferred
   labels, definitions, citations, vocabulary versions, lifecycle status, and
   aliases.

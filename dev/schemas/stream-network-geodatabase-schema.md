@@ -1,6 +1,6 @@
 # Stream Network Geodatabase schema
 
-- Status: proposed exact first-slice schema
+- Status: accepted first-slice schema
 - Updated: 2026-09-01
 - Governing decision: ADR-0019
 - Scientific implementation owner: `fluvgeo`
@@ -155,10 +155,20 @@ unclassified Stream membership.
 **One row means:** one source feature contributing evidence to one Stream
 Network segment.
 
-Fields: `stream_network_source_id` PK, `stream_network_segment_id` FK,
-`source_object_type`, nullable governed `source_object_id`, nullable
-`source_dataset_name`, conditional `source_feature_key`, `relation_code`, and
-`geometry_modified`.
+| Field | Type | Null | Rule |
+|---|---|---:|---|
+| `stream_network_source_id` | UUID | no | Primary key. |
+| `stream_network_segment_id` | UUID | no | FK to the governed segment. |
+| `source_object_type` | enum | no | Controlled source-feature class, including retained Stream Network and governed Flowline. |
+| `source_object_id` | UUID | yes | Governed source identity when one exists. |
+| `source_dataset_name` | text(255) | yes | Reviewable source feature-class name. |
+| `source_feature_key` | text(255) | conditional | Source-stable feature key such as legacy `arcid`; not governed identity. |
+| `source_from_node_key` | text(255) | yes | Retained source `from_node` value when present. |
+| `source_to_node_key` | text(255) | yes | Retained source `to_node` value when present. |
+| `source_class_code` | text(255) | yes | Retained source classification such as legacy `grid_code`. |
+| `source_reach_name` | text(255) | yes | Retained legacy `ReachName` display value; not identity. |
+| `relation_code` | enum | no | How the source supports the governed segment. |
+| `geometry_modified` | boolean | no | Whether governed geometry differs from the source geometry. |
 
 Reconstructed segments require at least one governed Flowline source. Local
 paths and `OBJECTID` values may be traceability labels but never relationship
@@ -230,9 +240,15 @@ bindings preserve the same scientific values and geometry. Invalid-state tests
 make temporary R modifications to direct outputs beside the relevant
 `testthat` assertions.
 
-## Remaining schema questions
+## Deferred schema refinements
 
-1. Identify any derivation-method attributes beyond threshold, tolerance, CRS,
-   units, and cell size required in the first schema version.
-2. Decide which accepted review/validation records require long-term enterprise
-   retention versus remaining local QA evidence.
+These refinements do not block the accepted first implementation slice:
+
+1. Add explicitly modeled derivation-method attributes when direct producer
+   evidence demonstrates that threshold, tolerance, CRS, units, and cell size
+   are insufficient.
+2. Decide which accepted review and validation records require long-term
+   enterprise retention when the enterprise load-audit contract is specified.
+
+Direct legacy evidence supporting this schema is cataloged in
+`dev/schemas/stream-network-source-evidence.md`.

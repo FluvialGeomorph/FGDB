@@ -2,6 +2,7 @@
 
 - Status: accepted
 - Date: 2026-08-25
+- Superseded in part by: ADR-0020
 
 ## Context
 

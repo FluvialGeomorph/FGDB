@@ -34,6 +34,10 @@ ordinary self-service editing unnecessarily cumbersome.
     reach-survey-event as one logically atomic operation; and
   - erroneous superseded feature geometry and attributes are not retained as
     queryable production history.
+- A stable derived-dataset slot may have immutable accepted-edition metadata as
+  specified by ADR-0023. Exactly one edition is current. This does not retain
+  raw processing attempts or permit known-bad feature rows to remain queryable;
+  valid superseded content is retained only for an approved scientific need.
 - Replacement audit metadata may record who replaced what, when, why, and from
   which load manifest without preserving the erroneous feature records in the
   active data model.
@@ -57,7 +61,7 @@ ordinary self-service editing unnecessarily cumbersome.
 - Desktop replacement must stage and validate a complete candidate before
   removing active records. Failure must leave or restore the prior consistent
   state.
-- Coordinating feature-class replacement with mosaic-dataset items may require
+- Coordinating feature-class replacement with mosaic dataset items may require
   staged publication, compensating actions, and reconciliation because all
   Esri operations may not share one PostgreSQL transaction.
 - Load manifests and operational backups remain necessary, but neither should
@@ -66,4 +70,3 @@ ordinary self-service editing unnecessarily cumbersome.
   does not require the desktop QA lifecycle.
 - The naming convention must be formalized before study-area creation tools or
   dropdown contracts can be finalized.
-

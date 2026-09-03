@@ -36,9 +36,10 @@ for continental-scale display and repeated survey events.
   where the source DEM was inadequate and hydro-modification interpolation was
   applied. The method/version and material parameters used with them are also
   required provenance.
-- The Enterprise terrain mosaic receives the hydro-modified DEM produced for
-  each reach-survey-event. Each mosaic item belongs to exactly one Survey Event
-  and follows its Collection's publication and mutation rules.
+- The enterprise `hydro_dem` mosaic dataset receives the hydro-modified DEM
+  produced for each Reach–Survey Event. Each mosaic dataset item belongs to
+  exactly one Survey Event and follows its Collection's publication and
+  mutation rules.
 - Desktop scientific analysis occurs in a relevant local projected horizontal
   CRS and vertical reference. Governed spatial content is transformed to Web
   Mercator (EPSG:3857) for consolidated Enterprise storage and publication.
@@ -46,7 +47,7 @@ for continental-scale display and repeated survey events.
   as required provenance. Approved horizontal and vertical transformations are
   specified per source CRS. EPSG:3857 horizontal reprojection does not by
   itself specify or transform elevation values.
-- Hydro DEM item properties conform to the Enterprise `hydro_dem` mosaic
+- Hydro DEM item properties conform to the enterprise `hydro_dem` mosaic
   dataset rather than being selected independently for each load.
 - Survey Event always stores a known year. Month and day are stored when known;
   day cannot be present without month. A concise `YYYY` or `YYYY-MM` label is

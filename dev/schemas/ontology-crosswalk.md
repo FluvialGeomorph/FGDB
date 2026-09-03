@@ -34,12 +34,12 @@ it does not invent HY class IRIs.
 | Study Area | GeoSPARQL `Feature` | Local `Area of Interest`; no direct HY class. Its required multipart polygon is one changeable spatial representation. |
 | Stream | HY `HY_HydroFeature`; potentially related to `HY_Channel` and `HY_River` | Model initially as a named local hydrographic feature. Do not equate the name-bearing aggregate with either the channel landform or water body until its semantics are resolved. |
 | Reach | HY `HY_HydroFeature` at most | Local analysis segmentation selected for investigation objectives. HY deliberately avoids the ambiguous term `reach`; no exact external mapping is justified. |
-| Survey Event | SOSA `ObservationCollection` | Candidate alignment for the terrain observation/acquisition period represented by one current FG analysis result set. The operational FGDB object may have minimal legacy acquisition metadata. |
-| Current Derivation Provenance | PROV `Activity` | Future semantic projection may describe the processing activity that generated the current results. Operationally this is a one-to-one current provenance record, not another persistent domain hierarchy or retained history of bad outputs. |
+| Survey Event | SOSA `ObservationCollection` | Candidate alignment for the terrain observation/acquisition period represented by accepted FG analysis datasets. The operational FGDB object may have minimal legacy acquisition metadata. |
+| Accepted Derivation | PROV `Activity` | Future semantic projection may describe the activity that generated an accepted dataset edition. Raw attempts remain operational records, and invalidated edition metadata does not preserve known-bad feature rows as observations. |
 | Source Dataset Reference | DCAT `Dataset`; PROV `Entity` | Optional metadata-only reference when a source can be identified. Missing or discarded point clouds and intermediates are recorded as unknown/not retained rather than represented by invented dataset instances. |
-| Derived Dataset | DCAT `Dataset`; PROV `Entity` | Current retained product associated with one Survey Event and its current derivation provenance; distinguish dataset identity from its individual features and GIS representation. |
+| Derived Dataset and Edition | DCAT `Dataset`; PROV `Entity` | A stable Survey Event/product slot and an accepted realization under explicit contracts; distinguish both from individual features and GIS distributions. |
 | Cutline | GeoSPARQL `Feature`; PROV `Entity` | Local terrain-correction assumption record. No direct HY match; link its geometry, method, parameters, input, output, and derivation activity. |
-| Hydro-modified DEM | DCAT `Dataset`; PROV `Entity` | Derived raster dataset. Its mosaic footprint is a geometry of its coverage/domain, not the raster itself. Coverage vocabulary evaluation remains open. |
+| Hydro-modified DEM | DCAT `Dataset`; PROV `Entity` | Derived raster dataset. Its mosaic dataset item footprint is a geometry of its coverage/domain, not the raster itself. Coverage vocabulary evaluation remains open. |
 | Stream Network Observation | HY `HY_ChannelNetwork`; SOSA `Observation`/`ObservationCollection`; PROV `Entity` | Candidate conceptual description for a governed, time-specific terrain-derived network. FGDB assigns the observation and its segments persistent identity while distinguishing them from durable Stream/Reach classifications and external hydrography. Exact HY/SOSA projection requires review. |
 | Flowline | HY `HY_Flowpath` | Strong candidate if the FG line represents the path water follows through the reach. Orientation and derivation rules remain local constraints. |
 | Project longitudinal reference frame | HY river-referencing conceptual model | Candidate conformance for a project-defined network reference anchored to a local mouth and realized by explicitly selected base-event Flowlines. It is not a national route, Stream identity, or a global base-event flag. Exact HY classes/relations require review. |
@@ -76,8 +76,8 @@ temporal or representation scope.
 | GeoSPARQL feature geometry | SDE feature-class `Shape`, exposed by a documented serialization and CRS |
 | Optional geometry | Nullable relationship to a geometry-bearing realization, not a nullable entity identity |
 | SKOS concept scheme | Governed reference table and/or coded-value domain with stable concept identifiers |
-| PROV entity/activity/agent | One-to-one current derivation provenance linked to its Survey Event and results; optional operational load log remains outside the domain hierarchy |
-| Raster dataset | Mosaic item plus governed metadata, footprint, and provenance |
+| PROV entity/activity/agent | Accepted dataset edition linked to its derivation activity, software/agent, Survey Event, and stable dataset slot; optional processing-attempt logs remain outside the domain hierarchy |
+| Raster dataset | Mosaic dataset item plus governed metadata, footprint, and provenance |
 | Stream Network Observation | Normalized observation table plus one SDE `stream_network` feature class keyed by immutable observation ID, with configuration membership and reviewed cross-time correspondence tables |
 | Longitudinal reference frame | Frame, mouth, Reach assignment, reusable path, base-Flowline selection, and comparison-calibration relations rather than a flag or unqualified station field |
 | External identifier | Qualified identifier/link table with authority, version, evidence, and match status |
@@ -140,12 +140,12 @@ identity by itself.
 4. Can it compare survey events without mistaking changed derivation software
    for physical geomorphic change?
 5. Can it explain which source and transformation produced every hydro DEM and
-   REM mosaic item?
+   REM mosaic dataset item?
 6. Can it traverse from an FG Stream to reviewed national hydrography and
    Geoconnex reference identifiers without asserting false identity?
-7. Can the graph distinguish the Survey Event's acquisition meaning from the
-   current derivation activity without requiring a one-to-many processing-run
-   hierarchy or fabricating missing legacy source metadata?
+7. Can the graph distinguish the Survey Event's acquisition meaning from each
+   accepted edition's derivation activity without treating raw processing
+   attempts as a domain hierarchy or fabricating missing legacy metadata?
 8. Can both desktop replacement and Shiny in-place editing be represented
    without exposing known-bad superseded feature content as current truth?
 9. Can a Stream-scale query compose several Reach-owned Flowlines while

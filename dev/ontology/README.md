@@ -12,7 +12,7 @@ the proposed decision in
 [`dev/decisions/adr-0007-semantic-interoperability-and-ontology-module.md`](../decisions/adr-0007-semantic-interoperability-and-ontology-module.md).
 
 Current work remains in the feature catalog and ontology crosswalk: kernel
-definitions, persistent identity rules, current derivation provenance,
+definitions, persistent identity rules, accepted dataset-edition provenance,
 controlled-concept requirements, HY_Features mappings, and Geoconnex
 external-reference rules.
 

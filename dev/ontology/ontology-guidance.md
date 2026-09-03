@@ -20,7 +20,7 @@ Prioritize a stable, production-ready FGDB logical/physical schema that can inge
    * Cross Section
    * Study Area
    * Survey Event
-   * Current derivation provenance
+   * Accepted dataset-edition provenance
    * Known source references and retained derived datasets
 4. Treat HY_Features as a conceptual interoperability model. Do not reproduce the HY_Features UML/database structure inside FGDB unless a specific requirement justifies it.
 5. Preserve the distinction between persistent real-world hydrologic entities and their geometric/data representations.
@@ -62,7 +62,7 @@ Define stable identifiers and explicit identity rules for at least:
 * Stream
 * Reach
 * Survey Event
-* Current derivation-provenance record
+* Derived Dataset and accepted Dataset Edition
 * Flowline
 * Cross Section
 * derived geomorphic feature
@@ -144,14 +144,15 @@ domain hierarchy. The operational FGDB relationship is:
 
 Reach
 → many Survey Events
-→ one current derivation-provenance record per populated Survey Event
-→ one current accepted derived result set
+→ many typed Derived Dataset slots per Survey Event
+→ one current accepted Dataset Edition per populated slot
 
 Reprocessing an existing Survey Event replaces incorrect current content and
-updates its current derivation provenance; it does not create another Survey
-Event or a persistent one-to-many processing-run hierarchy. Optional execution
-or load-attempt history is operational audit data, not authoritative domain
-content.
+updates its current accepted edition; it does not create another Survey Event
+or turn raw processing runs into a persistent domain hierarchy. Optional
+execution or load-attempt history is operational audit data. Known-bad feature
+rows are removed, while their invalidated edition metadata may remain as audit
+and provenance evidence.
 
 Legacy Survey Events may have no retained point clouds, intermediate products,
 tile footprints, clearinghouse URI, or complete acquisition metadata. Record

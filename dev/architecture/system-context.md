@@ -13,11 +13,12 @@ components and interfaces remain under design.
 | FGDB conceptual and physical schema specifications | `FGDB` | accepted intended boundary |
 | Validation and idempotent loading into the enterprise geodatabase | `FGDB` | accepted intended boundary |
 | FGDB database setup and management toolbox | `FGDB` | accepted intended boundary |
-| ArcGIS Pro tools for enterprise geodatabase validation, loading, and database reconciliation | `FGDB` | accepted intended boundary |
+| R clients for enterprise validation, loading, reconciliation, and governed access through Portal Feature Services | `FGDB`, using `{arcgis}` / `{arcgislayers}` / `{arcgisutils}` | accepted target boundary in ADR-0020 |
+| Licensed enterprise schema, SDE, mosaic dataset, registered-data-store, and service administration | FGDB admin tooling, using ArcPy where required | accepted target boundary in ADR-0020 |
 | All computable scientific analysis and geospatial derivation functions | `fluvgeo` | accepted target boundary in ADR-0004 and ADR-0015 |
 | ArcGIS Pro analyst experience, editing, and local geodatabase I/O | `FluvialGeomorph-toolbox` wrappers around `fluvgeo` | accepted target boundary in ADR-0015 |
 | Shiny and future QGIS analyst experiences | Client-specific wrappers/orchestration around `fluvgeo` | accepted target boundary in ADR-0015 |
-| PostgreSQL/SDE and ArcGIS Enterprise hosting operations | USACE cloud environment | accepted external operational boundary; details unknown |
+| PostgreSQL RDS/SDE and ArcGIS Enterprise hosting operations | USACE private cloud, currently AWS GovCloud IL4 | accepted external operational boundary; environment-specific details remain external |
 | Client-specific application behavior | Applicable client repository | to be defined per integration |
 
 The current organization boundary assigns shared R calculations to `fluvgeo`,
@@ -27,8 +28,11 @@ feature derivation also has one canonical implementation in `fluvgeo`.
 Implementation and the corresponding authoritative `FG-architecture` update
 remain separately scoped cross-repository work.
 
-FGDB is the repository home for ArcGIS tools that validate, load, reconcile,
-and manage enterprise records. ADR-0015 requires that analyst-facing network
+FGDB is the repository home for R tools that validate, load, reconcile, and
+manage enterprise records through authenticated Portal Feature Services, and
+for admin tooling that provisions and configures the SDE-backed deployment.
+ArcPy is limited to licensed administrative operations for which supported web
+GIS interfaces are insufficient. ADR-0015 requires that analyst-facing network
 documentation and longitudinal-reference creation remain local producer
 capabilities in `FluvialGeomorph-toolbox`, calling canonical `fluvgeo`
 algorithms, while FGDB loads analyst-approved geodatabase relations. The existing
@@ -54,20 +58,19 @@ Study Area/Stream Geodatabase           Shiny relational inputs + outputs
        |                 |                        |
        +-----------------+------------------------+
                          v
-            FGDB validation + governed loading
-              |
-              v
-PostgreSQL / Esri enterprise geodatabase
-      |                       |
-      v                       v
-SDE feature classes     hydro DEM/REM mosaic datasets
-      |                       |
-      +-----------+-----------+
-                  v
-       ArcGIS Enterprise services
-                  |
-                  v
-          Authorized clients
+             FGDB R validation + governed loading
+                         |
+                         v
+        authenticated Portal Feature Services
+                         |
+                         v
+     PostgreSQL RDS / Esri enterprise geodatabase
+              |                          |
+              v                          v
+     SDE feature classes        hydro DEM/REM mosaic datasets
+
+FGDB admin tooling --licensed ArcPy where required--> SDE, mosaic dataset,
+registered-data-store, and service configuration
 ```
 
 ## Authority and lifecycle
@@ -88,8 +91,9 @@ SDE feature classes     hydro DEM/REM mosaic datasets
   provenance to reconcile it with its source.
 - After successful loading and verification, ArcGIS Enterprise is the
   authoritative consolidated data source for the loaded content.
-- Published client services are read-only. Privileged writes are mediated by
-  FGDB-controlled desktop or application workflows.
+- Viewer access to published services is read-only. Privileged edit-capable
+  services are used only by authenticated FGDB and application-mediated
+  workflows and remain subject to FGDB governance.
 - Records retain their origin workflow and lifecycle state; co-location in the
   enterprise geodatabase does not imply identical review or publication status.
 - `collection` is the top-level domain and policy boundary separating the
@@ -153,6 +157,25 @@ hostnames, or production data. Authentication, authorization, infrastructure
 approval, backup, and disaster recovery requirements remain to be elicited
 with the USACE hosting stakeholders.
 
+## Enterprise access and administration boundary
+
+- Portal Feature Services are the application-facing contract for FGDB vector
+  feature classes and tables. Read-only viewers and privileged writers receive
+  capabilities appropriate to their roles.
+- FGDB and Shiny R clients use the `{arcgis}` ecosystem, principally
+  `{arcgislayers}` and `{arcgisutils}`, rather than requiring ArcGIS Pro for
+  ordinary reads and controlled writes.
+- PostgreSQL RDS is registered with ArcGIS Enterprise as the SDE-backed data
+  source. Applications do not connect directly to RDS or alter SDE system
+  tables.
+- FGDB admin tooling scaffolds and configures deployments. ArcPy executes only
+  the licensed SDE, mosaic dataset, registered-data-store, and service
+  administration that supported web GIS interfaces cannot provide.
+- Off-network development uses deterministic R and GDAL tests. A separate
+  licensed USACE integration lane verifies the deployed ArcGIS contracts.
+
+See ADR-0020 for the governing decision.
+
 ## Open architecture questions
 
 - Canonical entity identifiers and natural-key rules.
@@ -163,7 +186,7 @@ with the USACE hosting stakeholders.
   synthetic networks, and frame-relative base-event calibration.
 - Source-to-target feature-class crosswalk and geometry constraints.
 - Enterprise geodatabase dataset organization and naming conventions.
-- Mosaic-dataset design, raster item identity, footprints, overviews, and
+- Mosaic dataset design, raster item identity, footprints, overviews, and
   source-file lifecycle.
 - Transaction boundaries, load manifests, idempotency keys, and rollback.
 - Feature service grouping, query/edit permissions, versioning, and publishing

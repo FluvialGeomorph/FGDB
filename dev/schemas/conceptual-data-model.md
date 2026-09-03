@@ -173,7 +173,7 @@ See ADR-0012, ADR-0013, ADR-0014,
 `dev/schemas/longitudinal-reference-model.md`, and
 `dev/features/multiscale-scientific-query.md`.
 
-## Survey Event time and current derivation
+## Survey Event time and accepted derivation
 
 - Each Survey Event has a required year, optional month, and optional day. A
   day requires a month, and all supplied components must form a valid date.
@@ -189,13 +189,14 @@ See ADR-0012, ADR-0013, ADR-0014,
   therefore be a base in one frame and a comparison event in another. A
   client may propose the latest event as a default, but reproducible analysis
   resolves that choice to an immutable frame/base relation.
-- Each Survey Event has exactly one current derivation-provenance record when
-  governed derived content exists. It records the best available source
-  metadata, processing timestamp, method/tool and version, material parameters,
-  responsible agent/process, retained outputs, validation, and load outcome.
-- Reprocessing because of an error does not create a new Survey Event or a
-  second authoritative derivation entity. It atomically replaces the incorrect
-  derived content and updates the Survey Event's current derivation provenance.
+- Each Survey Event may own several derived-dataset slots by dataset type and
+  semantic role. Every populated slot points to exactly one current accepted
+  edition recording its scientific method, schema, software environment,
+  platform profile, source manifest, validation, and acceptance evidence.
+- Reprocessing because of an error does not create a new Survey Event or
+  preserve a raw processing attempt as scientific content. It stages and
+  validates a replacement edition, atomically changes the applicable current
+  edition, and removes known-bad scientific rows from production storage.
 - Optional operational load/attempt logs may record that replacement occurred,
   but they are audit records rather than authoritative geomorphic content or a
   one-to-many domain relationship.
@@ -207,7 +208,7 @@ See ADR-0012, ADR-0013, ADR-0014,
 ## Governed terrain boundary
 
 FGDB retains the active hydro-modified DEM for each reach-survey-event as an
-Enterprise mosaic item. Terrain acquisition and local preparation artifacts,
+Enterprise mosaic dataset item. Terrain acquisition and local preparation artifacts,
 including point clouds, contributing-watershed products, source DEMs,
 and hillshades, are outside FGDB persistence scope. Cutline polylines are the
 exception: FGDB retains them as governed records of where source terrain was
@@ -254,15 +255,16 @@ be established and validated.
 This boundary intentionally distinguishes reproducibility of the complete
 local process from traceability of governed results. Projects requiring full
 reconstruction retain their local inputs and Stream Geodatabase outside FGDB;
-FGDB retains governed stream network observations and current accepted Reach/Survey
-Event results with their required provenance. See ADR-0010 as partially
+FGDB retains governed stream network observations and accepted Reach/Survey
+Event dataset editions with their required provenance. See ADR-0010 as partially
 superseded by ADR-0014 and refined by ADR-0015 and ADR-0019.
 
 ## Desktop replacement unit
 
 The logical replacement key is one desktop collection reach-survey-event. The
-exact key fields will be finalized with the identifier model. Each key has at
-most one current accepted derived result set and one current derivation record.
+exact key fields will be finalized with the identifier model. Within that unit,
+each derived-dataset type/role slot has exactly one current accepted edition
+when populated.
 
 For a corrected load:
 
@@ -272,8 +274,8 @@ For a corrected load:
 4. stage all affected feature and raster content;
 5. replace all active target content owned by the replacement key;
 6. verify completeness and integrity across target datasets; and
-7. update the current derivation provenance and record the load outcome and
-   manifest.
+7. create the accepted edition metadata, update each applicable current-edition
+   pointer, and record the load outcome and manifest.
 
 An exact repeat must not create duplicates. A changed source must not be
 treated as an exact repeat. Known-bad prior geometry and attributes are removed
@@ -299,8 +301,9 @@ Both collections require:
 - creation/load and last-modification timestamps as applicable;
 - Survey Event identity and known date components/precision;
 - source metadata and retention/completeness status when known;
-- current derivation-provenance identity, processing time, software/method
-  version, material parameters, inputs when known, and retained outputs;
+- dataset-edition identity, processing time, scientific method and schema
+  contracts, software environment, material parameters, inputs when known,
+  retained outputs, and content-retention disposition;
 - native analysis horizontal CRS/unit and vertical datum/unit;
 - Enterprise spatial reference;
 - validation outcome; and
@@ -317,7 +320,7 @@ review, spatial scope, or fitness for a particular use.
 - Collection codes and immutable ID formats.
 - Tiered study-area naming grammar and uniqueness enforcement.
 - Desktop QA states and publication gates.
-- Feature-class and mosaic-dataset ownership keys.
+- Feature-class and mosaic dataset ownership keys.
 - Stream Network Configuration, Stream Network Observation, node/edge topology,
   Reach-event association, and cross-time correspondence fields/constraints.
 - Longitudinal frame, base-Flowline realization, and comparison-calibration
@@ -327,5 +330,5 @@ review, spatial scope, or fitness for a particular use.
 - Approved per-source-CRS horizontal and vertical transformation registry.
 - Shiny save/restore payload, edit concurrency, and authorization.
 - Cross-collection query and service behavior.
-- Survey Event identity rules, minimal legacy metadata, derivation-provenance
+- Survey Event identity rules, minimal legacy metadata, dataset-edition provenance
   fields, and enforcement of one current accepted result set.

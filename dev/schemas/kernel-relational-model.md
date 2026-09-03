@@ -13,8 +13,9 @@ names, PostgreSQL types, relationship-class settings, and service views.
 The model distinguishes:
 
 - durable domain entities from their spatial representations;
-- a Survey Event from its current derivation provenance;
-- current derived-dataset identity from replaceable dataset content; and
+- a Survey Event from accepted derivation provenance;
+- stable derived-dataset identity from versioned accepted editions and
+  replaceable dataset content; and
 - governed records from local preprocessing artifacts.
 
 ## Kernel relationship graph
@@ -29,11 +30,10 @@ Collection 1 ---- N Study Area 1 ---- N Stream 1 ---- N Reach
 Reach 1 ---- N Survey Event
                     |
                     +---- 0..1 Survey Event Geometry
-                    +---- 0..1 Current Derivation Provenance
-                    +---- 0..N Retained Derived Dataset
+                    +---- 0..N Derived Dataset ---- 0..N Accepted Edition
 
-Survey Event 1 ---- 0..1 Flowline
-Flowline    1 ---- 0..N Cross Section
+Current Flowline Edition 1 ---- 1 Flowline
+Current Cross-section Edition 1 ---- 0..N Cross Sections
 
 Study Area 1 ---- 0..N Stream Network Configuration ---- 0..N Stream Network Observation
 Stream Network Observation 1 ---- 1..N Stream Network Segment
@@ -61,10 +61,11 @@ Event must satisfy the conditional invariants below.
 | `reach_geometry` | `reach_id` as PK/FK | one Reach | Reach 1:0..1 geometry | Optional project-defined cartographic/analysis AOI. |
 | `survey_event` | `survey_event_id` | one Reach | Reach 1:N Survey Event | Terrain condition/acquisition-period identity with known year. |
 | `survey_event_geometry` | `survey_event_id` as PK/FK | one Survey Event | Survey Event 1:0..1 geometry | Optional analyst-supplied or hydro-DEM-derived analysis AOI. |
-| `current_derivation` | `current_derivation_id`; unique `survey_event_id` | one Survey Event | populated Survey Event 1:1 current provenance | Mutable current-provenance slot; not a processing-run history. |
-| `derived_dataset` | `derived_dataset_id` | one Survey Event and its current derivation | Survey Event 1:0..N datasets | Identity and metadata for each retained current dataset or mosaic item. |
-| `flowline` | `flowline_id` | one Survey Event and one derived-dataset record | Survey Event 1:0..1 Flowline; exactly one when the Flowline product exists | Current event-specific reference path and local stationing basis. |
-| `cross_section` | `cross_section_id` | one Survey Event, one Flowline, and one derived-dataset record | Flowline 1:0..N Cross Sections | Current event-specific transect identity and geometry. |
+| `derived_dataset` | `derived_dataset_id` | one Survey Event | Survey Event 1:0..N dataset slots | Stable identity for each governed dataset type and semantic role, with one pointer to its current accepted edition. |
+| `derived_dataset_edition` | `dataset_edition_id` | one Derived Dataset | dataset 1:0..N accepted editions | Accepted realization under explicit scientific, schema, software, and platform contracts; never a raw processing attempt. |
+| `dimension_metric_definition` | `metric_definition_id` | one Dataset Type | dataset type 1:0..N metrics | Stable in-database definition, type, unit, ontology reference, and lifecycle for a named wide-table metric. |
+| `flowline` | `flowline_id` | one Survey Event and one derived-dataset edition | Current Flowline edition 1:1 row | Current event-specific reference path and local stationing basis. |
+| `cross_section` | `cross_section_id` | one Survey Event, one Flowline, and one derived-dataset edition | Current Cross-section edition 1:0..N rows | Current event-specific transect identity and geometry. |
 | `stream_network_configuration` | `stream_network_configuration_id` | one Study Area | Study Area 1:0..N configurations | Normalizes connected Study Area networks and independently processed Stream configurations. |
 | `stream_network_configuration_stream` | (`stream_network_configuration_id`, `stream_id`) | one configuration and one Stream | configuration 1:1..N memberships | Declares participating Streams without polymorphic ownership. |
 | `stream_network_observation` | `stream_network_observation_id` | one Stream Network Configuration | configuration 1:0..N observations | One time-specific terrain-derived and reviewed Stream Network. |
@@ -92,11 +93,11 @@ contracts.
    must be unambiguous for every retained dataset and feature.
 3. A Study Area has exactly one current governed polygon. Stream, Reach, and
    Survey Event each have at most one current governed polygon.
-4. A Survey Event has a required year, optional month/day, and at most one
-   current derivation-provenance record.
-5. When a Survey Event has any current derived content, it has exactly one
-   current derivation-provenance record and every retained dataset references
-   it.
+4. A Survey Event has a required year and optional month/day.
+5. Every populated derived-dataset slot has exactly one current accepted
+   edition. Each edition references its logical schema, platform profile, and
+   source manifest, plus its scientific method and software environment when
+   known; controlled evidence statuses preserve unresolved legacy provenance.
 6. A desktop correction replaces all current content within one
    reach-survey-event replacement unit without changing the Survey Event ID.
 7. The local Stream Geodatabase, its temporary drainage/route intermediates,
@@ -118,6 +119,11 @@ contracts.
     observation's current segment set.
 13. Base-event status exists only through a reference-frame base Flowline
     selection. It is never a global Survey Event attribute.
+14. Dimension metrics remain named, typed columns in feature-specific wide
+    tables. Every such row references the accepted dataset edition governing
+    its interpretation.
+15. Invalidated editions retain audit metadata only; known-bad feature rows are
+    not retained as valid production observations.
 
 ## Recommended identity-change rules for review
 
@@ -131,8 +137,8 @@ constraints can be finalized.
 | Stream | name, national reference, or optional geometry changes for the same project-identified watercourse | Study Area parent changes, or a merge/split changes the project-identified watercourse unit |
 | Reach | name or optional geometry is refined without changing the intended analytical segment | Stream parent changes, or resegmentation materially changes, splits, or merges the analytical segment |
 | Survey Event | metadata/date precision is corrected for the same acquisition occurrence, or derived content is reprocessed | evidence identifies a different acquisition occurrence, including a distinct same-date survey |
-| Current derivation | provenance values are replaced when the same Survey Event is reprocessed | Survey Event changes; processing attempts are audit records rather than new current-derivation identities |
-| Derived dataset | current content is corrected/replaced for the same Survey Event, feature family, and semantic role | Survey Event, feature family, or semantic role changes |
+| Derived dataset | an accepted edition is corrected or reanalyzed for the same Survey Event, feature family, and semantic role | Survey Event, feature family, or semantic role changes |
+| Derived dataset edition | never; accepted edition identity and contract references are immutable | every newly accepted correction, backfill, or reanalysis realization; processing attempts remain operational audit records |
 | Flowline | geometry/attributes are corrected for the same Survey Event and reference-path role | Survey Event or semantic role changes; a materially different concurrent reference path is introduced |
 | Cross Section | geometry/attributes are corrected for the same Survey Event and intended transect | Survey Event, cross-section type/role, or intended transect changes |
 | Stream Network Configuration | label/documentation or reviewed membership error is corrected for the same intended configuration | configuration mode or intended connected/included Stream set changes materially |
@@ -140,11 +146,12 @@ constraints can be finalized.
 | Stream Network segment | geometry/attributes are corrected within replacement of the same observation and reviewed segment correspondence is preserved | observation changes or review establishes a different time-specific segment |
 | Longitudinal reference frame | labels, documentation, or erroneous calibration are corrected for the same configuration, base realization, mouth, and path semantics | base Stream Network/Flowline selection, mouth, configuration, selected path semantics, direction/unit semantics, or scientific interpretation changes |
 
-The recommended rule for derived datasets treats identity as the stable
-"current dataset of this type and role for this Survey Event" slot. Dataset
-content fingerprints and derivation metadata change during correction; the
-dataset ID does not. Operational load history may record the replaced bytes or
-rows without exposing known-bad versions as current data.
+The derived dataset is the stable "dataset of this type and role for this
+Survey Event" slot. A new accepted realization creates an immutable edition and
+may change the slot's current-edition pointer; the dataset ID does not change.
+Operational load history may record rejected attempts. Invalidated edition
+metadata may record replacement lineage without exposing known-bad feature
+rows as valid data. See ADR-0023 and `scientific-result-contract.md`.
 
 ## Recommended uniqueness constraints for review
 
@@ -154,10 +161,10 @@ rows without exposing known-bad versions as current data.
 | `stream` | normalized display name within `study_area_id` | Prevent duplicate dropdown entries while allowing the same stream name in different Study Areas. |
 | `reach` | normalized display name within `stream_id` | Keeps analyst-facing hierarchy concise without using the name as identity. |
 | `survey_event` | no date-only uniqueness | Two acquisitions may occur on the same known date; immutable ID disambiguates them. |
-| `current_derivation` | unique `survey_event_id` | Enforces at most one current provenance record. |
 | `derived_dataset` | unique (`survey_event_id`, `dataset_type_id`, `role_code`) | Enforces one current dataset per governed semantic slot while allowing distinct roles/subtypes. |
-| `flowline` | unique `survey_event_id` | Accepted one current reference Flowline per reach-survey-event under ADR-0012. |
-| `cross_section` | source-stable key unique within (`survey_event_id`, `cross_section_type_id`) | Needed for idempotent replacement; exact source key is unresolved and must not default silently to `OBJECTID`. |
+| `derived_dataset_edition` | unique (`derived_dataset_id`, `edition_sequence`); one current pointer per parent | Orders accepted realizations while preserving exactly one operationally current edition. |
+| `flowline` | unique `dataset_edition_id` in current production content | Enforces one reference Flowline per accepted Flowline edition under ADR-0012. |
+| `cross_section` | source-stable key unique within (`dataset_edition_id`, `cross_section_type_id`) | Needed for idempotent replacement; exact source key is unresolved and must not default silently to `OBJECTID`. |
 | `stream_network_observation` | no date-only uniqueness; candidate source fingerprint uniqueness within configuration | Distinct observations can share a date; immutable ID and reviewed evidence disambiguate them. |
 | `stream_network` | immutable segment ID unique globally; source-stable key unique within observation when available | Supports complete replacement and explicit cross-time correspondence without using `OBJECTID`. |
 
@@ -204,9 +211,10 @@ status. Retirement is preferable to identifier reuse for hierarchy entities.
 Whether geometry changes and Shiny edits require deeper history remains a
 separate audit-policy decision.
 
-Derived records additionally require their current derivation reference,
-method/software version, source/load manifest reference, validation outcome,
-and collection publication state as applicable.
+Derived records additionally require their dataset-edition reference. The
+edition resolves the scientific method, logical schema, software environment,
+platform profile, source/load manifest, validation outcome, and collection
+publication state as applicable.
 
 ## Questions for the next design review
 
@@ -214,9 +222,7 @@ and collection publication state as applicable.
    Study Area parent always creates a new Stream.
 2. Confirm that a material Reach split, merge, or resegmentation retires the
    old identity and creates successor Reach IDs rather than editing in place.
-3. Confirm the stable-current-slot identity rule for `current_derivation` and
-   `derived_dataset` during desktop correction.
-4. Decide how Cross Sections receive a source-stable key and whether
+3. Decide how Cross Sections receive a source-stable key and whether
    correspondence across Survey Events needs a separate alignment relation.
-5. Review the proposed physical topology representation and validation rules
+4. Review the proposed physical topology representation and validation rules
    in `dev/schemas/longitudinal-reference-model.md`.

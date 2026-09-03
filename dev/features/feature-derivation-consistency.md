@@ -29,24 +29,23 @@ Under ADR-0012, multi-Reach vectorization is not a canonical parity
 requirement: `{fluvgeo}` derives one Reach at a time, and FGDB composes those
 results through hierarchy queries.
 
-## Required canonical contract
+## Flowline contract status
 
-Before replacing the Python flowline path, the owning repositories must define:
+The first concrete contract is now specified in
+`dev/schemas/flowline-feature-contract.md`. It resolves:
 
-- accepted single-Reach input geometry and multipart behavior;
-- verification that the input and output bind to exactly one Reach and Survey
-  Event identity;
-- binding of terrain-derived input geometry to its governed Synthetic Network
-  Observation and source segment identities;
-- output geometry type, fields, nullability, and topology;
-- required CRS and horizontal/vertical unit handling;
-- smoothing purpose, algorithm, parameter units, and acceptable geometric
-  deviation;
-- line orientation and behavior for flat, missing, or ambiguous endpoint
-  elevations;
-- error and warning behavior;
-- deterministic method/version identifier; and
-- performance requirements for large desktop study areas.
+- one Flowline per current `FLOWLINE` Dataset Edition and Survey Event role;
+- a continuous, logically single-part, upstream-oriented XY line;
+- immutable Flowline identity separated from accepted edition/realization;
+- normalized source-segment and hydro-DEM orientation evidence;
+- exclusion or relational reinterpretation of legacy process, length, and
+  route-measure fields; and
+- distinct legacy ArcPy and current R method contracts with no presumed
+  equivalence.
+
+Scientific review still must define smoothing/channel-corridor tolerances,
+orientation ambiguity behavior, the future open derivation recipe, and
+performance requirements before the Python path can be replaced.
 
 ## Buildout and migration pattern
 
@@ -56,12 +55,10 @@ Before replacing the Python flowline path, the owning repositories must define:
    each derived stage is reached.
 3. Define the current desktop workflow order, manual interventions, and known
    failure modes alongside the streamlined Shiny workflow.
-4. Select one bounded paired-implementation contract pilot when the catalog
-   reaches such a stage; flowline remains a useful candidate, not the first
-   catalog object.
+4. Use the Flowline contract as the first bounded paired-implementation pilot.
 5. Define the canonical schema and scientific invariants in `fluvgeo`.
-6. Assemble representative, provenance-documented fixtures, including legacy
-   edge cases.
+6. Assemble representative, provenance-documented direct producer outputs,
+   including legacy edge cases, through `fluvgeodata`.
 7. Implement missing open-source stages without coupling them to Shiny state.
 8. Continue until a coherent end-to-end `{fluvgeo}` workflow exists; do not
    repeatedly interrupt desktop production with partial cutovers.

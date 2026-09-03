@@ -49,8 +49,8 @@ now governed outputs under ADR-0014 and ADR-0019.
 
 - Stream Network Configuration and Observation identities resolve ownership
   before and across final Stream/Reach segmentation.
-- The enterprise `stream_network` feature class is required; a Stream-scale
-  terrain mosaic item is not.
+- The enterprise `stream_network` feature class is required; the Stream-scale
+  DEM is not retained as a mosaic dataset item.
 - Migration tooling distinguishes reviewed Stream Network geometry from
   pre-segmentation and construction artifacts. A legacy convenience copy may be
   used as evidence only after classification and validation.

@@ -14,8 +14,10 @@ implementation completeness.
 | Shiny applications | Local-first browser interaction, small-area self-service orchestration, presentation, relational data creation, and optional FGDB save/restore integration |
 | ArcGIS Pro toolbox | Optional expert editing experience, desktop orchestration, and geodatabase adapters that call canonical R functions |
 | Future QGIS toolbox | Optional open-source desktop editing and orchestration adapter calling the same canonical R functions |
-| FGDB tooling | Schema setup, controlled ingestion, replacement/edit policies, reconciliation, and management |
-| ArcGIS Enterprise | PostgreSQL/SDE enterprise deployment, authoritative data services, authorization, and scalable client delivery |
+| FGDB user-facing tooling | R service clients built on `{arcgis}`, principally `{arcgislayers}` and `{arcgisutils}`, for validation, controlled ingestion, replacement/edit policies, reconciliation, and governed data access |
+| FGDB admin-facing tooling | Repeatable SDE schema, mosaic dataset, registered-data-store, and service configuration; ArcPy is used where licensed ArcGIS administration is required |
+| FGDB compatibility infrastructure | Versioned logical types, platform profiles, bindings, transforms, migrations, capability probes, compatibility matrix, and conformance harness |
+| ArcGIS Enterprise | USACE private-cloud deployment, Portal, registered PostgreSQL RDS/SDE data source, authoritative data services, authorization, and scalable client delivery |
 
 This direction refines, but does not silently rewrite, the current
 `FG-architecture` records. The organization catalog must be updated through a
@@ -30,13 +32,14 @@ Shiny application --------|                     |
 ArcGIS Pro adapter --------|      fluvgeo        |---> local feature classes + tables
                            | all scientific      |               |
 Future QGIS adapter -------| processing and      |               v optional
-                           | validation          |       FGDB geodatabase loader
+                           | validation          |       FGDB service loader
 Batch/other client --------|                     |               |
                            +---------------------+               v
-                                                   ArcGIS Enterprise FGDB
-                                                              |
-                                                              v
-                                                   read-only data services
+                                                   Portal Feature Services
+                                                     /              \
+                                                    v                v
+                                      authorized FGDB/Shiny      read-only viewers
+                                              writes
 ```
 
 Client adapters may collect inputs, support editing, display progress, and
@@ -57,7 +60,8 @@ derivation or scientific calculation behavior.
 - Implement missing capabilities in `{fluvgeo}` as client-independent
   functions with explicit schemas and scientific invariants.
 - Use Shiny workflows to exercise the streamlined order and error handling.
-- Build representative fixtures and method/version provenance from the start.
+- Build representative, provenance-documented test evidence from direct
+  producer outputs and record method/version provenance from the start.
 - Avoid partial production cutovers that would repeatedly disrupt analysts.
 
 ### Phase 3: Validate the coherent replacement workflow
@@ -98,3 +102,8 @@ Local-first analysis produces complete local feature classes, tables, and scient
 before the optional FGDB boundary. FGDB loading must not be embedded inside a
 `fluvgeo` scientific function or required to complete a Shiny, ArcGIS Pro,
 direct-R, or future QGIS analysis.
+
+FGDB application access crosses the enterprise boundary through authenticated
+Portal services. Ordinary R loading and querying do not require ArcGIS Pro.
+Licensed ArcPy administration is isolated to provisioning and configuration
+that supported web GIS interfaces cannot perform. See ADR-0020.

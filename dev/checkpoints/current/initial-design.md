@@ -1,6 +1,6 @@
 # FGDB initial design checkpoint
 
-- Updated: 2026-09-01
+- Updated: 2026-09-02
 - State: active design; no enterprise loader implementation yet
 
 ## Initiative boundary
@@ -13,8 +13,8 @@ FGDB has two purposes:
    FluvialGeomorph content in an Esri Enterprise SDE geodatabase.
 
 ArcGIS Enterprise is the consolidated source for published FluvialGeomorph
-feature layers and terrain mosaics. Desktop and browser analysis remain useful
-independently of enterprise loading.
+feature layers and raster content managed through mosaic datasets. Desktop and
+browser analysis remain useful independently of enterprise loading.
 
 ## Accepted architecture
 
@@ -33,8 +33,28 @@ independently of enterprise loading.
 - R APIs use data frames/tibbles and `sf`. Persistent local scientific content is
   stored as relational tables and feature classes in a file geodatabase or
   GeoPackage.
+- The enterprise deployment uses a registered PostgreSQL RDS/SDE data source in
+  USACE ArcGIS Enterprise. FGDB and Shiny R clients use authenticated Portal
+  Feature Services through the `{arcgis}` ecosystem; viewers receive read-only
+  access.
+- Licensed ArcPy is confined to admin-facing provisioning, SDE and mosaic
+  dataset configuration, registered-data-store setup, service publication, and
+  ArcGIS conformance that supported web GIS interfaces cannot perform.
+- Deterministic R, GDAL, mocked-service, and isolated PostgreSQL/PostGIS tests
+  form the normal off-network development loop. A separate licensed integration
+  lane verifies deployed ArcGIS behavior.
+- Every cross-platform field, geometry, constraint, CRS, and raster mapping
+  requires a machine-readable type crosswalk and value-bearing conformance
+  evidence. Readability or a successful conversion is not proof of scientific
+  fidelity.
+- **Mosaic dataset** is the required term for the Esri enterprise geodatabase
+  raster-management data type; it is distinct from a combined raster mosaic or
+  the operation of mosaicking.
 
-Governing records include ADR-0004, ADR-0015, ADR-0017, ADR-0018, and ADR-0019.
+Governing records include ADR-0004, ADR-0015, ADR-0017, ADR-0018, ADR-0019,
+ADR-0020, ADR-0021, ADR-0022, and ADR-0023. Detailed open-development and enterprise-conformance goals,
+requirements, evidence layers, and release gates are maintained in
+`dev/goals/open-development-and-enterprise-conformance.md`.
 
 ## Governed scientific model
 
@@ -44,9 +64,15 @@ Governing records include ADR-0004, ADR-0015, ADR-0017, ADR-0018, and ADR-0019.
 - Study Area has one multipart-capable AOI polygon. Stream and Reach polygons
   are optional because stored project geometry defines their extent.
 - One Reach has many Survey Events. Year is required; month/day are optional.
-- Each Survey Event has one current derived result set and current derivation
+- Each Survey Event may own several durable derived-dataset slots by feature
+  family and role. Every populated slot has exactly one current accepted
+  edition with scientific-method, schema, software, platform, and source
   provenance. A correction replaces incorrect current content rather than
   preserving known-bad scientific rows as alternative results.
+- Dimension results remain canonical typed wide tables. The in-database
+  `dimension_metric_definition` catalog defines their scientific meaning, and
+  a long observation representation is deferred to a separate interoperability
+  decision.
 - The governed terrain artifact is the hydro-modified DEM. Cutlines and their
   material interpolation assumptions are retained. Source point clouds,
   acquisition wrangling, and temporary terrain intermediates are outside FGDB.
@@ -78,7 +104,7 @@ model, and kernel relational model.
   selects base-event Flowlines; comparison-event measures remain calibrated to
   those selected geometries. Alternative frames may coexist.
 
-The proposed object-relational schema is in
+The accepted object-relational schema is in
 `dev/schemas/stream-network-geodatabase-schema.md`; the producer API is
 `dev/features/prepare-stream-network.md`.
 
@@ -112,26 +138,48 @@ Verification:
 - `devtools::check(args = "--no-manual")` completes with zero errors, warnings,
   or notes under R 4.6.1 with Windows-compatible locale settings.
 
-## Current design decision
+## Current implementation boundary
 
-Review the relation definitions and remaining schema questions in
-`dev/schemas/stream-network-geodatabase-schema.md`. Once accepted, prepare a
-separately authorized implementation plan for `fluvgeo`. Specify the FGDB R
-loader against the same feature classes and tables after the producer relations
-and scientific validator are stable.
+The Stream Network Geodatabase schema and producer API are accepted. Direct
+legacy evidence and the first separately reviewed `fluvgeo` implementation
+slice are recorded in `dev/schemas/stream-network-source-evidence.md`.
+
+The Configuration, Configuration–Stream membership, and Observation
+constructors are implemented in `fluvgeo` with focused direct-evidence tests.
+Retained-feature normalization into `stream_network` and
+`stream_network_source` is the next producer step.
+
+The first ADR-0023 instantiation is now drafted. `FLOWLINE` is the first
+`dataset_type`; `scientific-reference-data.md` defines the supporting reference
+relations; and `flowline-feature-contract.md` specifies Flowline identity,
+minimal fields, XY geometry, source lineage, legacy disposition, two observed
+method contracts, and a worked Dataset Edition example. Scientific method is
+explicitly production metadata on an edition, not a hierarchy object or a
+synonym for a feature class. Flowline Points is the next feature-catalog slice
+after review of this draft.
+
+Do not begin the FGDB enterprise loader until the producer relations and
+scientific validator are implemented and stable in `fluvgeo`.
 
 ## Later design work
 
 1. Complete remaining hierarchy identity, uniqueness, rename/alias, and
    resegmentation rules.
-2. Specify the source-CRS transformation registry and `hydro_dem` mosaic-item
-   contract.
-3. Complete the L1/L2/L3 feature and field disposition catalog.
-4. Specify enterprise ingestion, reconciliation, rollback, and load audit.
-5. Specify Feature Layer, raster service, query, authorization, deployment, and
+2. Populate the canonical logical-type and platform-binding crosswalk for the
+   accepted hierarchy and Stream Network schemas and implement its first
+   OpenFileGDB/GeoPackage boundary tests, capability probes, and compatibility
+   profiles.
+3. Specify the source-CRS transformation registry and `hydro_dem` mosaic
+   dataset item contract.
+4. Review and accept the Flowline contract, then specify Flowline Points and
+   continue the L1/L2/L3 dataset types, wide fields, metric definitions, and
+   initial scientific/schema contracts from direct producer and manual
+   evidence.
+5. Specify enterprise ingestion, reconciliation, rollback, and load audit.
+6. Specify Feature Layer, raster service, query, authorization, deployment, and
    operational contracts.
-6. Complete legacy inventory and migration crosswalks.
-7. Finalize longitudinal-frame calibration, QA, and materialized measure
+7. Complete legacy inventory and migration crosswalks.
+8. Finalize longitudinal-frame calibration, QA, and materialized measure
    contracts.
 
 Cross-repository changes to `fluvgeo`, desktop/Shiny clients,

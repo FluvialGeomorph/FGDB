@@ -60,7 +60,7 @@ locations.
 | Persistence disposition | Authoritative, recomputable, temporary, excluded, or unresolved. |
 | Publication behavior | Visibility, service representation, collection QA gate, and editability. |
 | Replacement behavior | Participation in desktop reach-survey-event replacement or Shiny in-place editing. |
-| Physical mapping | Implementing table, feature class, mosaic item, key, relationship, domain, and semantic-projection rule. |
+| Physical mapping | Implementing table, feature class, mosaic dataset item, key, relationship, domain, and semantic-projection rule. |
 | Evidence | Documentation, code, samples, and decisions supporting the contract. |
 | Contract maturity | Inventoried, draft, reviewed, accepted, implemented, or verified. |
 
@@ -95,8 +95,8 @@ locations.
   base Flowlines are explicit, frame-relative relationships under FCAT-008.
 - Survey acquisition and feature derivation are conceptually distinct, but
   processing is not another level in the persistent domain hierarchy. Each
-  Survey Event owns one current derived result set and current derivation
-  provenance.
+  Survey Event owns typed derived-dataset slots; every populated slot has one
+  current accepted edition with explicit scientific and software provenance.
 - Stream and Reach entity records are mandatory, but their polygons are
   optional. Survey Event polygon geometry is also optional and may be derived
   from the hydro DEM footprint; it represents analysis extent, not necessarily
@@ -155,7 +155,7 @@ The polygon serves both as the Study Area's spatial identity and its governed
 extent. Coarse longitudinal hydrography and acquisition search areas used to
 draw it are workflow inputs, not additional FGDB objects.
 
-### FCAT-002: Survey Event identity and current derivation
+### FCAT-002: Survey Event identity and accepted dataset editions
 
 | Property | Current specification |
 |---|---|
@@ -175,9 +175,9 @@ draw it are workflow inputs, not additional FGDB objects.
 | Identity-change rule | Correcting descriptive metadata or increasing date precision for the same documented acquisition preserves identity. Evidence that records represent a different acquisition occurrence requires a new ID. Exact merge/split adjudication remains unresolved. |
 | Minimum legacy population | Immutable ID, Reach parent, required year, known date precision, and evidence basis such as legacy event label, file geodatabase, report, folder, or analyst knowledge. Provider, collection ID, clearinghouse URI, month/day, and source footprint are nullable. |
 | Source status | Record metadata completeness (`MINIMAL`, `PARTIAL`, or `DOCUMENTED`) and source retention (`NOT_RETAINED`, `EXTERNAL`, `TEMPORARY`, or `RETAINED`) without inventing missing metadata. Point clouds and intermediate terrain products remain outside FGDB persistence scope. |
-| Current derivation provenance | Exactly one current provenance record when derived content exists: processing time, tool/method and version, `{fluvgeo}` and caller versions where applicable, material parameters/configuration, responsible agent/process, known inputs, retained outputs, validation, and load outcome. |
-| Reprocessing | A correction preserves the Survey Event ID, atomically replaces its incorrect current derived content, and updates current derivation provenance. It does not create a second persistent derivation entity. Optional execution/load history is operational audit data only. |
-| QA | One Reach parent; valid immutable ID; known valid year; valid component dependencies/ranges; precision and label agree with components; exactly one current derivation-provenance record whenever current derived content exists. |
+| Accepted dataset editions | Each dataset type/role has one stable `derived_dataset` slot and exactly one current `derived_dataset_edition` when populated. The edition binds scientific-method, schema, software, platform, source-manifest, validation, and acceptance provenance. |
+| Reprocessing | A correction preserves the Survey Event and dataset-slot IDs, validates a replacement edition, changes the current-edition pointer, and removes known-bad scientific rows. Raw executions remain operational audit records. A valid superseded edition is retained only for an approved scientific need. |
+| QA | One Reach parent; valid immutable ID; known valid year; valid component dependencies/ranges; precision and label agree with components; exactly one current accepted edition for every populated dataset slot. |
 | Evidence | Historical year-based event names; documented monthly reflights; accepted conceptual hierarchy; ADR-0005. |
 | Maturity | Accepted conceptual contract; logical fields remain draft. |
 
@@ -216,9 +216,9 @@ draw it are workflow inputs, not additional FGDB objects.
 | Native analysis reference | Required provenance: source projected horizontal CRS, horizontal unit, vertical datum, vertical unit, cell size, extent, and NoData definition used for scientific analysis. |
 | Enterprise spatial contract | Raster item transformed to Web Mercator (EPSG:3857) using the approved horizontal and vertical transformations for its source CRS. Item properties must match the Enterprise `hydro_dem` mosaic dataset. |
 | Pixel contract | Documented legacy pixel type is 32-bit floating-point elevation. Target pixel type remains to be confirmed against production rasters. |
-| Persistence | Authoritative mosaic item in the Enterprise hydro DEM mosaic dataset. Source terrains and watershed products are not retained. |
+| Persistence | Authoritative mosaic dataset item in the enterprise `hydro_dem` mosaic dataset. Source terrains and watershed products are not retained. |
 | Replacement | Included in atomic desktop replacement of its complete reach-survey-event. Shiny behavior follows in-place collection rules when Shiny produces this object. |
-| QA | Complete hierarchy key; readable nonempty raster; declared native and Enterprise spatial references; declared vertical datum/unit; approved per-source-CRS transformations; expected reach coverage; item parameters conform to the `hydro_dem` mosaic; derivation and load provenance. |
+| QA | Complete hierarchy key; readable nonempty raster; declared native and Enterprise spatial references; declared vertical datum/unit; approved per-source-CRS transformations; expected reach coverage; item parameters conform to the `hydro_dem` mosaic dataset; derivation and load provenance. |
 | Publication | Governed by collection visibility and future raster-service contracts. |
 | Evidence | `FG-Tech-Manual/Features.qmd`; `FG-Tech-Manual/Level-1.qmd`; `data_dictionary.csv`; target XML reference to `AMD_DEM_hydro_CAT`; ADR-0005. |
 | Maturity | Accepted persistence and ownership contract; detailed raster contract remains draft. |
@@ -235,7 +235,7 @@ catalog objects or retained data:
 | Contributing-watershed DEM and drainage-basin products | Not retained. |
 | LiDAR clearinghouse searches, downloads, point clouds, and cleaning | Outside FGDB scope. |
 | Stream Geodatabase (legacy `Site Geodatabase`) | Local database of record for the `stream_network` feature class and its related scientific, review, validation, and lineage tables; not an FGDB hierarchy entity or retained enterprise object. FGDB loads its approved relations under ADR-0015 and ADR-0019. |
-| Stream-scale DEM | Local terrain preparation input; not retained in the Enterprise hydro DEM mosaic. |
+| Stream-scale DEM | Local terrain preparation input; not retained in the Enterprise `hydro_dem` mosaic dataset. |
 | Flow direction, flow accumulation, raster threshold, and temporary network-construction products | Local construction artifacts; not retained. The reviewed synthetic network is governed under FCAT-007. |
 | Legacy manually added `boundary` feature class | Excluded. It was not produced or required by a tool and must not be mapped automatically to any governed hierarchy geometry. |
 | Unmodified high-resolution source DEM | Not retained. |
@@ -255,7 +255,7 @@ Collection
           -> Reach
               -> Survey Event (known year; optional month/day)
                   -> Cutlines
-                  -> Hydro-modified DEM mosaic item
+                  -> Hydro-modified DEM mosaic dataset item
                   -> subsequent governed FG features and REM
 ```
 
@@ -268,7 +268,7 @@ Collection
 3. Define ordering and client disambiguation for Survey Events with equal dates
    or different date precision.
 4. Define the approved per-source-CRS horizontal/vertical transformation
-   registry and the complete `hydro_dem` mosaic contract.
+   registry and the complete `hydro_dem` mosaic dataset contract.
 5. Define how a no-cutline case records that terrain was evaluated and no
    intervention was required.
 
@@ -357,12 +357,33 @@ Collection
 | Evidence | Historical Stream Geodatabase and Flowline-points calibration workflow; human clarification; ADR-0009; ADR-0010; ADR-0012; ADR-0013; ADR-0014. |
 | Maturity | Accepted conceptual contract; physical topology, tolerances, and materialization remain draft. |
 
+### FCAT-009: Flowline
+
+| Property | Current specification |
+|---|---|
+| Definition | The Survey Event-specific polyline representing the likely flow path through one governed Reach. It is not asserted to be the wetted flow path or surveyed thalweg. |
+| Dataset type | `FLOWLINE`; one stable Derived Dataset slot with one current accepted Dataset Edition. |
+| Object kind | Governed derived polyline feature. The scientific method is provenance on its Dataset Edition, not a geographic parent or feature class. |
+| Workflow stage | After reviewed Stream Network/Reach segmentation and before Flowline Points, REM, and Cross Sections. |
+| Ownership | Exactly one Survey Event and therefore one Reach. Exactly one Flowline row per populated current `FLOWLINE` Dataset Edition. |
+| Identity | Immutable `flowline_id`; preserved when a correction or approved reanalysis replaces the current realization for the same Survey Event and semantic role. |
+| Geometry | One nonempty, valid, simple, continuous, logically single-part XY line, beginning downstream and ending upstream. Local derivation uses the projected analysis CRS; enterprise storage uses the governed EPSG:3857 transform. |
+| Source lineage | Relate all known contributing governed Stream Network segments and any hydro-DEM orientation evidence. Missing legacy source networks remain explicitly missing rather than reconstructed as facts. |
+| Z/M policy | Z is observed on Flowline Points, not intrinsic line vertices. M is local-route/reference-frame dependent and belongs to explicit calibration relations. Canonical Flowline geometry is therefore XY. |
+| Legacy fields | Reconcile `ReachName`; treat `InLine_FID` and `SmoLnFlag` as source/method evidence; treat `Shape_Length` as platform managed; bind verified `from_measure`/`to_measure` to a reference frame or recompute them. |
+| Method/version | The legacy ArcPy dissolve-plus-PAEK workflow and current R DEM-orientation function are distinct method contracts with initial compatibility `UNKNOWN`. |
+| QA | Single feature/part; valid ownership; downstream-to-upstream orientation; DEM coverage; accepted channel-corridor review; explicit ambiguity handling; complete method/schema/software/source evidence to the extent available. |
+| Evidence | `_05a_Flowline.py`; `fluvgeo::flowline()` and `check_flowline()`; current User and Tech Manuals; direct `fluvgeodata` outputs; both XML Workspace schemas. |
+| Maturity | Draft concrete contract. Identity/cardinality and canonical XY policy are proposed for review; numeric tolerances and future open derivation method remain unresolved. |
+
+The exact logical fields, source relations, method examples, migration
+disposition, and evidence are specified in
+`dev/schemas/flowline-feature-contract.md`.
+
 ## Next catalog slice
 
-Review the kernel identity/cardinality recommendations in
-`dev/schemas/kernel-relational-model.md`, resolve the exact Stream and Reach
-display-name grammar, and finalize the logical/physical representation of
-FCAT-008 using `dev/schemas/longitudinal-reference-model.md`. Then proceed to
-the Flowline feature contract. The Flowline contract must assume one
-Reach/Survey Event derivation unit and define its calibration to FCAT-008
-without creating duplicate authoritative geometry.
+Review and accept FCAT-009, including canonical XY geometry, source-lineage
+relations, and the distinction between the observed legacy/R method contracts.
+Then specify Flowline Points as the next workflow product. Flowline Points must
+separate sampled elevation from frame-relative stationing and must not make
+legacy `POINT_M` an unqualified project coordinate.

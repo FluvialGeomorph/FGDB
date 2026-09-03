@@ -2,6 +2,7 @@
 
 - Status: accepted
 - Date: 2026-08-25
+- Clarified by: ADR-0018
 
 ## Context
 
@@ -81,9 +82,9 @@ the older desktop sequence.
   reducing desktop/browser drift.
 - The ArcGIS toolbox remains valuable as the expert desktop workflow rather
   than becoming the owner of duplicate algorithms.
-- `fluvgeo` needs new feature-level input/output schemas, deterministic tests,
-  representative fixtures, scientific acceptance criteria, and release
-  discipline.
+- `fluvgeo` needs new feature-level input/output schemas, deterministic tests
+  driven by representative direct producer outputs governed through
+  `fluvgeodata`, scientific acceptance criteria, and release discipline.
 - Desktop migration requires an explicit R invocation and geodatabase adapter
   strategy for each tool.
 - The streamlined workflow order, automation boundaries, and remaining manual

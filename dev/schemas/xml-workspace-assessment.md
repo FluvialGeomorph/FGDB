@@ -33,7 +33,7 @@ toolbox version.
 | Feature datasets | 0 | 1 |
 | Relationship classes | 1 attachment relationship | 0 |
 | Business domains | 0 | 0 |
-| Raster or mosaic definitions | 0 | 0 |
+| Raster or mosaic dataset definitions | 0 | 0 |
 | Spatial reference | EPSG:3857 | EPSG:26914 |
 | Embedded records | 0 | 0 |
 
@@ -76,7 +76,7 @@ mandatory hierarchy in `conceptual-data-model.md`.
   `AMD_DEM_hydro_CAT` geometry as `FG_DEM_Footprint_VW`, which appears
   inconsistent with its name and intended feature family.
 - The referenced `AMD_DEM_hydro_CAT` object is absent from the export.
-- No DEM or REM mosaic-dataset definition is present.
+- No DEM or REM mosaic dataset definition is present.
 
 ### Derived-schema gaps
 
@@ -100,7 +100,7 @@ mandatory hierarchy in `conceptual-data-model.md`.
 | `bankfull_area` | `FG_BankfullArea` | Survey-event key and Z policy |
 | `banklines` | `FG_Banklines` | Measure preservation and Z/M policy |
 | `features` | `FG_Features` | Survey-event key and naming cleanup |
-| `flowline` | `FG_Flowline` | Canonical flowline contract and provenance |
+| `flowline` | `FG_Flowline` | Draft canonical contract in `flowline-feature-contract.md`; physical binding remains unresolved |
 | `loop_points` | `FG_Loop_Points` | M policy and survey-event key |
 | `valleyline` | `FG_Valleyline` | Smoothing provenance and Z/M policy |
 | `xs_50` | `FG_Cross_Sections` | Loop/bend disposition and canonical naming |
@@ -142,7 +142,7 @@ a mature workflow output is unnecessary.
 - The source does not encode its complete collection-study-stream-reach-event
   chain. Legacy loading requires an operator-reviewed manifest that binds the
   geodatabase to pre-registered immutable hierarchy IDs.
-- Every authoritative feature and mosaic item needs one consistent, non-null,
+- Every authoritative feature and mosaic dataset item needs one consistent, non-null,
   indexed survey-event ownership key.
 - Corrected desktop loads require complete staging, validation, logical atomic
   replacement, verification, and a load manifest.
@@ -170,9 +170,10 @@ a mature workflow output is unnecessary.
 2. Define the canonical hierarchy tables, GUID types, constraints, and naming
    rules independently from the file-geodatabase prototype.
 3. Define geometry, CRS, datum, unit, Z, and M policy by feature family.
-4. Specify canonical feature contracts jointly with the `{fluvgeo}` workflow
-   inventory and modernization plan.
-5. Obtain separate XML exports or authoritative evidence for DEM and REM mosaic
-   datasets and their source-file lifecycle.
+4. Continue canonical feature contracts jointly with the `{fluvgeo}` workflow
+   inventory and modernization plan; Flowline is the first concrete contract
+   and Flowline Points is next.
+5. Obtain separate XML exports or authoritative evidence for DEM and REM
+   mosaic datasets and their source-file lifecycle.
 6. Design service-ready views only after base identities and relationships are
    stable.

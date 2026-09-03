@@ -42,9 +42,9 @@ critical path.
    with the maintainers of `usace-ukg-ontologies` and must follow the
    `https://usace-data.com/` conventions they approve.
 6. The current deliverable is an ontology-ready relational schema: immutable
-   IDs, explicit relationships, controlled concept tables, one-to-one current
-   derivation provenance for each populated Survey Event, and HY_Features
-   kernel mappings. Full OWL, SHACL, RML/R2RML, and RDF generation remain
+   IDs, explicit relationships, controlled concept tables, accepted
+   dataset-edition provenance with one current edition per populated dataset
+   slot, and HY_Features kernel mappings. Full OWL, SHACL, RML/R2RML, and RDF generation remain
    future semantic-projection work unless a physical-schema decision
    demonstrably depends on them.
 

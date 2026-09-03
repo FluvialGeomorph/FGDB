@@ -34,7 +34,7 @@ foundation.
    USACE ontology framework.
 4. Maintain a versioned mapping contract from ontology terms and constraints
    to PostgreSQL/SDE tables, feature classes, relationship classes, domains,
-   and mosaic items. Future RML/R2RML projection must follow the conventions of
+   and mosaic dataset items. Future RML/R2RML projection must follow the conventions of
    `usace-ukg-ontologies`; the operational geodatabase will not store RDF.
 5. Base any future instance IRIs on immutable FGDB identifiers, never mutable
    names or Esri `OBJECTID` values. Namespace registration, publication, and
@@ -72,9 +72,8 @@ foundation.
 
 - Which `usace-ukg-ontologies` maintainers will sponsor and review a future
   FluvialGeomorph candidate and namespace reservation?
-- What are the identity rules for Survey Events, their one-to-one current
-  derivation provenance, and their retained derived datasets/features when
-  legacy source metadata is incomplete?
+- How should accepted dataset-edition provenance project to PROV-O when legacy
+  source metadata or software evidence is incomplete?
 - Does FG `Stream` denote a named hydrographic feature, a channel landform, a
   water body, or a managed aggregate with those aspects?
 - What continuity rule makes a Reach the same Reach across survey events?

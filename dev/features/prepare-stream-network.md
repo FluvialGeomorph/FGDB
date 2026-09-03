@@ -1,6 +1,6 @@
 # Prepare Stream Network capability
 
-- Status: revised producer API proposal
+- Status: accepted producer API specification
 - Updated: 2026-09-01
 - Scientific owner: `fluvgeo`
 - Clients: ArcGIS Pro, Shiny, direct R, future QGIS
