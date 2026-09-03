@@ -18,6 +18,8 @@
 - Consequential and durable choices: `dev/decisions/`
 - Governance or artifact lifecycle: `dev/governance/`
 - Repeatable development procedures: `dev/workflows/`
+- Human, reasoning-environment, and repository-agent routing:
+  `dev/workflows/human-agent-collaboration.md`
 - Exact structural contracts: `dev/schemas/`
 - Ontology design and semantic-interoperability guidance: `dev/ontology/`
 - Cohesive user-visible capabilities: `dev/features/`
