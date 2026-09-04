@@ -202,6 +202,26 @@ feature class. Accepted proposals create or update governed segment rows and
 create `stream_network_operation` lineage. Rejected proposals remain local QA
 evidence and do not become governed Stream Network geometry.
 
+### Initial retained-source inspection representation (2026-09-04)
+
+The implemented preparation slice also emits inspection requests, identified by
+`operation_code = INSPECT`. `Shape` is the unchanged affected candidate segment.
+These rows carry `stream_network_segment_id`, `stream_network_source_id`, and
+`stream_network_validation_issue_id`; the issue's related-object fields identify
+the other segment for pair findings. `reason_code` equals the issue code.
+
+Reserved proposal fields are `proposed_tolerance_value` (double),
+`proposed_tolerance_unit` (text), `proposed_node_id`, `proposed_stream_id`, and
+`proposed_reach_id` (UUID text); all are null for INSPECT. Decision fields are
+`decision`, `decision_at` (UTC timestamp), `decision_by`, and `decision_notes`.
+Generated decisions are PENDING. An INSPECT row does not specify a repair, and
+accepting it cannot authorize geometry changes or Network Observation acceptance.
+
+Initial reason codes are `DIRECTION_UNRESOLVED`, `DUPLICATE_GEOMETRY`,
+`SELF_INTERSECTION`, `CLOSED_SEGMENT`, `INTERIOR_INTERSECTION`, and
+`ENDPOINT_NEAR_MISS`. Findings are unresolved blocking issues, not automatic
+proof of invalid hydrology; crossing and gap interpretation belongs to review.
+
 ## Validation tables
 
 `stream_network_validation_run` contains one row per validation execution:

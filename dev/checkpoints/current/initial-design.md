@@ -149,8 +149,12 @@ constructors are implemented in `fluvgeo`. Retained-feature normalization now
 creates candidate `stream_network` segments, `stream_network_source` lineage,
 and working validation results from a separate per-source-feature Stream/Reach
 mapping. Focused tests use direct retained evidence, including missing legacy
-attributes and an in-memory multipart case. Topology/direction assessment and
-review features are the next producer step.
+attributes and an in-memory multipart case. Initial retained-source assessment
+and linked pending INSPECT features are implemented (2026-09-04), covering
+duplicates, self-intersections, closed segments, interior intersections, and
+endpoint near misses. Direction remains unresolved. The next step is analyst
+inspection to choose concrete repair and direction-evidence behavior; applying
+reviews, node assignment, full topology validation, and acceptance remain later.
 
 The first ADR-0023 instantiation is now drafted. `FLOWLINE` is the first
 `dataset_type`; `scientific-reference-data.md` defines the supporting reference

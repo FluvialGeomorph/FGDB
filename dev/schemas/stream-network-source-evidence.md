@@ -90,6 +90,9 @@ Implementation proceeds in these independently verifiable steps:
    validation-issue tables that keep direction, nodes, and segment role
    unresolved pending later review.
 
-Topology/direction assessment, analyst review application, Flowline
-reconstruction, geodatabase writing, and enterprise loading remain later
-slices.
+Initial retained-source assessment and linked pending INSPECT features were
+implemented on 2026-09-04. Tests use the 99-row retained network and controlled
+in-memory edits of its geometry to exercise duplicates, joins, gaps, and interior
+intersections. Direction remains unresolved pending analyst or terrain evidence.
+Full topology validation, actionable repair proposals, analyst review application,
+Flowline reconstruction, geodatabase writing, and enterprise loading remain later.

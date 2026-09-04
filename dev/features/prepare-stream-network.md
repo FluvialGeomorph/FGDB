@@ -1,7 +1,7 @@
 # Prepare Stream Network capability
 
 - Status: accepted producer API specification
-- Updated: 2026-09-01
+- Updated: 2026-09-04
 - Scientific owner: `fluvgeo`
 - Clients: ArcGIS Pro, Shiny, direct R, future QGIS
 - Local database: Study Area/Stream Geodatabase
@@ -125,7 +125,8 @@ explodes true multipart geometry, and returns explicitly unresolved candidate
 segments plus working validation issues. It does not yet repair topology or
 apply analyst decisions.
 
-The full review-oriented producer operation remains:
+The retained-source assessment slice of the review-oriented producer is now
+implemented:
 
 ```r
 prepare_stream_network_from_features(
@@ -139,18 +140,34 @@ prepare_stream_network_from_features(
 )
 ```
 
-The input is projected `sf` linework. `source_mappings` uses the same interface
-as the implemented retained-source normalizer. The function checks geometry and CRS,
-explodes multipart lines, identifies confluence/Stream/Reach splits, evaluates
-direction and endpoint coincidence, and assigns candidate segment/node UUIDs.
+The input is projected retained `sf` linework with `SOURCE_NETWORK_RETAINED`
+evidence. `source_mappings` uses the normalizer interface. The function normalizes
+multipart geometry, checks tolerance units against the actual CRS, and flags
+duplicate geometry (including reversed lines), closed/self-intersecting segments,
+interior intersections/overlaps, and endpoint near misses within the observation
+tolerance. Exact shared endpoints are permitted. Direction remains unresolved
+until analyst or terrain evidence establishes downstream-to-upstream order.
 It returns:
 
 - candidate `stream_network` segments;
 - `stream_network_source` lineage rows;
-- proposed `stream_network_review` features; and
+- pending `stream_network_review` inspection features; and
 - validation run/issue tables.
 
 The source data is never modified in place.
+
+Each `INSPECT` feature retains the affected segment geometry and links to its
+validation issue, which identifies the other segment for pair findings.
+`VALIDATE_ONLY` supplies the same findings with an empty typed review layer.
+These are inspection requests, not executable repair proposals; marking one
+accepted cannot itself authorize a geometry edit. Results remain WORKING and
+REVIEW_REQUIRED. No node identities are assigned.
+
+The broader accepted API still requires concrete split/snap/reversal proposals,
+Stream/Reach boundary handling, direction evidence, and candidate node assignment.
+Disconnected components, multi-segment cycles, and near endpoint-to-interior gaps
+are not covered by this initial assessment. Analyst review of the current
+inspection layer is the next step before selecting repair behavior.
 
 ### Reconstruct from Reach Flowlines
 
