@@ -101,9 +101,36 @@ checks all evidence-class conditional fields.
 
 ### Prepare retained or newly edited features
 
+The implemented retained-source normalization building block is:
+
+```r
+normalize_retained_stream_network(
+  stream_network,
+  source_mappings,
+  configuration,
+  configuration_streams,
+  observation,
+  actor,
+  source_dataset_name = "stream_network",
+  created_at = Sys.time()
+)
+```
+
+`source_mappings` has exactly one row per original source feature. Its
+one-based `source_row` identifies the input row, `stream_id` supplies the
+governed Stream UUID, and optional `reach_id` supplies the governed Reach UUID.
+The separate relation keeps legacy source attributes unchanged and supports
+sources without a stable `arcid`. The function preserves source lineage,
+explodes true multipart geometry, and returns explicitly unresolved candidate
+segments plus working validation issues. It does not yet repair topology or
+apply analyst decisions.
+
+The full review-oriented producer operation remains:
+
 ```r
 prepare_stream_network_from_features(
   stream_network,
+  source_mappings,
   configuration,
   configuration_streams,
   observation,
@@ -112,7 +139,8 @@ prepare_stream_network_from_features(
 )
 ```
 
-The input is projected `sf` linework. The function checks geometry and CRS,
+The input is projected `sf` linework. `source_mappings` uses the same interface
+as the implemented retained-source normalizer. The function checks geometry and CRS,
 explodes multipart lines, identifies confluence/Stream/Reach splits, evaluates
 direction and endpoint coincidence, and assigns candidate segment/node UUIDs.
 It returns:
@@ -268,8 +296,8 @@ Create/select Stream Network Configuration tables
 1. Accept or revise the exact Stream Network Geodatabase schema.
 2. Add direct representative Stream Geodatabases to `fluvgeodata` where the
    existing evidence set does not cover a required case.
-3. Implement constructors and retained-feature normalization in `fluvgeo`.
-4. Implement review feature classes, topology validation, and acceptance.
+3. **Implemented:** constructors and retained-feature normalization in `fluvgeo`.
+4. Implement review feature classes, topology/direction validation, and acceptance.
 5. Implement reviewed Flowline reconstruction and lineage.
 6. Implement file-geodatabase and open relational read/write conformance.
 7. Implement FGDB schema inspection, enterprise identity checks, staging, and

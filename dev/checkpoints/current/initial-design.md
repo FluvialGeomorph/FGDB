@@ -145,9 +145,12 @@ legacy evidence and the first separately reviewed `fluvgeo` implementation
 slice are recorded in `dev/schemas/stream-network-source-evidence.md`.
 
 The Configuration, Configuration–Stream membership, and Observation
-constructors are implemented in `fluvgeo` with focused direct-evidence tests.
-Retained-feature normalization into `stream_network` and
-`stream_network_source` is the next producer step.
+constructors are implemented in `fluvgeo`. Retained-feature normalization now
+creates candidate `stream_network` segments, `stream_network_source` lineage,
+and working validation results from a separate per-source-feature Stream/Reach
+mapping. Focused tests use direct retained evidence, including missing legacy
+attributes and an in-memory multipart case. Topology/direction assessment and
+review features are the next producer step.
 
 The first ADR-0023 instantiation is now drafted. `FLOWLINE` is the first
 `dataset_type`; `scientific-reference-data.md` defines the supporting reference

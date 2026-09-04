@@ -78,12 +78,18 @@ Implementation proceeds in these independently verifiable steps:
    data frames.
 2. **Implemented 2026-09-01:** construct and validate one
    `stream_network_observation` row.
-3. **Next:** normalize a retained legacy `stream_network` `sf` object into candidate
-   governed segments plus `stream_network_source` rows;
-4. require caller-supplied governed Study Area, Stream, and optional Reach
-   identities rather than inferring them from legacy names;
-5. preserve legacy source attributes according to the table above; and
-6. return relational validation-run and validation-issue tables.
+3. **Implemented 2026-09-03:** normalize a retained legacy `stream_network`
+   `sf` object into candidate governed segments plus `stream_network_source`
+   rows;
+4. **Implemented 2026-09-03:** require a separate per-source-feature mapping of
+   governed Stream and optional Reach identities rather than inferring them
+   from legacy names;
+5. **Implemented 2026-09-03:** preserve legacy source attributes according to
+   the table above and explicitly handle missing attributes; and
+6. **Implemented 2026-09-03:** return working validation-run and
+   validation-issue tables that keep direction, nodes, and segment role
+   unresolved pending later review.
 
-Topology repair, analyst review application, Flowline reconstruction,
-geodatabase writing, and enterprise loading remain later slices.
+Topology/direction assessment, analyst review application, Flowline
+reconstruction, geodatabase writing, and enterprise loading remain later
+slices.
