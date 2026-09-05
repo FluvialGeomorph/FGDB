@@ -152,9 +152,21 @@ mapping. Focused tests use direct retained evidence, including missing legacy
 attributes and an in-memory multipart case. Initial retained-source assessment
 and linked pending INSPECT features are implemented (2026-09-04), covering
 duplicates, self-intersections, closed segments, interior intersections, and
-endpoint near misses. Direction remains unresolved. The next step is analyst
-inspection to choose concrete repair and direction-evidence behavior; applying
-reviews, node assignment, full topology validation, and acceptance remain later.
+endpoint near misses. As of 2026-09-05, an optional source DEM resolves supported
+directions using the existing endpoint-elevation rule, records automatic
+operations/evidence, and preserves unresolved cases. The shared operation also
+serves `flowline()`. Coverage investigation found that the retained `dem_1m.tif`
+does not cover the full 99-row network: 46 segments have outside endpoints,
+4 more have NoData, and 3 have equal values in shared raster cells. Automatic
+preparation now rejects incomplete coverage; VALIDATE_ONLY exposes diagnostics.
+Next: recover the original Sinsinawa Stream DEM from the user's archives, retain
+it with provenance in `fluvgeodata`, and rerun the complete-network test when
+the agency file system is connected. The user explicitly deferred that update;
+proceed with existing evidence meanwhile. See `stream-network-source-evidence.md` for
+the corrected evidence. Evaluate direction results before investigating
+topology automation. The user explicitly deferred that literature review and
+implementation. Applying topology reviews, node assignment, full topology
+validation, and acceptance remain later.
 
 The first ADR-0023 instantiation is now drafted. `FLOWLINE` is the first
 `dataset_type`; `scientific-reference-data.md` defines the supporting reference

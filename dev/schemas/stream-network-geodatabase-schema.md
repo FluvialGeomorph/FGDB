@@ -28,6 +28,7 @@ same intended Study Area/Stream configuration.
 | `stream_network` | polyline feature class | One directed topology segment in one Stream Network Observation. | required | required |
 | `stream_network_source` | table | One source feature contributing evidence to one segment. | conditional | required when lineage exists |
 | `stream_network_operation` | table | One applied operation that produced or classified a segment. | conditional | required when an operation occurred |
+| `stream_network_direction_evidence` | table | One candidate's DEM endpoint assessment and optional applied-operation link. | required when DEM direction is assessed | method evidence; loader support pending |
 | `stream_network_review` | polyline feature class | One spatial proposal presented to an analyst and its decision. | required when proposals occur | local editing aid; accepted operations load through `stream_network_operation` |
 | `stream_network_validation_run` | table | One execution of the Stream Network validator. | required | final accepted run referenced by enterprise load audit |
 | `stream_network_validation_issue` | table | One issue found during a validation run and its disposition. | conditional | final accepted issues referenced by enterprise load audit |
@@ -187,6 +188,50 @@ classification Stream/Reach IDs, `operation_notes`, `performed_at`, and
 
 The pair (`stream_network_segment_id`, `operation_sequence`) is unique.
 
+### Automatic DEM direction operations (2026-09-05)
+
+Preparation with a source DEM records `REVERSE_DIRECTION` for reversed lines
+and `CONFIRM_DIRECTION` for lines already ordered downstream to upstream.
+Each supported candidate receives one sequence-1 operation for this preparation
+run; segment IDs remain unchanged. `performed_by` is the caller's actor/process,
+not an invented human reviewer. Tolerance, target-node, and classification
+`stream_id`/`reach_id` fields are null for this method. `performed_at` is UTC.
+Reversed sources set `geometry_modified = TRUE`; existing true values survive.
+
+`stream_network_direction_evidence` is a method-specific table with one row per
+candidate assessed against the supplied DEM. Its fields are:
+
+- `stream_network_segment_id`: primary key and segment FK for this preparation;
+- nullable `stream_network_operation_id`: FK when the result was applied;
+- `start_elevation`, `end_elevation`: original endpoint values, nullable doubles;
+- `start_sample_status`, `end_sample_status`: `AVAILABLE`,
+  `OUTSIDE_DEM_EXTENT`, or `DEM_NODATA` (the generic primitive also uses
+  `NOT_SAMPLED` for unsupported multipart geometry);
+- nullable `elevation_unit`: observation vertical unit, unknown when not supplied;
+- `action`: `KEEP`, `REVERSE`, or `UNRESOLVED`;
+- `reason_code`: `DEM_ENDPOINT_ORDER`, `EQUAL_ENDPOINT_ELEVATION`,
+  `ENDPOINT_OUTSIDE_DEM`, or `ENDPOINT_DEM_NODATA` (outside-extent takes
+  precedence when both coverage failures occur; the generic primitive also reports
+  `MULTIPART_GEOMETRY`, which network normalization handles first);
+- `method`: `DEM_ENDPOINTS_1`;
+- `dem_band`: sampled single-band name; and
+- nullable `dem_source`: raster file reference, not a content fingerprint.
+
+The caller supplies the appropriate source DEM; spatial agreement alone does
+not verify its historical derivation provenance. Values retain the DEM's native
+vertical units, which the caller must describe correctly in the observation.
+This endpoint rule does not imply a monotonic profile or accepted topology.
+No threshold, interpolation, or profile-based fallback is applied.
+
+Without a DEM these tables are empty. VALIDATE_ONLY populates evidence but
+leaves operation links null and does not apply direction changes. Automatic
+direction assignment does not accept the observation or resolve node/role checks.
+Automatic preparation requires finite elevation coverage at every candidate
+endpoint; it errors before returning corrections if any coverage is missing.
+VALIDATE_ONLY instead reports `DEM_COVERAGE_INCOMPLETE` issues with the endpoint
+diagnostics above. Incomplete input coverage is not a direction repair task.
+Equal finite values still produce `DIRECTION_UNRESOLVED`.
+
 ## `stream_network_review` feature class
 
 **One row means:** one spatial repair or classification result presented to an
@@ -221,6 +266,8 @@ Initial reason codes are `DIRECTION_UNRESOLVED`, `DUPLICATE_GEOMETRY`,
 `SELF_INTERSECTION`, `CLOSED_SEGMENT`, `INTERIOR_INTERSECTION`, and
 `ENDPOINT_NEAR_MISS`. Findings are unresolved blocking issues, not automatic
 proof of invalid hydrology; crossing and gap interpretation belongs to review.
+After successful DEM direction assignment, `SEGMENT_REVIEW_REQUIRED` replaces
+the direction finding to retain the unresolved node/role checks.
 
 ## Validation tables
 

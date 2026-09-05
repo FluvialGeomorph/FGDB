@@ -93,6 +93,36 @@ Implementation proceeds in these independently verifiable steps:
 Initial retained-source assessment and linked pending INSPECT features were
 implemented on 2026-09-04. Tests use the 99-row retained network and controlled
 in-memory edits of its geometry to exercise duplicates, joins, gaps, and interior
-intersections. Direction remains unresolved pending analyst or terrain evidence.
+intersections. The 2026-09-05 coverage investigation corrected the initial DEM
+test pairing: the retained `dem_1m.tif` does not cover the full 99-row network.
+The earlier statement that all 53 unresolved cases lacked elevations was wrong.
+
+Verified containing-cell sampling results are:
+
+| Segment outcome | Count |
+| --- | ---: |
+| At least one endpoint outside the DEM extent | 46 |
+| Additional segments with an in-extent NoData endpoint | 4 |
+| Both endpoints available but equal | 3 |
+| Direction supported (13 KEEP, 33 REVERSE) | 46 |
+
+Both inputs use EPSG:26915. Network northings span 4704420.6–4707430.2 m;
+DEM northings span 4705024.8–4706911.8 m: the network extends about 604 m south
+and 518 m north of this raster. The three equal cases (legacy `arcid` 1126,
+1268, 1278) are sub-metre segments whose endpoints share one 1 m raster cell.
+Equal values are therefore a resolution limitation, not missing elevations.
+The cause of the in-extent NoData cells is not established.
+
+The full pair is now a negative coverage test. Positive preparation tests use
+an explicitly selected 49-segment subset with both endpoint values available;
+this is not evidence of successful preparation of the entire original network.
+Tests also cover repeat-run stability and controlled flat/missing DEM values.
+The original derivation DEM has not been found in `fluvgeodata`. The user
+confirmed that it may need recovery from archives and should then be retained
+in `fluvgeodata` with provenance for a complete-network test. The user is not
+currently connected to the agency file system containing those archives and
+directed that recovery and the data-package update be deferred. Exact source
+identity remains unknown; a modern replacement DEM would not verify historical
+derivation. Continue with the available coverage and subset evidence meanwhile.
 Full topology validation, actionable repair proposals, analyst review application,
 Flowline reconstruction, geodatabase writing, and enterprise loading remain later.

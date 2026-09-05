@@ -1,7 +1,7 @@
 # Prepare Stream Network capability
 
 - Status: accepted producer API specification
-- Updated: 2026-09-04
+- Updated: 2026-09-05
 - Scientific owner: `fluvgeo`
 - Clients: ArcGIS Pro, Shiny, direct R, future QGIS
 - Local database: Study Area/Stream Geodatabase
@@ -136,7 +136,8 @@ prepare_stream_network_from_features(
   configuration_streams,
   observation,
   actor,
-  review_mode = c("CREATE_REVIEW_FEATURES", "VALIDATE_ONLY")
+  review_mode = c("CREATE_REVIEW_FEATURES", "VALIDATE_ONLY"),
+  dem = NULL
 )
 ```
 
@@ -145,29 +146,49 @@ evidence. `source_mappings` uses the normalizer interface. The function normaliz
 multipart geometry, checks tolerance units against the actual CRS, and flags
 duplicate geometry (including reversed lines), closed/self-intersecting segments,
 interior intersections/overlaps, and endpoint near misses within the observation
-tolerance. Exact shared endpoints are permitted. Direction remains unresolved
-until analyst or terrain evidence establishes downstream-to-upstream order.
+tolerance. Exact shared endpoints are permitted. Supplying the source Stream DEM
+enables the existing endpoint-elevation method: finite, unequal values establish
+downstream-to-upstream coordinate order, reversing candidates where necessary.
+The DEM must be single-band and use the linework CRS. Automatic preparation
+requires finite values at every endpoint and errors before returning corrections
+if coverage is incomplete. `VALIDATE_ONLY` reports `DEM_COVERAGE_INCOMPLETE`
+with separate outside-extent and in-extent NoData evidence. Equal finite values
+remain direction-unresolved. No DEM preserves the previous inspection behavior.
 It returns:
 
 - candidate `stream_network` segments;
 - `stream_network_source` lineage rows;
-- pending `stream_network_review` inspection features; and
-- validation run/issue tables.
+- pending `stream_network_review` inspection features;
+- validation run/issue tables;
+- `stream_network_operation` for automatic direction assignments/reversals; and
+- `stream_network_direction_evidence` with the original endpoint samples,
+  method, action, raster reference, and applied-operation link.
 
 The source data is never modified in place.
 
 Each `INSPECT` feature retains the affected segment geometry and links to its
 validation issue, which identifies the other segment for pair findings.
-`VALIDATE_ONLY` supplies the same findings with an empty typed review layer.
+`VALIDATE_ONLY` supplies DEM evidence without applying corrections and returns
+empty typed review/operation layers. Without a DEM, both new tables are empty.
 These are inspection requests, not executable repair proposals; marking one
 accepted cannot itself authorize a geometry edit. Results remain WORKING and
 REVIEW_REQUIRED. No node identities are assigned.
 
-The broader accepted API still requires concrete split/snap/reversal proposals,
-Stream/Reach boundary handling, direction evidence, and candidate node assignment.
+The shared primitive `fluvgeo::orient_lines_from_dem(lines, dem)` returns
+ordinary sf linework and per-input evidence without requiring FGDB identity.
+`flowline()` uses the same method, so live client workflows and legacy
+remediation share this behavior. Automatic operations record process/actor
+provenance; they do not manufacture analyst approvals. A supported direction
+assignment clears DIRECTION_UNRESOLVED, while SEGMENT_REVIEW_REQUIRED keeps
+unresolved node identities and segment roles visible. Segment IDs are preserved.
+
+The broader accepted API still requires concrete split/snap proposals,
+Stream/Reach boundary handling and candidate node assignment.
 Disconnected components, multi-segment cycles, and near endpoint-to-interior gaps
-are not covered by this initial assessment. Analyst review of the current
-inspection layer is the next step before selecting repair behavior.
+are not covered by this initial assessment. The next step is to evaluate the
+direction correction results. Per the user's 2026-09-05 direction, topology
+automation and an open-source R literature review are deferred until after
+learning from this first repair operation.
 
 ### Reconstruct from Reach Flowlines
 
