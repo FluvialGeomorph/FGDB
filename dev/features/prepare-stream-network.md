@@ -137,7 +137,10 @@ prepare_stream_network_from_features(
   observation,
   actor,
   review_mode = c("CREATE_REVIEW_FEATURES", "VALIDATE_ONLY"),
-  dem = NULL
+  dem = NULL,
+  consolidate = FALSE,
+  protected_nodes = NULL,
+  connect = FALSE
 )
 ```
 
@@ -172,7 +175,11 @@ validation issue, which identifies the other segment for pair findings.
 empty typed review/operation layers. Without a DEM, both new tables are empty.
 These are inspection requests, not executable repair proposals; marking one
 accepted cannot itself authorize a geometry edit. Results remain WORKING and
-REVIEW_REQUIRED. No node identities are assigned.
+REVIEW_REQUIRED. The optional `consolidate = TRUE` / `connect = TRUE` workflow
+now builds logical links, retains many-source lineage, assigns candidate nodes,
+and derives all hydrologic relationships through sfnetworks/hydroloom. See the
+current shared schema and fluvgeo feature documentation for the implemented
+contracts and evidence; neither option accepts the Observation.
 
 The shared primitive `fluvgeo::orient_lines_from_dem(lines, dem)` returns
 ordinary sf linework and per-input evidence without requiring FGDB identity.
@@ -182,13 +189,11 @@ provenance; they do not manufacture analyst approvals. A supported direction
 assignment clears DIRECTION_UNRESOLVED, while SEGMENT_REVIEW_REQUIRED keeps
 unresolved node identities and segment roles visible. Segment IDs are preserved.
 
-The broader accepted API still requires concrete split/snap proposals,
-Stream/Reach boundary handling and candidate node assignment.
-Disconnected components, multi-segment cycles, and near endpoint-to-interior gaps
-are not covered by this initial assessment. The next step is to evaluate the
-direction correction results. Per the user's 2026-09-05 direction, topology
-automation and an open-source R literature review are deferred until after
-learning from this first repair operation.
+The broader accepted API still requires concrete split/snap proposals and
+undeclared Stream/Reach boundary handling. Candidate node assignment and
+directed-cycle checks are now implemented; disconnected components are
+representable, not automatically accepted. Near endpoint-to-interior gaps and
+qualified crossing repairs remain outside this initial implementation.
 
 ### Reconstruct from Reach Flowlines
 
@@ -232,6 +237,14 @@ segments and review feature classes; it never automatically accepts them.
 
 ### Apply analyst decisions
 
+The implemented role-classification subset is
+`classify_stream_network_segments(prepared, classifications, actor)`, where
+the decision table contains unique candidate segment UUIDs, `segment_role`,
+and `decision_notes`. It records explicit role operations without approving
+inspection features or the Observation. Accepted roles are MAINSTEM, TRIBUTARY,
+CONNECTOR, and ARTIFICIAL; the caller supplies the scientific choice.
+The broader geometry-repair API below remains planned.
+
 ```r
 apply_stream_network_reviews(
   stream_network,
@@ -256,20 +269,37 @@ validate_stream_network(
   stream_network,
   sources = NULL,
   operations = NULL,
-  level = c("WORKING", "ACCEPTANCE")
+  level = c("WORKING", "ACCEPTANCE"),
+  nodes = NULL,
+  connections = NULL,
+  review_features = NULL,
+  reaches = NULL,
+  actor,
+  validated_at = Sys.time()
 )
 
 accept_stream_network(
   geodatabase,
   reviewer,
-  review_notes = NA_character_
+  review_notes = NA_character_,
+  reaches = NULL,
+  accepted_at = Sys.time()
 )
 ```
 
 Validation returns `stream_network_validation_run` and
-`stream_network_validation_issue` tables. Acceptance writes the final review
-status into the observation and segment rows only when no blocking issue or
-pending required review remains.
+`stream_network_validation_issue` tables. This validator is now implemented for
+SOURCE_NETWORK_RETAINED with current-state geometry, connectivity, relational,
+role, and review checks. WORKING/ACCEPTANCE PASS does not change review status.
+ACCEPTANCE requires current explicit INSPECT decisions and qualification notes
+for incomplete legacy coverage/provenance or multiple observed outlets.
+`accept_stream_network()` now accepts a named in-memory relation list and returns
+a new list, not an implicit disk update. Supplied INSPECT decisions must already
+be explicit and current. Success appends an ACCEPTANCE PASS run and records
+observation reviewer/time/notes and accepted segment states. Failure raises
+`fluvgeo_acceptance_error` with current `validation` and a `geodatabase` copy
+containing the appended failed run, without changing scientific/review state.
+Older runs/issues and decisions remain intact. Reopening is not implemented.
 
 ### Write and read the local geodatabase
 
@@ -277,18 +307,24 @@ pending required review remains.
 write_stream_network_geodatabase(
   relations,
   dsn,
-  format = c("FILE_GEODATABASE", "GEOPACKAGE"),
+  format = c("GEOPACKAGE", "FILE_GEODATABASE"),
   mode = c("CREATE", "UPDATE"),
-  overwrite = FALSE
+  overwrite = FALSE,
+  reaches = NULL
 )
 
-read_stream_network_geodatabase(dsn, validate = TRUE)
+read_stream_network_geodatabase(dsn, validate = TRUE, reaches = NULL)
 ```
 
-Every member of `relations` is written as its corresponding feature class or
-table. Updates preserve stable IDs and enforce the one-active-observation local
-editing rule. Round-trip tests compare the resulting relations to their source
-R data frames/`sf` objects.
+Implemented binding: GEOPACKAGE + CREATE + overwrite = FALSE. Every relation is
+written to its corresponding layer/table; a binding manifest restores field
+types, UTC timestamps, and column order. A staged file must pass exact value and
+geometry round-trip checks before non-replacing publication to a new path.
+Existing files are never overwritten. Filesystems without hard-link support fail
+safely. Unresolved drafts can be saved; accepted state is revalidated. Reads
+return fresh checks in a `validation` attribute without replacing saved history.
+File-geodatabase binding and in-place UPDATE remain planned, including GUID/domain
+mapping and safe replacement within geodatabases containing unrelated layers.
 
 ## FGDB loader functions
 

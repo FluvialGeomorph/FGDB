@@ -158,6 +158,12 @@ or reanalysis; a software upgrade never initiates it automatically.
 - **REQ-RAS-004:** Loading accepted `hydro_dem` and REM products into enterprise
   mosaic datasets is an FGDB administrative/deployment operation, not a
   scientific derivation step.
+- **REQ-RAS-005:** Under ADR-0025, the local Reach–Survey–Event delivery unit
+  shall be a folder with GeoPackage vectors/tables, external GeoTIFF terrain
+  and explicit artifact/metadata links. Do not rely on Esri numerical raster
+  GeoPackage support. Validate referenced assets, relocation, CRS/vertical
+  metadata and integrity under `dev/schemas/local-project-folder-requirements.md`;
+  that exact physical binding remains to be implemented.
 
 ### Platform type fidelity
 
