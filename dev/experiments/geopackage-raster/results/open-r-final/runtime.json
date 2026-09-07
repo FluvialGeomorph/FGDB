@@ -1,0 +1,15 @@
+{
+  "R": "4.6.0",
+  "sf": "1.1.2",
+  "terra": "1.9.46",
+  "gdal": "3.12.1",
+  "spatial_versions": {
+    "GEOS": "3.14.1",
+    "GDAL": "3.12.1",
+    "proj.4": "9.7.1",
+    "GDAL_with_GEOS": "true",
+    "USE_PROJ_H": "true",
+    "PROJ": "9.7.1"
+  },
+  "payload_manifest_sha256": "fe1d962373464b044b3752f42eab96792e213b71908f1c596fd73a774d0022e7"
+}

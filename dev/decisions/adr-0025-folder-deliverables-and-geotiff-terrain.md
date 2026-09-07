@@ -22,3 +22,12 @@ Earlier Cole Creek raster-GeoPackage experiments remain historical qualification
 evidence for GDAL paths only. Their outputs do not establish this folder profile
 or licensed ArcGIS interoperability. The next storage probe must test external
 GeoTIFF payloads, metadata links, folder relocation and missing/conflicting assets.
+
+## Qualification follow-up (2026-09-07)
+
+The user subsequently authorized a [two-computer raster qualification experiment](../experiments/geopackage-raster/README.md)
+to test whether a narrower GeoPackage analytical-raster profile could simplify
+interoperability. [Open-source findings](../experiments/geopackage-raster/OPEN-SOURCE-FINDINGS.md)
+are recorded; licensed ArcGIS execution and independent return-side review remain
+pending. This investigation does not supersede the accepted folder design or
+qualify a production write path. The folder-profile probe above remains separate.

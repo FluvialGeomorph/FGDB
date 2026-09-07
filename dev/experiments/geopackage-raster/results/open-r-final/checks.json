@@ -1,0 +1,143 @@
+[
+  {
+    "case": "float32_m",
+    "status": "PASS",
+    "checks": {
+      "dimensions": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "pixel_type": true,
+      "crs_semantic": true,
+      "resolution": true,
+      "extent": true,
+      "band_units": true
+    },
+    "warnings": []
+  },
+  {
+    "case": "float32_ft",
+    "status": "PASS",
+    "checks": {
+      "dimensions": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "pixel_type": true,
+      "crs_semantic": true,
+      "resolution": true,
+      "extent": true,
+      "band_units": true
+    },
+    "warnings": []
+  },
+  {
+    "case": "float64_precision",
+    "status": "ERROR",
+    "error": "[rast] file does not exist: <experiment>/payload/float64_precision.gpkg",
+    "warnings": []
+  },
+  {
+    "case": "int16_signed",
+    "status": "PASS",
+    "checks": {
+      "dimensions": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "pixel_type": true,
+      "crs_semantic": true,
+      "resolution": true,
+      "extent": true,
+      "band_units": true
+    },
+    "warnings": []
+  },
+  {
+    "case": "cole_2006_0",
+    "status": "PASS",
+    "checks": {
+      "dimensions": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "pixel_type": true,
+      "crs_semantic": true,
+      "resolution": true,
+      "extent": true,
+      "band_units": true
+    },
+    "warnings": []
+  },
+  {
+    "case": "cole_2006_1",
+    "status": "PASS",
+    "checks": {
+      "dimensions": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "pixel_type": true,
+      "crs_semantic": true,
+      "resolution": true,
+      "extent": true,
+      "band_units": true
+    },
+    "warnings": []
+  },
+  {
+    "case": "cole_2010_0",
+    "status": "PASS",
+    "checks": {
+      "dimensions": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "pixel_type": true,
+      "crs_semantic": true,
+      "resolution": true,
+      "extent": true,
+      "band_units": true
+    },
+    "warnings": []
+  },
+  {
+    "case": "cole_2010_1",
+    "status": "PASS",
+    "checks": {
+      "dimensions": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "pixel_type": true,
+      "crs_semantic": true,
+      "resolution": true,
+      "extent": true,
+      "band_units": true
+    },
+    "warnings": []
+  },
+  {
+    "case": "cole_2016_0",
+    "status": "PASS",
+    "checks": {
+      "dimensions": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "pixel_type": true,
+      "crs_semantic": true,
+      "resolution": true,
+      "extent": true,
+      "band_units": true
+    },
+    "warnings": []
+  },
+  {
+    "case": "cole_2016_1",
+    "status": "PASS",
+    "checks": {
+      "dimensions": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "pixel_type": true,
+      "crs_semantic": true,
+      "resolution": true,
+      "extent": true,
+      "band_units": true
+    },
+    "warnings": []
+  }
+]

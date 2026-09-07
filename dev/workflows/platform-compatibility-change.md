@@ -106,6 +106,14 @@ the prior recovery path until the accepted support window closes.
 - scientific and operational approval references;
 - release-note entry and supported-profile declaration.
 
+## Active experimental qualification
+
+The [portable GeoPackage raster experiment](../experiments/geopackage-raster/README.md)
+provides a standalone open-source / licensed-ArcGIS / returned-artifact sequence.
+Its [findings](../experiments/geopackage-raster/OPEN-SOURCE-FINDINGS.md) are candidate
+evidence, not accepted registry profiles. Its results must be reviewed before any
+production storage binding changes; it does not replace the full procedure above.
+
 ## Failure behavior
 
 - An unknown profile is `unverified` and cannot become the production write
@@ -115,4 +123,3 @@ the prior recovery path until the accepted support window closes.
 - A partial output is not published or reported as conformant.
 - Read-only recovery is permitted only through an explicit profile that
   documents its limitations.
-

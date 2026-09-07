@@ -1,0 +1,15 @@
+__pycache__/
+scratch/
+results/open-ltr-01/
+results/open-ltr-02/
+results/open-ltr-03/
+results/open-ltr-04/
+results/open-ltr-final/
+results/open-current-final/
+results/open-*/*.tif
+results/open-*/*.tif.aux.xml
+results/open-*/*.gpkg
+results/open-*/*.gpkg.aux.xml
+payload/*.gpkg.aux.xml
+results/*/input-copy/
+*.lock

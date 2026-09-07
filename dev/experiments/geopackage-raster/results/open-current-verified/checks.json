@@ -1,0 +1,1348 @@
+[
+  {
+    "case": "float32_m",
+    "route": "gdal_geotiff_control",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "gdal_gpkg_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "gdal_gpkg_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "qgis_native_block_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "crs_semantic": true,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "one_band": true
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "qgis_export_to_geotiff",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": false,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "qgis_raster_calculator_times_two",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "gpkg_structure",
+    "status": "PASS",
+    "checks": {
+      "specification": true
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "gdal_geotiff_control",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "gdal_gpkg_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "gdal_gpkg_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "qgis_native_block_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "crs_semantic": true,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "one_band": true
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "qgis_export_to_geotiff",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": false,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "qgis_raster_calculator_times_two",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "gpkg_structure",
+    "status": "PASS",
+    "checks": {
+      "specification": true
+    }
+  },
+  {
+    "case": "float64_precision",
+    "route": "gdal_geotiff_control",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "float64_precision",
+    "route": "gdal_gpkg_read",
+    "status": "ERROR",
+    "error": "<experiment>\\payload\\float64_precision.gpkg: No such file or directory"
+  },
+  {
+    "case": "float64_precision",
+    "route": "gdal_gpkg_to_geotiff",
+    "status": "ERROR",
+    "error": "<experiment>\\payload\\float64_precision.gpkg: No such file or directory"
+  },
+  {
+    "case": "float64_precision",
+    "route": "qgis_native_block_read",
+    "status": "ERROR",
+    "error": "QGIS raster layer invalid"
+  },
+  {
+    "case": "float64_precision",
+    "route": "qgis_export_to_geotiff",
+    "status": "ERROR",
+    "error": "QGIS raster layer invalid"
+  },
+  {
+    "case": "float64_precision",
+    "route": "qgis_raster_calculator_times_two",
+    "status": "ERROR",
+    "error": "QGIS raster layer invalid"
+  },
+  {
+    "case": "float64_precision",
+    "route": "gpkg_structure",
+    "status": "ERROR",
+    "error": "<experiment>\\payload\\float64_precision.gpkg does not exist"
+  },
+  {
+    "case": "int16_signed",
+    "route": "gdal_geotiff_control",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "int16_signed",
+    "route": "gdal_gpkg_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "int16_signed",
+    "route": "gdal_gpkg_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "int16_signed",
+    "route": "qgis_native_block_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "crs_semantic": true,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "one_band": true
+    }
+  },
+  {
+    "case": "int16_signed",
+    "route": "qgis_export_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "int16_signed",
+    "route": "qgis_raster_calculator_times_two",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true
+    }
+  },
+  {
+    "case": "int16_signed",
+    "route": "gpkg_structure",
+    "status": "PASS",
+    "checks": {
+      "specification": true
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "gdal_geotiff_control",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "gdal_gpkg_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 2.220446049250313e-16,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "gdal_gpkg_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 2.220446049250313e-16,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "qgis_native_block_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "crs_semantic": true,
+      "grid": true,
+      "grid_max_difference": 7.30526750203353e-14,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "one_band": true
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "qgis_export_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 7.30526750203353e-14,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "qgis_raster_calculator_times_two",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 7.30526750203353e-14,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "gpkg_structure",
+    "status": "PASS",
+    "checks": {
+      "specification": true
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "gdal_geotiff_control",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "gdal_gpkg_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 2.220446049250313e-16,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "gdal_gpkg_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 2.220446049250313e-16,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "qgis_native_block_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "crs_semantic": true,
+      "grid": true,
+      "grid_max_difference": 7.30526750203353e-14,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "one_band": true
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "qgis_export_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 7.30526750203353e-14,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "qgis_raster_calculator_times_two",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 7.30526750203353e-14,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "gpkg_structure",
+    "status": "PASS",
+    "checks": {
+      "specification": true
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "gdal_geotiff_control",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "gdal_gpkg_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "gdal_gpkg_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "qgis_native_block_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "crs_semantic": true,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "one_band": true
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "qgis_export_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "qgis_raster_calculator_times_two",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "gpkg_structure",
+    "status": "PASS",
+    "checks": {
+      "specification": true
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "gdal_geotiff_control",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "gdal_gpkg_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "gdal_gpkg_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "qgis_native_block_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "crs_semantic": true,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "one_band": true
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "qgis_export_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "qgis_raster_calculator_times_two",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "gpkg_structure",
+    "status": "PASS",
+    "checks": {
+      "specification": true
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "gdal_geotiff_control",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "gdal_gpkg_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "gdal_gpkg_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "qgis_native_block_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "crs_semantic": true,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "one_band": true
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "qgis_export_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "qgis_raster_calculator_times_two",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "gpkg_structure",
+    "status": "PASS",
+    "checks": {
+      "specification": true
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "gdal_geotiff_control",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "gdal_gpkg_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "gdal_gpkg_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "qgis_native_block_read",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "crs_semantic": true,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "one_band": true
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "qgis_export_to_geotiff",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "qgis_raster_calculator_times_two",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "gpkg_structure",
+    "status": "PASS",
+    "checks": {
+      "specification": true
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "mixed_container_append_and_discovery",
+    "status": "PASS",
+    "checks": {
+      "float32_m_unchanged_after_append": true,
+      "float32_m_qgis_named_layer": true,
+      "float32_ft_unchanged_after_append": true,
+      "float32_ft_qgis_named_layer": true,
+      "vector_attributes": true,
+      "two_raster_subdatasets": true,
+      "sqlite_integrity": true,
+      "foreign_keys": true
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "relocated_gpkg_without_sidecars",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "relocated_gpkg_without_sidecars",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "float64_precision",
+    "route": "relocated_gpkg_without_sidecars",
+    "status": "ERROR",
+    "error": "[Errno 2] No such file or directory: '<experiment>\\\\payload\\\\float64_precision.gpkg'"
+  },
+  {
+    "case": "int16_signed",
+    "route": "relocated_gpkg_without_sidecars",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "relocated_gpkg_without_sidecars",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 2.220446049250313e-16,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "relocated_gpkg_without_sidecars",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 2.220446049250313e-16,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "relocated_gpkg_without_sidecars",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "relocated_gpkg_without_sidecars",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "relocated_gpkg_without_sidecars",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "relocated_gpkg_without_sidecars",
+    "status": "PASS",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "crs_semantic": true,
+      "pixel_type": true,
+      "unit_preserved": true,
+      "scale_preserved": true,
+      "offset_preserved": true
+    }
+  }
+]

@@ -1,0 +1,7 @@
+# Preserve checksummed artifacts exactly across Windows/Linux Git configurations.
+payload/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+results/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+*.py text eol=lf
+*.R text eol=lf
+*.ps1 text eol=lf
+*.md text eol=lf
