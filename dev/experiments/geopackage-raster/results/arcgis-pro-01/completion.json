@@ -1,0 +1,10 @@
+{
+  "completed": true,
+  "checks": 70,
+  "counts": {
+    "PASS": 0,
+    "FAIL": 39,
+    "ERROR": 31
+  },
+  "meaning": "Execution completed, not scientific acceptance. Review errors and exports."
+}

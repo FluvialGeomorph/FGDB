@@ -1,0 +1,142 @@
+[
+  {
+    "case": "float32_m",
+    "route": "arcgis_tiff_to_filegdb",
+    "path": "float32_m/roundtrip.gdb",
+    "layer": "terrain",
+    "format": "OpenFileGDB"
+  },
+  {
+    "case": "float32_m",
+    "route": "arcgis_filegdb_to_gpkg",
+    "path": "float32_m/arcgis_created.gpkg",
+    "layer": "terrain",
+    "format": "GPKG"
+  },
+  {
+    "case": "float32_ft",
+    "route": "arcgis_tiff_to_filegdb",
+    "path": "float32_ft/roundtrip.gdb",
+    "layer": "terrain",
+    "format": "OpenFileGDB"
+  },
+  {
+    "case": "float32_ft",
+    "route": "arcgis_filegdb_to_gpkg",
+    "path": "float32_ft/arcgis_created.gpkg",
+    "layer": "terrain",
+    "format": "GPKG"
+  },
+  {
+    "case": "float64_precision",
+    "route": "arcgis_tiff_to_filegdb",
+    "path": "float64_precision/roundtrip.gdb",
+    "layer": "terrain",
+    "format": "OpenFileGDB"
+  },
+  {
+    "case": "float64_precision",
+    "route": "arcgis_filegdb_to_gpkg",
+    "path": "float64_precision/arcgis_created.gpkg",
+    "layer": "terrain",
+    "format": "GPKG"
+  },
+  {
+    "case": "int16_signed",
+    "route": "arcgis_tiff_to_filegdb",
+    "path": "int16_signed/roundtrip.gdb",
+    "layer": "terrain",
+    "format": "OpenFileGDB"
+  },
+  {
+    "case": "int16_signed",
+    "route": "arcgis_filegdb_to_gpkg",
+    "path": "int16_signed/arcgis_created.gpkg",
+    "layer": "terrain",
+    "format": "GPKG"
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "arcgis_tiff_to_filegdb",
+    "path": "cole_2006_0/roundtrip.gdb",
+    "layer": "terrain",
+    "format": "OpenFileGDB"
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "arcgis_filegdb_to_gpkg",
+    "path": "cole_2006_0/arcgis_created.gpkg",
+    "layer": "terrain",
+    "format": "GPKG"
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "arcgis_tiff_to_filegdb",
+    "path": "cole_2006_1/roundtrip.gdb",
+    "layer": "terrain",
+    "format": "OpenFileGDB"
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "arcgis_filegdb_to_gpkg",
+    "path": "cole_2006_1/arcgis_created.gpkg",
+    "layer": "terrain",
+    "format": "GPKG"
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "arcgis_tiff_to_filegdb",
+    "path": "cole_2010_0/roundtrip.gdb",
+    "layer": "terrain",
+    "format": "OpenFileGDB"
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "arcgis_filegdb_to_gpkg",
+    "path": "cole_2010_0/arcgis_created.gpkg",
+    "layer": "terrain",
+    "format": "GPKG"
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "arcgis_tiff_to_filegdb",
+    "path": "cole_2010_1/roundtrip.gdb",
+    "layer": "terrain",
+    "format": "OpenFileGDB"
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "arcgis_filegdb_to_gpkg",
+    "path": "cole_2010_1/arcgis_created.gpkg",
+    "layer": "terrain",
+    "format": "GPKG"
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "arcgis_tiff_to_filegdb",
+    "path": "cole_2016_0/roundtrip.gdb",
+    "layer": "terrain",
+    "format": "OpenFileGDB"
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "arcgis_filegdb_to_gpkg",
+    "path": "cole_2016_0/arcgis_created.gpkg",
+    "layer": "terrain",
+    "format": "GPKG"
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "arcgis_tiff_to_filegdb",
+    "path": "cole_2016_1/roundtrip.gdb",
+    "layer": "terrain",
+    "format": "OpenFileGDB"
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "arcgis_filegdb_to_gpkg",
+    "path": "cole_2016_1/arcgis_created.gpkg",
+    "layer": "terrain",
+    "format": "GPKG"
+  }
+]

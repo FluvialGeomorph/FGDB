@@ -1,0 +1,968 @@
+[
+  {
+    "case": "float32_m",
+    "route": "arcgis_geotiff_control",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "arcgis_gdal_gpkg_read",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "arcgis_gpkg_to_tiff",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float32_m.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "float32_m",
+    "route": "arcgis_tiff_to_filegdb",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "arcgis_filegdb_to_gpkg",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": false,
+      "exact_valid_values": false,
+      "max_abs_difference": 216.875,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": false,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "float32_m",
+    "route": "arcgis_gdal_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float32_m.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "float32_m",
+    "route": "arcgis_own_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\float32_m\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "float32_ft",
+    "route": "arcgis_geotiff_control",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_StatePlane_Texas_North_Central_FIPS_4202_Feet\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Lambert_Conformal_Conic\"],PARAMETER[\"False_Easting\",1968500.0],PARAMETER[\"False_Northing\",6561666.666666666],PARAMETER[\"Central_Meridian\",-98.5],PARAMETER[\"Standard_Parallel_1\",32.13333333333333],PARAMETER[\"Standard_Parallel_2\",33.96666666666667],PARAMETER[\"Latitude_Of_Origin\",31.66666666666667],UNIT[\"Foot_US\",0.3048006096012192]];-123407700 -86123500 35920690.1100089;-100000 10000;-100000 10000;3.28083333333333E-03;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "arcgis_gdal_gpkg_read",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_StatePlane_Texas_North_Central_FIPS_4202_Feet\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Lambert_Conformal_Conic\"],PARAMETER[\"False_Easting\",1968500.0],PARAMETER[\"False_Northing\",6561666.666666666],PARAMETER[\"Central_Meridian\",-98.5],PARAMETER[\"Standard_Parallel_1\",32.13333333333333],PARAMETER[\"Standard_Parallel_2\",33.96666666666667],PARAMETER[\"Latitude_Of_Origin\",31.66666666666667],UNIT[\"Foot_US\",0.3048006096012192]];-123407700 -86123500 35920690.1100089;-100000 10000;-100000 10000;3.28083333333333E-03;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "arcgis_gpkg_to_tiff",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float32_ft.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "float32_ft",
+    "route": "arcgis_tiff_to_filegdb",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_StatePlane_Texas_North_Central_FIPS_4202_Feet\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Lambert_Conformal_Conic\"],PARAMETER[\"False_Easting\",1968500.0],PARAMETER[\"False_Northing\",6561666.666666666],PARAMETER[\"Central_Meridian\",-98.5],PARAMETER[\"Standard_Parallel_1\",32.13333333333333],PARAMETER[\"Standard_Parallel_2\",33.96666666666667],PARAMETER[\"Latitude_Of_Origin\",31.66666666666667],UNIT[\"Foot_US\",0.3048006096012192]];-123407700 -86123500 35920690.1100089;-100000 10000;-100000 10000;3.28083333333333E-03;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "arcgis_filegdb_to_gpkg",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": false,
+      "exact_valid_values": false,
+      "max_abs_difference": 216.875,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": false,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_StatePlane_Texas_North_Central_FIPS_4202_Feet\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Lambert_Conformal_Conic\"],PARAMETER[\"False_Easting\",1968500.0],PARAMETER[\"False_Northing\",6561666.666666666],PARAMETER[\"Central_Meridian\",-98.5],PARAMETER[\"Standard_Parallel_1\",32.13333333333333],PARAMETER[\"Standard_Parallel_2\",33.96666666666667],PARAMETER[\"Latitude_Of_Origin\",31.66666666666667],UNIT[\"Foot_US\",0.3048006096012192]];-123407700 -86123500 35920690.1100089;-100000 10000;-100000 10000;3.28083333333333E-03;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "float32_ft",
+    "route": "arcgis_gdal_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float32_ft.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "float32_ft",
+    "route": "arcgis_own_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\float32_ft\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "float64_precision",
+    "route": "arcgis_geotiff_control",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "float64_precision",
+    "route": "arcgis_gdal_gpkg_read",
+    "status": "ERROR",
+    "error": "ERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float64_precision.gpkg\\terrain does not exist or is not supported"
+  },
+  {
+    "case": "float64_precision",
+    "route": "arcgis_gpkg_to_tiff",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float64_precision.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "float64_precision",
+    "route": "arcgis_tiff_to_filegdb",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "float64_precision",
+    "route": "arcgis_filegdb_to_gpkg",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": false,
+      "exact_valid_values": false,
+      "max_abs_difference": 221.7515432109877,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": false,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "float64_precision",
+    "route": "arcgis_gdal_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float64_precision.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "float64_precision",
+    "route": "arcgis_own_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\float64_precision\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "int16_signed",
+    "route": "arcgis_geotiff_control",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "int16_signed",
+    "route": "arcgis_gdal_gpkg_read",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "int16_signed",
+    "route": "arcgis_gpkg_to_tiff",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\int16_signed.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "int16_signed",
+    "route": "arcgis_tiff_to_filegdb",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "int16_signed",
+    "route": "arcgis_filegdb_to_gpkg",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": false,
+      "exact_valid_values": false,
+      "max_abs_difference": 149.0,
+      "valid_zero_count": 17,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.1974428438275027e-08,
+      "pixel_type": false,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "int16_signed",
+    "route": "arcgis_gdal_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\int16_signed.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "int16_signed",
+    "route": "arcgis_own_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\int16_signed\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "arcgis_geotiff_control",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 7.30526750203353e-14,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "arcgis_gdal_gpkg_read",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 4.6566128730773926e-09,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "arcgis_gpkg_to_tiff",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2006_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "arcgis_tiff_to_filegdb",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 7.30526750203353e-14,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "arcgis_filegdb_to_gpkg",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": false,
+      "exact_valid_values": false,
+      "max_abs_difference": 947.3472900390625,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 4.6566128730773926e-09,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "pixel_type": false,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "arcgis_gdal_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2006_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2006_0",
+    "route": "arcgis_own_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2006_0\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "arcgis_geotiff_control",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 7.30526750203353e-14,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "arcgis_gdal_gpkg_read",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 4.6566128730773926e-09,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "arcgis_gpkg_to_tiff",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2006_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "arcgis_tiff_to_filegdb",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 7.30526750203353e-14,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "arcgis_filegdb_to_gpkg",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": false,
+      "exact_valid_values": false,
+      "max_abs_difference": 0.5,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 4.6566128730773926e-09,
+      "grid_tolerance": 3.2499437056025217e-08,
+      "pixel_type": false,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "arcgis_gdal_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2006_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2006_1",
+    "route": "arcgis_own_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2006_1\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "arcgis_geotiff_control",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "arcgis_gdal_gpkg_read",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "arcgis_gpkg_to_tiff",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2010_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "arcgis_tiff_to_filegdb",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "arcgis_filegdb_to_gpkg",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": false,
+      "exact_valid_values": false,
+      "max_abs_difference": 947.8221435546875,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "pixel_type": false,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "arcgis_gdal_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2010_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2010_0",
+    "route": "arcgis_own_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2010_0\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "arcgis_geotiff_control",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "arcgis_gdal_gpkg_read",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "arcgis_gpkg_to_tiff",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2010_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "arcgis_tiff_to_filegdb",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "arcgis_filegdb_to_gpkg",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": false,
+      "exact_valid_values": false,
+      "max_abs_difference": 0.5,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943603123029e-08,
+      "pixel_type": false,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "arcgis_gdal_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2010_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2010_1",
+    "route": "arcgis_own_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2010_1\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "arcgis_geotiff_control",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "arcgis_gdal_gpkg_read",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 3.725290298461914e-09,
+      "grid_tolerance": 3.249943298649758e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "arcgis_gpkg_to_tiff",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2016_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "arcgis_tiff_to_filegdb",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "arcgis_filegdb_to_gpkg",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": false,
+      "exact_valid_values": false,
+      "max_abs_difference": 946.7020263671875,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 3.725290298461914e-09,
+      "grid_tolerance": 3.249943298649758e-08,
+      "pixel_type": false,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "arcgis_gdal_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2016_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2016_0",
+    "route": "arcgis_own_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2016_0\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "arcgis_geotiff_control",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "arcgis_gdal_gpkg_read",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 3.725290298461914e-09,
+      "grid_tolerance": 3.249943298649758e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "arcgis_gpkg_to_tiff",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2016_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "arcgis_tiff_to_filegdb",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": true,
+      "exact_valid_values": true,
+      "max_abs_difference": 0.0,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 0.0,
+      "grid_tolerance": 3.249943298649758e-08,
+      "pixel_type": true,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "arcgis_filegdb_to_gpkg",
+    "status": "FAIL",
+    "checks": {
+      "shape": true,
+      "nodata_mask": false,
+      "exact_valid_values": false,
+      "max_abs_difference": 0.5,
+      "valid_zero_count": 0,
+      "grid": true,
+      "grid_max_difference": 3.725290298461914e-09,
+      "grid_tolerance": 3.249943298649758e-08,
+      "pixel_type": false,
+      "crs_arcpy_equal": false,
+      "band_count": true,
+      "observed_crs_wkt": "PROJCS[\"NAD_1983_UTM_Zone_14N\",GEOGCS[\"GCS_North_American_1983\",DATUM[\"D_North_American_1983\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",0.0],PARAMETER[\"Central_Meridian\",-99.0],PARAMETER[\"Scale_Factor\",0.9996],PARAMETER[\"Latitude_Of_Origin\",0.0],UNIT[\"Meter\",1.0]];-5120900 -9998100 450445547.391054;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision",
+      "metadata_scope": "band units/vertical meaning reviewed on returned exports; not certified here"
+    }
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "arcgis_gdal_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2016_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  },
+  {
+    "case": "cole_2016_1",
+    "route": "arcgis_own_gpkg_to_filegdb",
+    "status": "ERROR",
+    "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2016_1\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+  }
+]

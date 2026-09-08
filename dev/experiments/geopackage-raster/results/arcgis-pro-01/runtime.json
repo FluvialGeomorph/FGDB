@@ -1,0 +1,8 @@
+{
+  "engine": "ArcGIS Pro",
+  "version": "3.6",
+  "build": "59527",
+  "python": "3.13.7",
+  "numpy": "2.2.0",
+  "payload_manifest_sha256": "fe1d962373464b044b3752f42eab96792e213b71908f1c596fd73a774d0022e7"
+}

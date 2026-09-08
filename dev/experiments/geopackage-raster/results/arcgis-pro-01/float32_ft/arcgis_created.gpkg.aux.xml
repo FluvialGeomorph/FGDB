@@ -1,0 +1,33 @@
+<PAMDataset>
+  <Metadata>
+    <MDI key="DataType">Generic</MDI>
+    <MDI key="ProjectionWKT2">PROJCRS["NAD83 / Texas North Central (ftUS)",BASEGEOGCRS["NAD83",DATUM["North_American_Datum_1983",ELLIPSOID["GRS 1980",6378137.0,298.257222101]],PRIMEM["Greenwich",0.0],CS[ellipsoidal,2],ANGLEUNIT["degree",0.0174532925199433]],CONVERSION["Lambert_Conformal_Conic_2SP",METHOD["Lambert_Conformal_Conic_2SP"],PARAMETER["false_easting",1968500.0,LENGTHUNIT["US survey foot",0.3048006096012192]],PARAMETER["false_northing",6561666.666666667,LENGTHUNIT["US survey foot",0.3048006096012192]],PARAMETER["central_meridian",-98.5],PARAMETER["standard_parallel_1",32.1333333333333],PARAMETER["standard_parallel_2",33.9666666666667],PARAMETER["latitude_of_origin",31.6666666666667]],CS[Cartesian,2],LENGTHUNIT["US survey foot",0.3048006096012192],ID["EPSG","2276"]]</MDI>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <Histograms>
+      <HistItem>
+        <HistMin>-0.5</HistMin>
+        <HistMax>255.5</HistMax>
+        <BucketCount>256</BucketCount>
+        <IncludeOutOfRange>1</IncludeOutOfRange>
+        <Approximate>0</Approximate>
+        <HistCounts>555|0|0|0|0|17|0|0|0|17|0|0|0|0|17|0|0|0|17|0|0|0|0|17|0|0|0|17|0|0|0|0|17|0|0|0|17|0|0|0|0|17|0|0|0|0|17|0|0|0|17|0|0|0|0|17|0|0|0|17|0|0|0|0|17|0|0|0|17|0|0|0|0|17|0|0|0|17|0|0|0|0|16|0|0|0|0|16|0|0|0|15|0|0|0|0|15|0|0|0|14|0|0|0|0|14|0|0|0|13|0|0|0|0|13|0|0|0|12|0|0|0|0|12|0|0|0|0|11|0|0|0|11|0|0|0|0|10|0|0|0|10|0|0|0|0|9|0|0|0|9|0|0|0|0|8|0|0|0|8|0|0|0|0|7|0|0|0|7|0|0|0|0|6|0|0|0|0|6|0|0|0|5|0|0|0|0|5|0|0|0|4|0|0|0|0|4|0|0|0|3|0|0|0|0|3|0|0|0|2|0|0|0|0|2|0|0|0|0|1|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|39</HistCounts>
+      </HistItem>
+    </Histograms>
+    <Metadata>
+      <MDI key="BandName">Band_1</MDI>
+      <MDI key="RepresentationType">ATHEMATIC</MDI>
+      <MDI key="SourceBandIndex">0</MDI>
+      <MDI key="STATISTICS_COUNT">1155.000000</MDI>
+      <MDI key="STATISTICS_COVARIANCES">4561.751231552968</MDI>
+      <MDI key="STATISTICS_EXCLUDEDVALUES"></MDI>
+      <MDI key="STATISTICS_MAXIMUM">255</MDI>
+      <MDI key="STATISTICS_MEAN">49.442424242424</MDI>
+      <MDI key="STATISTICS_MEDIAN">9.000000</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_SKIPFACTORX">1</MDI>
+      <MDI key="STATISTICS_SKIPFACTORY">1</MDI>
+      <MDI key="STATISTICS_STDDEV">67.540737570395</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>
