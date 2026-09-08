@@ -1,0 +1,1813 @@
+{
+  "scope": "Diagnostic reconciliation, not strict integrity acceptance; auxiliary metadata disabled",
+  "runtime": {
+    "gdal": "GDAL 3.13.3 \"Iowa City\", released 2026/08/13",
+    "python": "3.12.14",
+    "numpy": "2.4.6",
+    "proj": "9.5.0"
+  },
+  "payload_manifest_sha256": "fe1d962373464b044b3752f42eab96792e213b71908f1c596fd73a774d0022e7",
+  "input_record_sha256": {
+    "runtime.json": "b75d1f78ab792a8edbbb5db0e6796b3a3bdc51daaf045f5d8c81e9a3a36f292a",
+    "checks.json": "313a3f4c62d4724bbb073c042254ae295e7536ce02dc65796a640d0ad1b3d5e5",
+    "outputs.json": "194c1ba43b689269d62a659879a17840294e3bf361e200ac6b85f2b1ded4079f",
+    "completion.json": "677da4c16b9d5c2ecd54fd56372f7260129fda2dd95ba388317502939991cd59",
+    "artifact-checksums.json": "4d18b20d4385894abd859c37fc78dccd5a3cc84f01843e23ba8dec28249af448"
+  },
+  "artifact_count": 790,
+  "matching_artifacts": 789,
+  "integrity_mismatches": [
+    {
+      "path": "cole_2006_0/arcgis_created.gpkg.aux.xml",
+      "expected": "60239847c28f2107d1e02c60609463fe730e995c111a08aed4806e08361e5c68",
+      "observed": "03bc39631baed4bbbb7d1f6eb923d6db6593652fc81425d2390a3942d64a5926"
+    }
+  ],
+  "raw_artifacts_unchanged_by_review": true,
+  "arcgis_reconciliation": [
+    {
+      "case": "float32_m",
+      "route": "arcgis_geotiff_control",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "float32_m",
+      "route": "arcgis_gdal_gpkg_read",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "float32_m",
+      "route": "arcgis_gpkg_to_tiff",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float32_m.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "float32_m",
+      "route": "arcgis_tiff_to_filegdb",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "float32_m",
+      "route": "arcgis_filegdb_to_gpkg",
+      "status": "FAIL",
+      "original_false_checks": [
+        "nodata_mask",
+        "exact_valid_values",
+        "pixel_type",
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": false
+    },
+    {
+      "case": "float32_m",
+      "route": "arcgis_gdal_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float32_m.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "float32_m",
+      "route": "arcgis_own_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\float32_m\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "float32_ft",
+      "route": "arcgis_geotiff_control",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "float32_ft",
+      "route": "arcgis_gdal_gpkg_read",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "float32_ft",
+      "route": "arcgis_gpkg_to_tiff",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float32_ft.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "float32_ft",
+      "route": "arcgis_tiff_to_filegdb",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "float32_ft",
+      "route": "arcgis_filegdb_to_gpkg",
+      "status": "FAIL",
+      "original_false_checks": [
+        "nodata_mask",
+        "exact_valid_values",
+        "pixel_type",
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": false
+    },
+    {
+      "case": "float32_ft",
+      "route": "arcgis_gdal_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float32_ft.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "float32_ft",
+      "route": "arcgis_own_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\float32_ft\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "float64_precision",
+      "route": "arcgis_geotiff_control",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "float64_precision",
+      "route": "arcgis_gdal_gpkg_read",
+      "status": "ERROR",
+      "error": "ERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float64_precision.gpkg\\terrain does not exist or is not supported"
+    },
+    {
+      "case": "float64_precision",
+      "route": "arcgis_gpkg_to_tiff",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float64_precision.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "float64_precision",
+      "route": "arcgis_tiff_to_filegdb",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "float64_precision",
+      "route": "arcgis_filegdb_to_gpkg",
+      "status": "FAIL",
+      "original_false_checks": [
+        "nodata_mask",
+        "exact_valid_values",
+        "pixel_type",
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": false
+    },
+    {
+      "case": "float64_precision",
+      "route": "arcgis_gdal_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\float64_precision.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "float64_precision",
+      "route": "arcgis_own_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\float64_precision\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "int16_signed",
+      "route": "arcgis_geotiff_control",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "int16_signed",
+      "route": "arcgis_gdal_gpkg_read",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "int16_signed",
+      "route": "arcgis_gpkg_to_tiff",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\int16_signed.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "int16_signed",
+      "route": "arcgis_tiff_to_filegdb",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "int16_signed",
+      "route": "arcgis_filegdb_to_gpkg",
+      "status": "FAIL",
+      "original_false_checks": [
+        "nodata_mask",
+        "exact_valid_values",
+        "pixel_type",
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": false
+    },
+    {
+      "case": "int16_signed",
+      "route": "arcgis_gdal_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\int16_signed.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "int16_signed",
+      "route": "arcgis_own_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\int16_signed\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2006_0",
+      "route": "arcgis_geotiff_control",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2006_0",
+      "route": "arcgis_gdal_gpkg_read",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2006_0",
+      "route": "arcgis_gpkg_to_tiff",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2006_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2006_0",
+      "route": "arcgis_tiff_to_filegdb",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2006_0",
+      "route": "arcgis_filegdb_to_gpkg",
+      "status": "FAIL",
+      "original_false_checks": [
+        "nodata_mask",
+        "exact_valid_values",
+        "pixel_type",
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": false
+    },
+    {
+      "case": "cole_2006_0",
+      "route": "arcgis_gdal_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2006_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2006_0",
+      "route": "arcgis_own_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2006_0\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2006_1",
+      "route": "arcgis_geotiff_control",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2006_1",
+      "route": "arcgis_gdal_gpkg_read",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2006_1",
+      "route": "arcgis_gpkg_to_tiff",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2006_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2006_1",
+      "route": "arcgis_tiff_to_filegdb",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2006_1",
+      "route": "arcgis_filegdb_to_gpkg",
+      "status": "FAIL",
+      "original_false_checks": [
+        "nodata_mask",
+        "exact_valid_values",
+        "pixel_type",
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": false
+    },
+    {
+      "case": "cole_2006_1",
+      "route": "arcgis_gdal_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2006_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2006_1",
+      "route": "arcgis_own_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2006_1\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2010_0",
+      "route": "arcgis_geotiff_control",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2010_0",
+      "route": "arcgis_gdal_gpkg_read",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2010_0",
+      "route": "arcgis_gpkg_to_tiff",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2010_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2010_0",
+      "route": "arcgis_tiff_to_filegdb",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2010_0",
+      "route": "arcgis_filegdb_to_gpkg",
+      "status": "FAIL",
+      "original_false_checks": [
+        "nodata_mask",
+        "exact_valid_values",
+        "pixel_type",
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": false
+    },
+    {
+      "case": "cole_2010_0",
+      "route": "arcgis_gdal_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2010_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2010_0",
+      "route": "arcgis_own_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2010_0\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2010_1",
+      "route": "arcgis_geotiff_control",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2010_1",
+      "route": "arcgis_gdal_gpkg_read",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2010_1",
+      "route": "arcgis_gpkg_to_tiff",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2010_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2010_1",
+      "route": "arcgis_tiff_to_filegdb",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2010_1",
+      "route": "arcgis_filegdb_to_gpkg",
+      "status": "FAIL",
+      "original_false_checks": [
+        "nodata_mask",
+        "exact_valid_values",
+        "pixel_type",
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": false
+    },
+    {
+      "case": "cole_2010_1",
+      "route": "arcgis_gdal_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2010_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2010_1",
+      "route": "arcgis_own_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2010_1\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2016_0",
+      "route": "arcgis_geotiff_control",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2016_0",
+      "route": "arcgis_gdal_gpkg_read",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2016_0",
+      "route": "arcgis_gpkg_to_tiff",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2016_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2016_0",
+      "route": "arcgis_tiff_to_filegdb",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2016_0",
+      "route": "arcgis_filegdb_to_gpkg",
+      "status": "FAIL",
+      "original_false_checks": [
+        "nodata_mask",
+        "exact_valid_values",
+        "pixel_type",
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": false
+    },
+    {
+      "case": "cole_2016_0",
+      "route": "arcgis_gdal_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2016_0.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2016_0",
+      "route": "arcgis_own_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2016_0\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2016_1",
+      "route": "arcgis_geotiff_control",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2016_1",
+      "route": "arcgis_gdal_gpkg_read",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2016_1",
+      "route": "arcgis_gpkg_to_tiff",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2016_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2016_1",
+      "route": "arcgis_tiff_to_filegdb",
+      "status": "FAIL",
+      "original_false_checks": [
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": true
+    },
+    {
+      "case": "cole_2016_1",
+      "route": "arcgis_filegdb_to_gpkg",
+      "status": "FAIL",
+      "original_false_checks": [
+        "nodata_mask",
+        "exact_valid_values",
+        "pixel_type",
+        "crs_arcpy_equal"
+      ],
+      "horizontal_crs_semantic": true,
+      "other_recorded_checks_pass": false
+    },
+    {
+      "case": "cole_2016_1",
+      "route": "arcgis_gdal_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\input-copy\\cole_2016_1.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    },
+    {
+      "case": "cole_2016_1",
+      "route": "arcgis_own_gpkg_to_filegdb",
+      "status": "ERROR",
+      "error": "Failed to execute. Parameters are not valid.\nERROR 000732: Input Raster: Dataset <experiment>\\results\\arcgis-pro-01\\cole_2016_1\\arcgis_created.gpkg\\terrain does not exist or is not supported\nFailed to execute (CopyRaster).\n"
+    }
+  ],
+  "export_comparisons": [
+    {
+      "case": "float32_m",
+      "route": "arcgis_tiff_to_filegdb",
+      "path": "float32_m/roundtrip.gdb",
+      "layer": "terrain",
+      "format": "OpenFileGDB",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        33,
+        35
+      ],
+      "band_types": [
+        "Float32"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        -6.0,
+        6.125
+      ],
+      "band1_nodata_cells": 39,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 17
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 17,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.1974428438275027e-08,
+        "crs_semantic": true,
+        "pixel_type": true,
+        "unit_preserved": false,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL"
+    },
+    {
+      "case": "float32_m",
+      "route": "arcgis_filegdb_to_gpkg",
+      "path": "float32_m/arcgis_created.gpkg",
+      "layer": "terrain",
+      "format": "GPKG",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        33,
+        35
+      ],
+      "band_types": [
+        "Byte"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        0.0,
+        255.0
+      ],
+      "band1_nodata_cells": 0,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 216.875,
+        "valid_zero_count": 17
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 216.875,
+        "valid_zero_count": 17,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.1974428438275027e-08,
+        "crs_semantic": true,
+        "pixel_type": false,
+        "unit_preserved": false,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL",
+      "contents": [
+        [
+          "terrain",
+          "tiles",
+          26914
+        ]
+      ],
+      "extensions": [
+        [
+          "gpkg_metadata"
+        ],
+        [
+          "gpkg_schema"
+        ],
+        [
+          "gpkg_crs_wkt"
+        ]
+      ],
+      "terrain_tile_signature": [
+        "89504E470D0A1A0A0000000D"
+      ]
+    },
+    {
+      "case": "float32_ft",
+      "route": "arcgis_tiff_to_filegdb",
+      "path": "float32_ft/roundtrip.gdb",
+      "layer": "terrain",
+      "format": "OpenFileGDB",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        33,
+        35
+      ],
+      "band_types": [
+        "Float32"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        -6.0,
+        6.125
+      ],
+      "band1_nodata_cells": 39,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 17
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 17,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.1974428438275027e-08,
+        "crs_semantic": true,
+        "pixel_type": true,
+        "unit_preserved": false,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL"
+    },
+    {
+      "case": "float32_ft",
+      "route": "arcgis_filegdb_to_gpkg",
+      "path": "float32_ft/arcgis_created.gpkg",
+      "layer": "terrain",
+      "format": "GPKG",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        33,
+        35
+      ],
+      "band_types": [
+        "Byte"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        0.0,
+        255.0
+      ],
+      "band1_nodata_cells": 0,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 216.875,
+        "valid_zero_count": 17
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 216.875,
+        "valid_zero_count": 17,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.1974428438275027e-08,
+        "crs_semantic": true,
+        "pixel_type": false,
+        "unit_preserved": false,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL",
+      "contents": [
+        [
+          "terrain",
+          "tiles",
+          2276
+        ]
+      ],
+      "extensions": [
+        [
+          "gpkg_metadata"
+        ],
+        [
+          "gpkg_schema"
+        ],
+        [
+          "gpkg_crs_wkt"
+        ]
+      ],
+      "terrain_tile_signature": [
+        "89504E470D0A1A0A0000000D"
+      ]
+    },
+    {
+      "case": "float64_precision",
+      "route": "arcgis_tiff_to_filegdb",
+      "path": "float64_precision/roundtrip.gdb",
+      "layer": "terrain",
+      "format": "OpenFileGDB",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        33,
+        35
+      ],
+      "band_types": [
+        "Float64"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        -5.8765432109877,
+        6.2484567890123
+      ],
+      "band1_nodata_cells": 39,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.1974428438275027e-08,
+        "crs_semantic": true,
+        "pixel_type": true,
+        "unit_preserved": false,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL"
+    },
+    {
+      "case": "float64_precision",
+      "route": "arcgis_filegdb_to_gpkg",
+      "path": "float64_precision/arcgis_created.gpkg",
+      "layer": "terrain",
+      "format": "GPKG",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        33,
+        35
+      ],
+      "band_types": [
+        "Byte"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        0.0,
+        255.0
+      ],
+      "band1_nodata_cells": 0,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 221.7515432109877,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 221.7515432109877,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.1974428438275027e-08,
+        "crs_semantic": true,
+        "pixel_type": false,
+        "unit_preserved": false,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL",
+      "contents": [
+        [
+          "terrain",
+          "tiles",
+          26914
+        ]
+      ],
+      "extensions": [
+        [
+          "gpkg_metadata"
+        ],
+        [
+          "gpkg_schema"
+        ],
+        [
+          "gpkg_crs_wkt"
+        ]
+      ],
+      "terrain_tile_signature": [
+        "89504E470D0A1A0A0000000D"
+      ]
+    },
+    {
+      "case": "int16_signed",
+      "route": "arcgis_tiff_to_filegdb",
+      "path": "int16_signed/roundtrip.gdb",
+      "layer": "terrain",
+      "format": "OpenFileGDB",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        33,
+        35
+      ],
+      "band_types": [
+        "Int16"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        -48.0,
+        49.0
+      ],
+      "band1_nodata_cells": 39,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 17
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 17,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.1974428438275027e-08,
+        "crs_semantic": true,
+        "pixel_type": true,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "PASS"
+    },
+    {
+      "case": "int16_signed",
+      "route": "arcgis_filegdb_to_gpkg",
+      "path": "int16_signed/arcgis_created.gpkg",
+      "layer": "terrain",
+      "format": "GPKG",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        33,
+        35
+      ],
+      "band_types": [
+        "Byte"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        0.0,
+        255.0
+      ],
+      "band1_nodata_cells": 0,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 149.0,
+        "valid_zero_count": 17
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 149.0,
+        "valid_zero_count": 17,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.1974428438275027e-08,
+        "crs_semantic": true,
+        "pixel_type": false,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL",
+      "contents": [
+        [
+          "terrain",
+          "tiles",
+          26914
+        ]
+      ],
+      "extensions": [
+        [
+          "gpkg_metadata"
+        ],
+        [
+          "gpkg_schema"
+        ],
+        [
+          "gpkg_crs_wkt"
+        ]
+      ],
+      "terrain_tile_signature": [
+        "89504E470D0A1A0A0000000D"
+      ]
+    },
+    {
+      "case": "cole_2006_0",
+      "route": "arcgis_tiff_to_filegdb",
+      "path": "cole_2006_0/roundtrip.gdb",
+      "layer": "terrain",
+      "format": "OpenFileGDB",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        1934,
+        497
+      ],
+      "band_types": [
+        "Float32"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        1015.2899780273438,
+        1082.3472900390625
+      ],
+      "band1_nodata_cells": 742123,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 2.347011474057581e-13,
+        "grid_tolerance": 3.2499437056025217e-08,
+        "crs_semantic": true,
+        "pixel_type": true,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "PASS"
+    },
+    {
+      "case": "cole_2006_0",
+      "route": "arcgis_filegdb_to_gpkg",
+      "path": "cole_2006_0/arcgis_created.gpkg",
+      "layer": "terrain",
+      "format": "GPKG",
+      "related_artifact_hashes_match": false,
+      "mismatched_related_files": [
+        "cole_2006_0/arcgis_created.gpkg.aux.xml"
+      ],
+      "bands": 1,
+      "shape": [
+        1934,
+        497
+      ],
+      "band_types": [
+        "Byte"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        126.0,
+        255.0
+      ],
+      "band1_nodata_cells": 0,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 947.3472900390625,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 947.3472900390625,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 7.283063041541027e-14,
+        "grid_tolerance": 3.2499437056025217e-08,
+        "crs_semantic": true,
+        "pixel_type": false,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL",
+      "contents": [
+        [
+          "terrain",
+          "tiles",
+          26914
+        ]
+      ],
+      "extensions": [
+        [
+          "gpkg_metadata"
+        ],
+        [
+          "gpkg_schema"
+        ],
+        [
+          "gpkg_crs_wkt"
+        ]
+      ],
+      "terrain_tile_signature": [
+        "89504E470D0A1A0A0000000D"
+      ]
+    },
+    {
+      "case": "cole_2006_1",
+      "route": "arcgis_tiff_to_filegdb",
+      "path": "cole_2006_1/roundtrip.gdb",
+      "layer": "terrain",
+      "format": "OpenFileGDB",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        1934,
+        497
+      ],
+      "band_types": [
+        "Float32"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        90.62353515625,
+        137.8673095703125
+      ],
+      "band1_nodata_cells": 742123,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 2.347011474057581e-13,
+        "grid_tolerance": 3.2499437056025217e-08,
+        "crs_semantic": true,
+        "pixel_type": true,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "PASS"
+    },
+    {
+      "case": "cole_2006_1",
+      "route": "arcgis_filegdb_to_gpkg",
+      "path": "cole_2006_1/arcgis_created.gpkg",
+      "layer": "terrain",
+      "format": "GPKG",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        1934,
+        497
+      ],
+      "band_types": [
+        "Byte"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        91.0,
+        255.0
+      ],
+      "band1_nodata_cells": 0,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 0.5,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 0.5,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 7.283063041541027e-14,
+        "grid_tolerance": 3.2499437056025217e-08,
+        "crs_semantic": true,
+        "pixel_type": false,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL",
+      "contents": [
+        [
+          "terrain",
+          "tiles",
+          26914
+        ]
+      ],
+      "extensions": [
+        [
+          "gpkg_metadata"
+        ],
+        [
+          "gpkg_schema"
+        ],
+        [
+          "gpkg_crs_wkt"
+        ]
+      ],
+      "terrain_tile_signature": [
+        "89504E470D0A1A0A0000000D"
+      ]
+    },
+    {
+      "case": "cole_2010_0",
+      "route": "arcgis_tiff_to_filegdb",
+      "path": "cole_2010_0/roundtrip.gdb",
+      "layer": "terrain",
+      "format": "OpenFileGDB",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        1934,
+        497
+      ],
+      "band_types": [
+        "Float32"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        1014.6844482421875,
+        1082.8221435546875
+      ],
+      "band1_nodata_cells": 742146,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.249943603123029e-08,
+        "crs_semantic": true,
+        "pixel_type": true,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "PASS"
+    },
+    {
+      "case": "cole_2010_0",
+      "route": "arcgis_filegdb_to_gpkg",
+      "path": "cole_2010_0/arcgis_created.gpkg",
+      "layer": "terrain",
+      "format": "GPKG",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        1934,
+        497
+      ],
+      "band_types": [
+        "Byte"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        126.0,
+        255.0
+      ],
+      "band1_nodata_cells": 0,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 947.8221435546875,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 947.8221435546875,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.249943603123029e-08,
+        "crs_semantic": true,
+        "pixel_type": false,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL",
+      "contents": [
+        [
+          "terrain",
+          "tiles",
+          26914
+        ]
+      ],
+      "extensions": [
+        [
+          "gpkg_metadata"
+        ],
+        [
+          "gpkg_schema"
+        ],
+        [
+          "gpkg_crs_wkt"
+        ]
+      ],
+      "terrain_tile_signature": [
+        "89504E470D0A1A0A0000000D"
+      ]
+    },
+    {
+      "case": "cole_2010_1",
+      "route": "arcgis_tiff_to_filegdb",
+      "path": "cole_2010_1/roundtrip.gdb",
+      "layer": "terrain",
+      "format": "OpenFileGDB",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        1934,
+        497
+      ],
+      "band_types": [
+        "Float32"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        91.8338623046875,
+        140.1937255859375
+      ],
+      "band1_nodata_cells": 742146,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.249943603123029e-08,
+        "crs_semantic": true,
+        "pixel_type": true,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "PASS"
+    },
+    {
+      "case": "cole_2010_1",
+      "route": "arcgis_filegdb_to_gpkg",
+      "path": "cole_2010_1/arcgis_created.gpkg",
+      "layer": "terrain",
+      "format": "GPKG",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        1934,
+        497
+      ],
+      "band_types": [
+        "Byte"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        92.0,
+        255.0
+      ],
+      "band1_nodata_cells": 0,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 0.5,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 0.5,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.249943603123029e-08,
+        "crs_semantic": true,
+        "pixel_type": false,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL",
+      "contents": [
+        [
+          "terrain",
+          "tiles",
+          26914
+        ]
+      ],
+      "extensions": [
+        [
+          "gpkg_metadata"
+        ],
+        [
+          "gpkg_schema"
+        ],
+        [
+          "gpkg_crs_wkt"
+        ]
+      ],
+      "terrain_tile_signature": [
+        "89504E470D0A1A0A0000000D"
+      ]
+    },
+    {
+      "case": "cole_2016_0",
+      "route": "arcgis_tiff_to_filegdb",
+      "path": "cole_2016_0/roundtrip.gdb",
+      "layer": "terrain",
+      "format": "OpenFileGDB",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        1934,
+        498
+      ],
+      "band_types": [
+        "Float32"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        1014.5822143554688,
+        1081.7020263671875
+      ],
+      "band1_nodata_cells": 744082,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.249943298649758e-08,
+        "crs_semantic": true,
+        "pixel_type": true,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "PASS"
+    },
+    {
+      "case": "cole_2016_0",
+      "route": "arcgis_filegdb_to_gpkg",
+      "path": "cole_2016_0/arcgis_created.gpkg",
+      "layer": "terrain",
+      "format": "GPKG",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        1934,
+        498
+      ],
+      "band_types": [
+        "Byte"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        126.0,
+        255.0
+      ],
+      "band1_nodata_cells": 0,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 946.7020263671875,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 946.7020263671875,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.249943298649758e-08,
+        "crs_semantic": true,
+        "pixel_type": false,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL",
+      "contents": [
+        [
+          "terrain",
+          "tiles",
+          26914
+        ]
+      ],
+      "extensions": [
+        [
+          "gpkg_metadata"
+        ],
+        [
+          "gpkg_schema"
+        ],
+        [
+          "gpkg_crs_wkt"
+        ]
+      ],
+      "terrain_tile_signature": [
+        "89504E470D0A1A0A0000000D"
+      ]
+    },
+    {
+      "case": "cole_2016_1",
+      "route": "arcgis_tiff_to_filegdb",
+      "path": "cole_2016_1/roundtrip.gdb",
+      "layer": "terrain",
+      "format": "OpenFileGDB",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        1934,
+        498
+      ],
+      "band_types": [
+        "Float32"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        95.93157958984375,
+        140.7607421875
+      ],
+      "band1_nodata_cells": 744082,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": true,
+        "exact_valid_values": true,
+        "max_abs_difference": 0.0,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.249943298649758e-08,
+        "crs_semantic": true,
+        "pixel_type": true,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "PASS"
+    },
+    {
+      "case": "cole_2016_1",
+      "route": "arcgis_filegdb_to_gpkg",
+      "path": "cole_2016_1/arcgis_created.gpkg",
+      "layer": "terrain",
+      "format": "GPKG",
+      "related_artifact_hashes_match": true,
+      "mismatched_related_files": [],
+      "bands": 1,
+      "shape": [
+        1934,
+        498
+      ],
+      "band_types": [
+        "Byte"
+      ],
+      "band_units": [
+        ""
+      ],
+      "band1_valid_range": [
+        96.0,
+        255.0
+      ],
+      "band1_nodata_cells": 0,
+      "band1_diagnostic_comparison": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 0.5,
+        "valid_zero_count": 0
+      },
+      "comparisons": {
+        "shape": true,
+        "nodata_mask": false,
+        "exact_valid_values": false,
+        "max_abs_difference": 0.5,
+        "valid_zero_count": 0,
+        "grid": true,
+        "grid_max_difference": 0.0,
+        "grid_tolerance": 3.249943298649758e-08,
+        "crs_semantic": true,
+        "pixel_type": false,
+        "unit_preserved": true,
+        "scale_preserved": true,
+        "offset_preserved": true
+      },
+      "comparison_status": "FAIL",
+      "contents": [
+        [
+          "terrain",
+          "tiles",
+          26914
+        ]
+      ],
+      "extensions": [
+        [
+          "gpkg_metadata"
+        ],
+        [
+          "gpkg_schema"
+        ],
+        [
+          "gpkg_crs_wkt"
+        ]
+      ],
+      "terrain_tile_signature": [
+        "89504E470D0A1A0A0000000D"
+      ]
+    }
+  ],
+  "export_comparison_counts": {
+    "FAIL": 13,
+    "PASS": 7
+  }
+}

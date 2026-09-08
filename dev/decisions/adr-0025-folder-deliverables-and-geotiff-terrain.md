@@ -31,3 +31,13 @@ interoperability. [Open-source findings](../experiments/geopackage-raster/OPEN-S
 are recorded; licensed ArcGIS execution and independent return-side review remain
 pending. This investigation does not supersede the accepted folder design or
 qualify a production write path. The folder-profile probe above remains separate.
+
+## Returned evidence (2026-09-08)
+
+[Completed analysis](../experiments/geopackage-raster/FINAL-FINDINGS.md) of ArcGIS
+Pro 3.6 run `arcgis-pro-01` confirms numerical reading of nine supplied GeoPackages,
+but its tested creation path converted all ten rasters to Byte image tiles with
+changed values and NoData masks. This supports retaining this ADR, not a blanket
+claim that Esri cannot read GeoPackage rasters. Provisional CRS false failures,
+conversion-path errors and one auxiliary-file integrity discrepancy are explicitly
+qualified in the analysis. No new production profile is accepted by this result.

@@ -1,8 +1,10 @@
 # GeoPackage raster qualification: two-computer experiment
 
 Status: experimental evidence, not a storage adapter or approved compatibility
-profile. Start with [the local findings](OPEN-SOURCE-FINDINGS.md). Existing
-folder/GeoTIFF decisions remain in force pending the complete investigation.
+profile. Start with the [completed return analysis](FINAL-FINDINGS.md), with
+[open-source findings](OPEN-SOURCE-FINDINGS.md) retained as the first-phase record.
+The tested creation route is not lossless; existing folder/GeoTIFF decisions remain
+in force. The procedures below preserve the original experiment for reproduction.
 
 ## What travels in this repository
 
@@ -92,7 +94,8 @@ The array comparison uses two different NoData replacements to identify the
 mask without confusing valid zeros with missing cells. ArcPy CRS equality is
 recorded as provisional; returned WKT and raster files support independent review.
 Band units and vertical interpretation are not certified by the ArcPy array pass.
-The licensed runner is **syntax-checked here, not ArcGIS-execution-verified**.
+The licensed runner was executed in returned run `arcgis-pro-01`; its provisional
+CRS gate and string-path conversion limitations are analyzed in the final findings.
 Record unexpected errors rather than improvising a silent conversion workaround.
 
 ## Return to this computer
@@ -111,6 +114,12 @@ compares every exported TIFF/GPKG/File GDB raster against the original oracle.
 Commit the independent review and update the findings only after reconciling
 ArcGIS observations with these results. A changed metadata field or unsupported
 route is a finding, not permission to weaken the expected values.
+
+For `arcgis-pro-01`, strict review stopped on one auxiliary-file hash discrepancy.
+The separate `analyze_return.py --run arcgis-pro-01` generated `return-analysis.json`
+with auxiliary metadata disabled, explicit integrity qualifications and WKT
+reconciliation. It refuses to overwrite its output and does not replace strict
+review or alter raw observations. See the final findings before interpreting it.
 
 ## Reproduce the open-source phase
 

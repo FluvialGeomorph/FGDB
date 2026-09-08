@@ -1,5 +1,9 @@
 # GeoPackage raster qualification: open-source findings
 
+Phase-one record. The [2026-09-08 completed return analysis](FINAL-FINDINGS.md)
+now supplies the licensed evidence and supersedes the pending-work statements
+below; the original observations are retained.
+
 Date: 2026-09-07. Evidence class: executed experimental implementation evidence,
 not an accepted storage profile. Owner: FGDB. Scope: analytical raster exchange,
 not whole-File-Geodatabase equivalence.

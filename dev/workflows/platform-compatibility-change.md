@@ -110,7 +110,7 @@ the prior recovery path until the accepted support window closes.
 
 The [portable GeoPackage raster experiment](../experiments/geopackage-raster/README.md)
 provides a standalone open-source / licensed-ArcGIS / returned-artifact sequence.
-Its [findings](../experiments/geopackage-raster/OPEN-SOURCE-FINDINGS.md) are candidate
+Its [completed findings](../experiments/geopackage-raster/FINAL-FINDINGS.md) are candidate
 evidence, not accepted registry profiles. Its results must be reviewed before any
 production storage binding changes; it does not replace the full procedure above.
 
