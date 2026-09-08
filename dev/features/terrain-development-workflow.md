@@ -2,7 +2,7 @@
 
 Status: direction accepted by the user; first reporting slice in fluvgeo;
 persistent project-context and downstream loading interfaces remain to be built.
-Updated: 2026-09-07.
+Updated: 2026-09-08.
 
 FGDB development should be exercised from the start of a new Study Area, not
 only through loading historical outputs. The pre-Level-1 Terrain Development
@@ -67,6 +67,11 @@ external GeoTIFF terrain and linked metadata. Esri raster-tile support must not
 be mistaken for qualified analytical terrain coverage support. The
 [folder requirements](../schemas/local-project-folder-requirements.md) define the
 metadata/validation obligations; exact file names below remain illustrative.
+
+The user reaffirmed this direction after the
+[completed ArcGIS experiment](../experiments/geopackage-raster/FINAL-FINDINGS.md).
+Proceed to the versioned folder manifest and shared artifact-resolution checks;
+do not hold this workflow for broad single-GeoPackage equivalence testing.
 
 Standardized organization is an accepted requirement; this concrete layout is a
 proposal to exercise next, not an implemented or approved loader contract:

@@ -2,6 +2,7 @@
 
 - Status: accepted migration design; storage binding and adapters pending.
 - Date: 2026-09-07
+- Reaffirmed by the user: 2026-09-08 after review of the completed experiment.
 - Refines ADR-0024: supersedes GeoPackage as the target terrain payload container,
   not its vector/table choice, archive reconstruction or preservation decisions.
 
@@ -41,3 +42,10 @@ changed values and NoData masks. This supports retaining this ADR, not a blanket
 claim that Esri cannot read GeoPackage rasters. Provisional CRS false failures,
 conversion-path errors and one auxiliary-file integrity discrepancy are explicitly
 qualified in the analysis. No new production profile is accepted by this result.
+
+The user accepted these findings and confirmed this storage decision. Continue
+with GeoPackage vectors/tables, external GeoTIFF terrain and linked metadata in
+event folders; do not pursue single-container equivalence as a migration gate.
+The next contract work is the versioned folder manifest and its validation under
+[the existing requirements](../schemas/local-project-folder-requirements.md).
+Exact serialization, adapters and production qualification remain pending.

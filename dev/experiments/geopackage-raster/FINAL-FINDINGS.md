@@ -19,6 +19,12 @@ Analysis of the returned run is complete. It does not certify every possible
 ArcGIS configuration, the complete folder profile, or whole-File-GDB equivalence.
 No production adapter, schema or accepted storage decision was changed.
 
+**Subsequent human decision, 2026-09-08:** the user accepted these findings and
+reaffirmed the folder/GeoTIFF design in
+[ADR-0025](../../decisions/adr-0025-folder-deliverables-and-geotiff-terrain.md).
+The experimental observations below remain unchanged; implementation of the
+versioned folder binding is the next development step, not completed by this report.
+
 ## Verified results
 
 The original [ArcGIS checks](results/arcgis-pro-01/checks.json) remain unchanged:
