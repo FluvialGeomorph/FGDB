@@ -4,6 +4,12 @@ Status: accepted design requirements under ADR-0025; exact manifest schema,
 filenames, serialization, binding identifier and APIs remain proposed/unimplemented.
 This is not an extension to `FLUVGEO_NETWORK_GPKG_1`.
 
+The initial [fluvgeo intake inventory](../../../fluvgeo/dev/schemas/terrain-intake-manifest.md)
+now implements selected-file snapshot/inspection and report integration. Its local
+case/artifact labels are not governed identities; it does not fulfill the complete
+event manifest, shared-asset or cross-client requirements below. FGDB's binding and
+ingestion contract remain pending; no enterprise schema is changed by that slice.
+
 ## Delivery boundary
 
 Use a folder for each Reach–Survey–Event delivery, with vector/table GeoPackages,

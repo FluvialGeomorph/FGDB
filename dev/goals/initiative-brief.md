@@ -25,9 +25,30 @@ production operations. Versioned evidence, crosswalks, decisions, schemas, and
 review records will make interacting scientific, technical, operational,
 historical, and deployment requirements collectively tractable.
 
+## Current development focus
+
+Reviewed 2026-09-09 against the accepted migration decisions. Develop the local
+preparation workflow for both new studies and reconstructed archives, using
+the visual [Study Area report](../../../fluvgeo/dev/goals/reporting-intent.md)
+to expose missing evidence and clarify the FGDB design before general loading.
+
+The storage decision is settled for this phase: Reach–Survey–Event folders,
+GeoPackage vectors/tables, GeoTIFF terrain and linked metadata. The
+[cross-client raster experiment](../experiments/geopackage-raster/FINAL-FINDINGS.md)
+did not establish a lossless bidirectional GeoPackage terrain workflow.
+The [folder requirements](../schemas/local-project-folder-requirements.md)
+distinguish the implemented intake inventory from the complete binding still
+to be designed and qualified.
+
+The separate [QGIS/R test](../../../fg-qgis-toolbox/dev/features/qgis-provider-qualification.md)
+established one desktop-to-backend reporting path, not FGDB readiness. Its next
+step is desktop user testing; FGDB's outstanding work is governed context and
+folder-to-enterprise binding. Neither requires reopening universal format
+equivalence research. Enterprise deployment remains a separate qualification.
+
 ## Initial repository scope
 
-This repository has two initial responsibilities:
+This repository has three initial responsibilities:
 
 1. Document the FGDB design process and maintain its specifications.
 2. Provide an R package for schema validation, service-mediated data access,
@@ -57,10 +78,12 @@ Collection
                 └── FG Features
 ```
 
-A reach-survey-event geodatabase represents derived conditions for one reach
-at one point in time. Its feature content can include terrain, hydrography,
-flowline, cross-section, bankfull, bankline, valley, and related derived
-datasets.
+A legacy reach-survey-event geodatabase represents derived conditions for one
+reach at one point in time. The new local delivery unit is a linked folder under
+[ADR-0025](../decisions/adr-0025-folder-deliverables-and-geotiff-terrain.md), not
+a requirement to fit all content into one geodatabase. Its content can include
+terrain, hydrography, flowline, cross-section, bankfull, bankline, valley, and
+related derived datasets.
 
 ## Desired outcomes
 
