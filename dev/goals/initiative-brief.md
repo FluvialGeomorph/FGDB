@@ -4,7 +4,7 @@
 
 This is an initial working brief derived from
 [`FG-Tech-Manual/DB-migration.qmd`](../../../FG-Tech-Manual/DB-migration.qmd),
-reviewed beginning 2026-08-25 and updated through 2026-09-02. It records
+reviewed beginning 2026-08-25 and updated through 2026-09-10. It records
 user-provided direction, not a completed
 system design. The technical-manual chapter remains authoritative for its own
 published content; accepted FGDB decisions and contracts will live in this
@@ -27,7 +27,7 @@ historical, and deployment requirements collectively tractable.
 
 ## Current development focus
 
-Reviewed 2026-09-09 against the accepted migration decisions. Develop the local
+Reviewed 2026-09-10 against the accepted migration decisions. Develop the local
 preparation workflow for both new studies and reconstructed archives, using
 the visual [Study Area report](../../../fluvgeo/dev/goals/reporting-intent.md)
 to expose missing evidence and clarify the FGDB design before general loading.
@@ -41,10 +41,16 @@ distinguish the implemented intake inventory from the complete binding still
 to be designed and qualified.
 
 The separate [QGIS/R test](../../../fg-qgis-toolbox/dev/features/qgis-provider-qualification.md)
-established one desktop-to-backend reporting path, not FGDB readiness. Its next
-step is desktop user testing; FGDB's outstanding work is governed context and
-folder-to-enterprise binding. Neither requires reopening universal format
-equivalence research. Enterprise deployment remains a separate qualification.
+established a desktop-to-backend reporting path, not FGDB readiness. Toolbox
+expansion is now paused at the user's direction to clarify archive migration:
+untouched archive → analyst-configured FileGDB staging → qualified GPKG desktop
+home → governed enterprise intake. The
+[staging contract draft](../schemas/legacy-project-staging-contract.md) proposes
+the missing hierarchy records and review gates using Copperas Creek evidence.
+Next is review of that draft, then a read-only inspector that exposes missing
+analyst decisions before converter development. Neither requires reopening
+universal format equivalence research. Enterprise deployment remains a separate
+qualification.
 
 ## Initial repository scope
 

@@ -41,22 +41,33 @@ transition and does not become the owner of enterprise loading logic.
 
 ## Intended data flow
 
+For desktop/archive migration, the accepted
+[analyst-staged path](../../../FG-architecture/dev/decisions/adr-0005-analyst-staged-archive-migration.md)
+is: untouched archive -> manually configured FileGDB staging -> qualified GPKG
+desktop folders -> FGDB governed loading. **Only the GPKG delivery representation
+crosses the new desktop/archive intake boundary.** Its GeoTIFFs and metadata travel
+with its vector/table GeoPackages. FileGDB staging is temporary migration machinery,
+not the continuing desktop standard. Existing Shiny service integration and
+licensed enterprise administration are not redesigned here.
+
 ```text
-Desktop path:                          Self-service path:
-Local terrain and survey inputs        Authenticated Shiny user
+Desktop/archive path:                  Self-service path:
+Untouched legacy archive               Authenticated Shiny user
+              |                                  |
+       analyst copying +                         v
+       hierarchy reconstruction        Shiny relational inputs + outputs
               |                                  |
               v                                  v
-Study Area/Stream Geodatabase           Shiny relational inputs + outputs
-(feature classes and tables)                       |
-       |                 |                        v
-       |                 v             App-mediated FGDB load
-       |      FluvialGeomorph-toolbox             |
-       |                 |                        |
-       |                 v                        |
-       |      Local features + scientific         |
-       |      metadata tables                     |
-       |                 |                        |
-       +-----------------+------------------------+
+FileGDB project staging                App-mediated FGDB load
+              |                                  |
+       qualified conversion                      |
+              |                                  |
+              v                                  |
+GPKG desktop project folders                     |
+(GeoPackages + GeoTIFFs + metadata)               |
+(also receives new desktop outputs)              |
+              |                                  |
+              +----------------------------------+
                          v
              FGDB R validation + governed loading
                          |
@@ -75,7 +86,9 @@ registered-data-store, and service configuration
 
 ## Authority and lifecycle
 
-- Local file geodatabases are production and migration inputs.
+- FileGDB remains a legacy production/archive format during transition and a
+  manually configured migration-staging format. Qualified GPKG folders become
+  the new desktop home and source for the new FGDB desktop/archive loader.
 - The Stream Geodatabase (legacy `Site Geodatabase`) is the local database of
   record for Stream Network feature classes and related scientific metadata;
   it is not an FGDB hierarchy entity or enterprise object. Its Stream-scale DEM and
@@ -83,6 +96,8 @@ registered-data-store, and service configuration
   reviewed synthetic network crosses the loading boundary as a governed,
   time-specific Stream Network Observation; Reach/Survey Event results and metadata
   join it through stable object and relationship identities.
+  This scientific record role persists across the migration profiles; the staged
+  FileGDB representation itself does not bypass conversion into the GPKG profile.
 - Analysts retain local inputs and preprocessing workspaces when complete
   process reconstruction is required. FGDB governs traceability of retained
   results rather than archiving every input and intermediate.

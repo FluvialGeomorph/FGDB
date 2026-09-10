@@ -12,6 +12,20 @@ ingestion contract remain pending; no enterprise schema is changed by that slice
 
 ## Delivery boundary
 
+The user-directed [two-branch migration architecture](../../../FG-architecture/dev/decisions/adr-0005-analyst-staged-archive-migration.md)
+places these target deliveries under the **GPKG** branch. The separate **FileGDB**
+branch is analyst-configured migration staging: selected clean copies from the
+untouched archive plus reconstructed Study Area/Stream FileGDBs. The new FGDB
+desktop/archive intake accepts the qualified GPKG representation, not raw or
+staged FileGDBs. Conversion and enterprise acceptance remain separate operations.
+The observed `FG-filedata` tree is a prototype, not the exact binding. Define
+Study Area/Stream staging content, event placement/date precision, readiness
+criteria and the source/target crosswalk before implementing a general converter.
+
+The [legacy staging review draft](legacy-project-staging-contract.md) proposes
+those source-side records and review gates, grounded in Copperas Creek. Its
+filenames, catalog homes and physical binding are not yet accepted requirements.
+
 Use a folder for each Reach–Survey–Event delivery, with vector/table GeoPackages,
 external GeoTIFF rasters, machine-readable metadata and reviewable reports.
 Maintain analogous intake folders before scientific identities are resolved.

@@ -18,3 +18,9 @@ Store exact, reviewable structural contracts here. Prefer explicit required fiel
   value-domain, and null-semantics relations needed by concrete contracts.
 - `flowline-feature-contract.md` is the first concrete Dataset Type, schema,
   method, source-lineage, geometry, and migration binding under ADR-0023.
+
+## Proposals under review
+
+- [Legacy project staging contract](legacy-project-staging-contract.md) proposes
+  reconstructed Study Area/Stream records, Survey Event placement, source
+  accounting and conversion-readiness gates. It is not an implemented binding.
