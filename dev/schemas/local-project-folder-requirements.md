@@ -26,6 +26,14 @@ The [legacy staging review draft](legacy-project-staging-contract.md) proposes
 those source-side records and review gates, grounded in Copperas Creek. Its
 filenames, catalog homes and physical binding are not yet accepted requirements.
 
+That source-side staging profile applies to **legacy reconstruction**, not all
+projects. New open-source desktop projects progressively define their study and
+produce the GPKG representation directly, without FileGDB catalogs or archive-copy
+requirements. Both share the same explicit hierarchy and target fidelity rules.
+Draft design can be discussed before deliverables exist; a planned survey must
+not be encoded as an acquired Survey Event merely to fill the folder tree.
+See [new versus legacy reporting requirements](../../../fluvgeo/dev/goals/reporting-intent.md).
+
 Use a folder for each Reach–Survey–Event delivery, with vector/table GeoPackages,
 external GeoTIFF rasters, machine-readable metadata and reviewable reports.
 Maintain analogous intake folders before scientific identities are resolved.

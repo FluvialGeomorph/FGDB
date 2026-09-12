@@ -41,7 +41,7 @@ transition and does not become the owner of enterprise loading logic.
 
 ## Intended data flow
 
-For desktop/archive migration, the accepted
+For legacy desktop/archive migration, the accepted
 [analyst-staged path](../../../FG-architecture/dev/decisions/adr-0005-analyst-staged-archive-migration.md)
 is: untouched archive -> manually configured FileGDB staging -> qualified GPKG
 desktop folders -> FGDB governed loading. **Only the GPKG delivery representation
@@ -50,8 +50,22 @@ with its vector/table GeoPackages. FileGDB staging is temporary migration machin
 not the continuing desktop standard. Existing Shiny service integration and
 licensed enterprise administration are not redesigned here.
 
+New open-source desktop projects instead progressively **define** their Study
+Area and create GPKG folder deliverables directly; they do not pass through
+FileGDB staging or need archive-copy evidence. Legacy reconstruction and new
+design converge on the same explicit hierarchy and qualified delivery contracts,
+not separate enterprise models. A neutral Study Area description serves both;
+the Staging Report is the legacy view and Terrain Development is the terrain
+science view. See [the shared requirements](../../../fluvgeo/dev/goals/reporting-intent.md).
+
+Incomplete design may be reviewed locally without inventing governed records.
+Planned observations are not actual acquisitions; the kernel's required Survey
+Event year and explicit-parent invariants remain unchanged. Planning persistence
+and general draft editing are still design work. This does not change Shiny
+service-loading semantics or make successful reporting enterprise acceptance.
+
 ```text
-Desktop/archive path:                  Self-service path:
+Legacy desktop/archive path:           Self-service path:
 Untouched legacy archive               Authenticated Shiny user
               |                                  |
        analyst copying +                         v

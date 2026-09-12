@@ -5,6 +5,13 @@ Status: **proposed**, 2026-09-10. This draft makes the accepted
 reviewable. It is not an accepted physical binding, executable validator or
 instruction to rearrange existing data. No converter is implemented by this work.
 
+Scope clarification: this is the **legacy reconstruction** path, not the general
+Study Area design contract. New projects use a prospective Define Study Area
+workflow and the GPKG desktop standard directly. Both describe the same hierarchy
+and should support a neutral Study Area Report. The
+[shared reporting requirements](../../../fluvgeo/dev/goals/reporting-intent.md)
+govern that distinction; missing legacy catalogs are not new-project defects.
+
 ## Analyst outcome
 
 An analyst should be able to say: **this is the Study Area, these are its Streams
@@ -210,9 +217,17 @@ makes those decisions explicit without rewriting the archive.
 
 ## Next bounded step
 
-Review the proposed catalog homes, explicit Survey Event folder level and
-readiness rules. After agreement, build a **read-only staging inspector** for one
-project that inventories what is known and reports missing analyst inputs using
-the Study Area report. It must tolerate incomplete staging without creating dates,
-moving files or claiming conversion readiness. Converter implementation, complete
-target bindings, staging retention and renewed QGIS deployment remain later work.
+The user supported proceeding from this draft. A first
+[read-only inspector and Staging Report](../../../fluvgeo/dev/features/study-staging-report.md)
+now inventory source locations, vector/table metadata and missing catalog/event
+structure. This is not complete conformance with the draft: field/value, identity,
+date, raster and conversion checks remain unimplemented. The user further clarified
+that legacy reconstruction belongs in the Staging Report, while new-project
+specification needs a Define Study Area experience as requirements evolve. Either
+origin supports a neutral Study Area description; terrain-development/quality
+evidence has its own view of that shared context.
+
+Next is explicit catalog-value/parent/date/source-association validation, keeping
+unknown dates as analyst inputs rather than creating them. Converter implementation,
+complete target bindings, staging retention and renewed QGIS deployment remain
+later work. The detailed physical profile remains a draft pending qualification.

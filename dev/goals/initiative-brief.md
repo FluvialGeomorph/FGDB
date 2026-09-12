@@ -42,15 +42,33 @@ to be designed and qualified.
 
 The separate [QGIS/R test](../../../fg-qgis-toolbox/dev/features/qgis-provider-qualification.md)
 established a desktop-to-backend reporting path, not FGDB readiness. Toolbox
-expansion is now paused at the user's direction to clarify archive migration:
+expansion was paused to clarify archive migration:
 untouched archive → analyst-configured FileGDB staging → qualified GPKG desktop
 home → governed enterprise intake. The
 [staging contract draft](../schemas/legacy-project-staging-contract.md) proposes
 the missing hierarchy records and review gates using Copperas Creek evidence.
-Next is review of that draft, then a read-only inspector that exposes missing
-analyst decisions before converter development. Neither requires reopening
+The first [fluvgeo staging inspector/report](../../../fluvgeo/dev/features/study-staging-report.md)
+now exposes missing catalog/event structure and retains unknown analyst inputs;
+it inventories locations and vector layers, not complete catalog values or
+conversion readiness. The clarified foundation distinguishes **Define Study Area**
+for evolving new-project design from **Staging Report** for legacy reconstruction.
+Both feed one configuration and a neutral **Study Area Report**; Terrain Development
+reuses the definition for terrain-source/processing/quality evidence. New projects
+need no FileGDB staging. See the authoritative
+[reporting requirements](../../../fluvgeo/dev/goals/reporting-intent.md).
+
+General context design must support progressive review while keeping planned
+observations separate from actual acquisitions; dedicated planning persistence
+remains unimplemented and does not relax the kernel's Survey Event year rule.
+Within legacy migration, next is explicit catalog-value, parent/date and source-
+association validation before converter development. Neither requires reopening
 universal format equivalence research. Enterprise deployment remains a separate
 qualification.
+
+The user has now resumed bounded toolbox development, starting with the existing
+name/note editor's analyst trial. This does not complete the FGDB contracts above
+or authorize production deployment; [the desktop plan](../../../fg-qgis-toolbox/dev/goals/project-plan.md)
+owns that resumed work.
 
 ## Initial repository scope
 
