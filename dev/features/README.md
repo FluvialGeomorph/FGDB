@@ -4,6 +4,8 @@ Describe cohesive user-visible or cross-cutting capabilities here when their beh
 
 ## Proposed capabilities
 
+- [Survey discovery and change-over-time opportunities](survey-discovery-opportunities.md)
+  records an accepted future requirement with a proposed, unimplemented design.
 - `prepare-stream-network.md` specifies the local-first `fluvgeo`
   preparation, reconstruction, validation, review, and geodatabase-writing API
   for the Stream Network schema.

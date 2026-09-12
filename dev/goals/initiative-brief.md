@@ -111,6 +111,20 @@ related derived datasets.
 
 ## Desired outcomes
 
+The [survey discovery capability](../features/survey-discovery-opportunities.md),
+required by the owner on 2026-09-12, will review existing Study Areas for additional
+historical and new acquisitions and report opportunities to strengthen customer
+change-over-time analysis. Lowering the cost of finding observations is a primary
+scientific outcome, distinct from provenance reconstruction. National catalog
+completeness and cross-event comparability must not be assumed.
+
+The [scientific traceability roadmap](scientific-traceability-roadmap.md) records
+the owner's 2026-09-12 commitment to explicit vertical references, survey-source
+provenance and rigorous analysis-variable units. These are required upcoming
+development cycles, not optional enhancements or blanket initial-deployment gates.
+Preserve unresolved evidence now; qualify each scientific operation before relying
+on a reference, source association or unit conversion.
+
 - Establish stable identities and relationships for study areas, streams,
   reaches, survey events, and their derived FG features.
 - Require a Study Area AOI polygon while allowing Stream, Reach, and Survey
@@ -268,6 +282,14 @@ The measurable open-development, storage, service, administration, and
 enterprise-conformance criteria are defined in
 `open-development-and-enterprise-conformance.md`. Feature-specific criteria
 remain in the applicable schema, feature, and workflow contracts.
+
+## User-tooling capability boundary
+
+The accepted [FG user-tooling boundary](../../../FG-architecture/dev/decisions/adr-0006-deterministic-user-tooling.md)
+governs implementation across this initiative: deterministic methods and
+traditional web-service data, without user-facing AI-service dependencies.
+AI-assisted development remains separate; possible AI experiments require
+explicit scoped approval and do not authorize deployment.
 
 ## Explicitly unresolved
 
