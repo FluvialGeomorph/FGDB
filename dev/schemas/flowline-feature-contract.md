@@ -1,7 +1,7 @@
 # Flowline feature contract
 
 - Status: draft for design review
-- Updated: 2026-09-02
+- Updated: 2026-10-05
 - Dataset type: `FLOWLINE`
 - Workflow position: after reviewed Stream Network/Reach segmentation and before Flowline Points
 
@@ -128,14 +128,18 @@ force equality would erase real or method-dependent differences.
 | `FType` | Replace with the governed Dataset Type relationship. |
 | target Z/M capability | Reject as a canonical requirement. The target mockup conflicts with legacy and R evidence and would conflate the Flowline with sampled elevation and frame-relative stationing. |
 
-Compatibility views may expose legacy aliases during migration, but their
-lineage and non-authoritative status must be documented.
+Normalized enterprise base tables need not duplicate every legacy attribute.
+However, open-source producer outputs and any enterprise export or view offered
+as a replacement for a legacy feature class must retain the mandatory profile in
+`legacy-derived-feature-compatibility.md`. Their lineage and relationship to the
+canonical model must be documented. Normalization is not permission to break the
+production schema used by historical projects.
 
 ## Scientific method contract examples
 
 These examples explain the role of `scientific_method_contract`. They document
-observed workflows; neither asserts that the two methods are equivalent or that
-the future open method is fully designed.
+observed workflows; none asserts that legacy PAEK and the open method are
+geometrically equivalent.
 
 ### `FLOWLINE_ARCPY_PAEK_LEGACY`
 
@@ -165,19 +169,42 @@ Observed `fluvgeo::flowline()` recipe:
 4. reverse the line when the end elevation is lower than the start; and
 5. return one upstream-oriented line without smoothing it.
 
+For synthetic-network inputs, the optional topology-preserving mode applies the
+same CRS, cardinality, naming and return-shape contract without reorienting a line
+whose downstream-to-upstream direction is already established by saved routing
+topology. The DEM-oriented behavior remains the default for arbitrary lines.
+
 This function standardizes and orients supplied geometry; it does not yet
 replace the legacy Stream Network dissolve/smoothing workflow. Therefore its
 method contract differs materially from `FLOWLINE_ARCPY_PAEK_LEGACY`, and their
 initial scientific compatibility is `UNKNOWN`.
 
-### Future open canonical method
+### `FLOWLINE_R_SYNTHETIC_NETWORK_CANDIDATE`
 
-The future `{fluvgeo}` method must explicitly decide how reviewed Stream Network
-segments are selected/assembled, whether and how smoothing occurs, how
-orientation ambiguity is handled, which manual edits remain allowed, and what
-geometry deviations downstream metrics tolerate. ArcGIS Pro, Shiny, and a
-future QGIS toolbox will call that same method; FGDB will only validate and load
-its accepted output.
+The implemented open precursor:
+
+1. validates a one-outlet acyclic terrain-derived Stream Network;
+2. compares every complete head-to-outlet path with the analyst-selected
+   NHDPlusV2 Stream evidence and chooses the reference-constrained longest path;
+3. preserves ordered source-segment lineage and downstream-to-upstream topology;
+4. computes selectable Gaussian-kernel candidates at 2–5 map-unit bandwidths,
+   preserving endpoints and rejecting invalid, nonsimple or over-displaced
+   results; and
+5. projects ordered retained Reach transitions onto the raw and smoothed paths,
+   rejects invalid mappings/projections and divides the path with exact shared
+   endpoints;
+6. prepares one downstream-to-upstream line per Reach through the compatible
+   `fluvgeo::flowline()` topology-preserving contract; and
+7. permits FG Studio to save/reopen one immutable local candidate revision with
+   raw/smoothed paths, source segments, boundary evidence and exact input
+   fingerprints.
+
+This completes local Reach Flowline preparation but does not itself create a
+canonical governed Flowline. Current Spencer settings do not have governed
+Reach-owned Survey Event IDs, so the local store correctly does not invent
+`flowline_id`, Dataset Edition or acceptance records. Local candidates can support
+Flowline Points before enterprise ingestion; FGDB validates and loads only
+accepted governed outputs.
 
 ## Worked relational example
 
@@ -229,9 +256,10 @@ Acceptance requires tabular validation evidence for:
   exactly equal, which proves those retained artifacts match but does not prove
   why or establish a general cross-event rule.
 - Current User Manual, Tech Manual, parameter table, and Python comments do not
-  agree on smoothing ranges. The actual tolerance and unit must be captured per
-  edition; an accepted future domain requires scientific review rather than
-  selecting one documented range arbitrarily.
+  agree on smoothing ranges. FG Studio exposes the legacy-supported 2–5 map-unit
+  range with 2 as its conservative default and currently reports the chosen value
+  in session. The immutable local candidate must record it; this is an open
+  behavioral replacement, not a claim of PAEK vertex equivalence.
 - Quantitative smoothing-deviation, channel-corridor, endpoint, and orientation
   ambiguity tolerances remain to be specified and tested from direct producer
   evidence.

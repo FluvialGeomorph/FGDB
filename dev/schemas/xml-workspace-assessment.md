@@ -172,7 +172,8 @@ a mature workflow output is unnecessary.
 3. Define geometry, CRS, datum, unit, Z, and M policy by feature family.
 4. Continue canonical feature contracts jointly with the `{fluvgeo}` workflow
    inventory and modernization plan; Flowline is the first concrete contract
-   and Flowline Points is next.
+   and Flowline Points is the next contract. FG Studio has completed Reach-owned
+   local Flowline save/reopen; governed Flowline publication remains separate.
 5. Obtain separate XML exports or authoritative evidence for DEM and REM
    mosaic datasets and their source-file lifecycle.
 6. Design service-ready views only after base identities and relationships are

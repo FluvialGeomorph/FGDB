@@ -6,5 +6,7 @@ Use architectural decision records for consequential choices that should remain 
 - Record context, decision, consequences, and status.
 - Supersede accepted ADRs with a new ADR instead of rewriting history.
 
-Recent accepted decision:
+Recent accepted decisions:
+[ADR-0027: two cross-section methods and reference families](adr-0027-two-cross-section-methods-and-reference-families.md).
+
 [ADR-0026: legacy vertical-reference recovery and future preservation](adr-0026-vertical-reference-recovery-and-preservation.md).

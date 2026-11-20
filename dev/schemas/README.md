@@ -4,6 +4,13 @@ Store exact, reviewable structural contracts here. Prefer explicit required fiel
 
 ## Active contracts
 
+- `cross-section-feature-contract.md` establishes the standard `cross_section`
+  table name and explicit layout metadata, following the owner's naming
+  direction; governed identity and the broader feature contract remain open.
+
+- `legacy-derived-feature-compatibility.md` defines the mandatory output-schema
+  boundary between legacy ArcPy producers, open-source `fluvgeo` replacements,
+  FG Studio workflow proof, and later normalized FGDB roll-up.
 - `stream-network-geodatabase-schema.md` defines the accepted Stream Network
   feature classes, related tables, and local-to-enterprise mapping.
 - `stream-network-source-evidence.md` catalogs direct legacy geodatabase

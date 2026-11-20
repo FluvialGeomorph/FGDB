@@ -47,10 +47,23 @@ Scientific review still must define smoothing/channel-corridor tolerances,
 orientation ambiguity behavior, the future open derivation recipe, and
 performance requirements before the Python path can be replaced.
 
+## Flowline Points transition
+
+Flowline Points does not begin as an unimplemented ArcPy replacement.
+`ohwm2` already drove `fluvgeo::flowline_points()` development by accepting a
+manually digitized Flowline as an expedient Shiny input and using the resulting
+points in downstream analysis. FG Studio's completed automatic Flowline workflow
+closes that upstream gap. The next increment must therefore audit the existing R
+product against every downstream consumer, the legacy ArcPy output profile, and
+the governed longitudinal-reference requirements before altering the shared
+function. FG Studio adopts one meter as its default maximum point spacing; this
+client choice does not silently change established `ohwm2` behavior.
+
 ## Buildout and migration pattern
 
-1. Build the FGDB catalog in workflow and dependency order, beginning with
-   study-area definition and terrain inputs rather than flowline.
+1. Advance through the L1/L2/L3 production workflow documented by the User
+   Manual, using each FG Studio increment to ground the next FGDB contract.
+   Workflow order does not require one-for-one ArcPy function ports.
 2. Inventory paired ArcPy and `{fluvgeo}` capabilities by feature family as
    each derived stage is reached.
 3. Define the current desktop workflow order, manual interventions, and known

@@ -66,6 +66,12 @@ locations.
 
 ## Accepted foundation rules
 
+- Cross-section feature-class names must not encode descriptive variables.
+  Use the kernel-aligned `cross_section` standard and explicit table metadata
+  under [the naming contract](cross-section-feature-contract.md). This
+  owner-directed naming rule does not settle the remaining identity,
+  scientific-method or full feature-contract questions.
+
 - A Study Area is one governed multipart-capable polygon feature and domain
   entity, not a table plus multiple extent geometries. It is an editable
   depiction of the rough Area of Interest (AOI), not an official boundary or
@@ -371,10 +377,10 @@ Collection
 | Source lineage | Relate all known contributing governed Stream Network segments and any hydro-DEM orientation evidence. Missing legacy source networks remain explicitly missing rather than reconstructed as facts. |
 | Z/M policy | Z is observed on Flowline Points, not intrinsic line vertices. M is local-route/reference-frame dependent and belongs to explicit calibration relations. Canonical Flowline geometry is therefore XY. |
 | Legacy fields | Reconcile `ReachName`; treat `InLine_FID` and `SmoLnFlag` as source/method evidence; treat `Shape_Length` as platform managed; bind verified `from_measure`/`to_measure` to a reference frame or recompute them. |
-| Method/version | The legacy ArcPy dissolve-plus-PAEK workflow and current R DEM-orientation function are distinct method contracts with initial compatibility `UNKNOWN`. |
+| Method/version | The legacy ArcPy dissolve-plus-PAEK workflow, current R DEM-orientation function, and implemented R synthetic-network selection/smoothing/Reach-division workflow are distinct method contracts. Local immutable candidate persistence is implemented; compatibility with PAEK remains `UNKNOWN`. |
 | QA | Single feature/part; valid ownership; downstream-to-upstream orientation; DEM coverage; accepted channel-corridor review; explicit ambiguity handling; complete method/schema/software/source evidence to the extent available. |
 | Evidence | `_05a_Flowline.py`; `fluvgeo::flowline()` and `check_flowline()`; current User and Tech Manuals; direct `fluvgeodata` outputs; both XML Workspace schemas. |
-| Maturity | Draft concrete contract. Identity/cardinality and canonical XY policy are proposed for review; numeric tolerances and future open derivation method remain unresolved. |
+| Maturity | Draft concrete governed contract. Identity/cardinality and canonical XY policy are proposed for review. Reach-owned local R output and immutable persistence are implemented; governed identity/publication and some numeric acceptance tolerances remain unresolved. |
 
 The exact logical fields, source relations, method examples, migration
 disposition, and evidence are specified in
@@ -384,6 +390,9 @@ disposition, and evidence are specified in
 
 Review and accept FCAT-009, including canonical XY geometry, source-lineage
 relations, and the distinction between the observed legacy/R method contracts.
-Then specify Flowline Points as the next workflow product. Flowline Points must
+Then specify Flowline Points as the next domain-contract product. Application
+execution has completed Reach-owned local Flowline candidates and immutable
+save/reopen; Flowline Points must consume those saved candidates rather than a
+transient Stream-scale preview. Flowline Points must
 separate sampled elevation from frame-relative stationing and must not make
 legacy `POINT_M` an unqualified project coordinate.

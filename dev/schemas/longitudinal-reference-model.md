@@ -1,8 +1,76 @@
 # Project longitudinal reference model
 
 - Status: draft logical contract
-- Updated: 2026-08-29
-- Governing decisions: ADR-0013 and ADR-0014
+- Updated: 2026-11-19
+- Governing decisions: ADR-0013, ADR-0014 and ADR-0027
+
+## Accepted direction: two cross-section methods
+
+Owner/team decision, 2026-11-19: RAS-style cross sections use bankfull centerline
+linear referencing for all new work/rework. Simple (straight-ish) cross sections
+retain Flowline referencing as the legacy backward-compatible method. Flowline
+remains required for REM creation. FGDB must distinguish both methods and their
+reference contexts; see the
+[cross-section contract](cross-section-feature-contract.md#accepted-two-method-direction).
+The direction is recorded in
+[ADR-0027](../decisions/adr-0027-two-cross-section-methods-and-reference-families.md),
+which supersedes the Flowline-only requirement for RAS-style; common invariants
+and simple legacy Flowline semantics are retained. Follow the
+[implementation plan](../../../fgstudio/dev/goals/cross-section-implementation-plan.md)
+for the contract and producer changes.
+This resolves the adoption direction, not the physical implementation. It does
+not authorize wholesale historical reprocessing. Existing saved drafts and legacy
+measures retain their actual reference semantics.
+The [FG Studio decision gate](../../../fgstudio/dev/goals/project-plan.md#near-term-decision-gate-the-xs-268-issue)
+records the decision and remaining implementation scope. The detailed contract
+below still describes the Flowline realization under ADR-0013/0014; it requires
+an additive centerline extension, not reinterpretation of old Flowline measures.
+
+### Owner clarification and proposed coexistence extension
+
+Owner clarification (2026-11-19): Flowline remains required for REM creation.
+The additional reference selected for RAS-style sections is a centerline derived from the **bankfull
+channel polygon**, with its own base-event selection and comparison-event
+calibration. The scientific purpose is to reduce low-flow-path length noise
+when studying morphological response to infrastructure and landscape change.
+Reduced variance and fewer calibration anomalies are expected benefits to test,
+not established measurements. Flowline and bankfull centerline coexist.
+
+The [FG Studio assessment](../../../fgstudio/dev/goals/xs-268-reference-analysis.md#primary-finding-coexistence-in-fgdb)
+describes native historical Flowline frames alongside future centerline frames.
+Existing configuration-to-many-frame and Dataset Edition contracts provide a
+foundation, but the explicit Flowline-only base/calibration relationships below
+do not yet support centerline stationing. Proposed additive design work is:
+
+- retain distinct event-owned Flowline and bankfull-centerline geometry identities,
+  with exact Dataset Edition and source-polygon lineage for centerline;
+- generalize base selections/calibrations through an edition-qualified, typed
+  reference alignment with enforced source-geometry foreign keys; preserve legacy
+  Flowline bindings and propose one declared reference family per frame;
+- distinguish Cross Section derivation lineage from frame-specific positions so
+  a historical section can keep its original position and gain an accepted
+  additional position without changing its transect identity/geometry;
+- require an explicitly selected common frame and reviewed mappings for queries
+  that need shared longitudinal positions; permit separate native-frame queries
+  without cross-project spatial conversion; and
+- preserve original legacy measures and compatibility profiles. Generalizing the
+  scientific contract does not authorize silent reinterpretation of old values.
+
+Storage coexistence does not require rebuilding historical cross sections,
+centerlines or terrain. A common-frame comparison may need selected calibration
+or additional positioning; historical bankfull geometry is necessary only when
+the scientific operation actually requires it. Matching station values alone do
+not establish equivalent transect sampling. Missing historical reference evidence
+retains its existing unverified/unavailable disposition.
+
+The two-method direction is accepted; the relations above remain a proposal for
+review, not an implemented physical schema. ADR-0027 records the scoped
+supersession of ADR-0013/0014; implementation must reconcile the kernel's Flowline-specific
+Cross Section link, frame/base/calibration relations, feature/edition identities,
+scientific method and schema contracts, legacy output profiles and query/export
+validation. The existing Flowline-based contract below remains in force pending
+that implementation; its Flowline-only wording is not a finding that coexistence is
+scientifically or architecturally impossible.
 
 ## Purpose
 
@@ -178,8 +246,11 @@ other features is derived data. It must retain or be traceable to the frame and
 calibration IDs. A measure without those references is not a fully governed
 longitudinal position.
 
-The existing output field name `km_to_mouth` may remain in compatibility views
-and migrated feature classes. Its numerical meaning does not change: for a
+The existing output field name `km_to_mouth` remains mandatory in open-source
+replacement outputs where the legacy-derived-feature compatibility profile
+requires it. A normalized enterprise base table may expose it through a
+compatibility view or migrated feature class rather than duplicating it
+internally. Its numerical meaning does not change: for a
 comparison event it expresses position with respect to the selected base-event
 Flowline stationing. The new model adds the frame/base/calibration identifiers
 needed to say which selection produced that value.
@@ -234,6 +305,25 @@ version when it changes path topology or calibrated intervals materially.
 
 Unverified values may remain as source evidence but must not be exposed as
 scientifically comparable canonical stationing.
+
+## Grounded FG Studio implementation evidence
+
+The current/base-event FG Studio workflow now demonstrates an automatic local
+`STUDY_AREA_NETWORK` precursor without weakening this governed contract. It
+uses the analyst-defined Stream corridors to assign each Stream's downstream
+endpoint to one parent Stream, requires exactly one outlet Stream, projects
+each tributary endpoint onto the selected parent Flowline, and propagates the
+resulting confluence measures from the outlet through an acyclic graph. The
+local `stream_connections` evidence records parent, confluence measure,
+projection gap, raster-derived tolerance, and outlet status. Every resulting
+`flowline_points.km_to_mouth`/`POINT_M` value therefore uses one shared mouth
+origin while retaining Stream and Reach identity.
+
+This resolves the earlier question of whether automated open tooling can
+reproduce the legacy manual offset convention. It does not resolve governed
+frame identity, acceptance, base-Flowline binding, comparison-event
+calibration, or the final enterprise physical topology representation; those
+remain FGDB responsibilities.
 
 ## Remaining design questions
 

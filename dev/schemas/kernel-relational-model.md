@@ -6,6 +6,15 @@
 
 ## Purpose
 
+[ADR-0027](../decisions/adr-0027-two-cross-section-methods-and-reference-families.md)
+accepts RAS-style/centerline and simple/Flowline cross-section families. The
+Flowline-specific base/calibration and section-link bindings below describe the
+existing draft and require the additive extension analyzed in the
+[cross-section contract](cross-section-feature-contract.md#storage-alternatives-and-recommended-binding).
+The [implementation plan](../../../fgstudio/dev/goals/cross-section-implementation-plan.md)
+requires the relation, cardinality and integrity updates together with the local
+adapter; the new bindings are not implemented by this scope notice.
+
 This model translates accepted FGDB conceptual decisions into a minimal
 relational kernel. It is intentionally independent of final Esri feature-class
 names, PostgreSQL types, relationship-class settings, and service views.
